@@ -16,6 +16,8 @@
     "jshint": "^2.9.5"
   },
   "dependencies": {
+    "sequelize": "^4.22.5",
+    "sqlite3": "^3.1.13",
     "webpack": "^3.8.1"
   }
 }
