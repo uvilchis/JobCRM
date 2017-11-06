@@ -18,7 +18,11 @@
     "jshint": "^2.9.5",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "dependencies": {
+    "sequelize": "^4.22.5",
+    "sqlite3": "^3.1.13",
     "webpack": "^3.8.1"
   },
   "dependencies": {
