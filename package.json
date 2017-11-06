@@ -1,0 +1,14 @@
+{
+  "name": "alderaan",
+  "version": "0.0.1",
+  "description": "Greefield project - team Alderaan",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./tests.js"
+  },
+  "author": "Team Alderaan",
+  "license": "MIT",
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
+}
