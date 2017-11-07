@@ -1,6 +1,8 @@
-package-lock.json
-node_modules/
-bower_components/
-dist/
-build/
+## Mac OSX ##
 .DS_Store
+
+## NPM ##
+node_modules/
+
+## Compiled Files ##
+compiled/
