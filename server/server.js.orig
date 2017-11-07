@@ -46,15 +46,6 @@ let RowEntry = sequelize.define('rowentry', {
 
 // User.hasMany(RowEntry, {as : 'Job'});
 
-<<<<<<< HEAD
-// is actually doing sign up work
-app.post('/signup', (req, res)=> {
-  let username = req.body.user;
-  User.create({user : username})
-  .then((user) => {
-    loggedInUserId = user.id;
-    res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
-=======
 // User.belongsTo(RowEntry, {as : 'mainRowEntry', constraints : false})
 
 // we should have a function that adds entrie to the specified user
@@ -79,7 +70,6 @@ app.post('/login', (req, res)=> {
 app.get('/users', (req, res) =>{
   User.findAll().then(users => {
     res.send(users);
->>>>>>> origin/dev
   })
 })
 
@@ -92,11 +82,6 @@ app.post('/login', (req, res) => {
   })
 })
 
-<<<<<<< HEAD
-app.get('/userTest', (req, res) => {
-  res.send(200, loggedInUserId)
-})
-=======
 app.post('/entries', (req, res) => {
   RowEntry.create({
     company : 'B',
@@ -109,7 +94,6 @@ app.post('/entries', (req, res) => {
     secondInterview : true,
     offer : true,
     rejected : false
->>>>>>> origin/dev
 
 app.get('/record', (req, res) => {
   User.findById(loggedInUserId)
