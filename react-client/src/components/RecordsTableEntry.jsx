@@ -2,12 +2,16 @@ import React from 'react';
 
 var RecordsTableEntry = ({record}, handleRecordEntryCheck={handleRecordListEntryCheck}) => (
   <div>
-  <div className="company">
-    {record.company}
-    </div>
-  <div className="contact">
-    {record.contact}
-  </div>
+  <td>{record.company}</td>
+  <td>{record.location}</td>
+  <td>{record.contact}</td>
+  <td>{record.notes}</td>
+  <td>{record.coverLetter}</td>
+  <td>{record.resume}</td>
+  <td>{record.firstInterview}</td>
+  <td>{record.secondInterview}</td>
+  <td>{record.offer}</td>
+  <td>{record.rejected}</td>
   </div>
 )
 
