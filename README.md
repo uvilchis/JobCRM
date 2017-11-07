@@ -1,3 +1,4 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/TeamAlderaan/JobCRM.png?columns=all)](https://waffle.io/TeamAlderaan/JobCRM?utm_source=badge)
 # Project Name
 
 > Pithy project description

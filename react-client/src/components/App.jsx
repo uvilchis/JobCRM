@@ -1,7 +1,8 @@
 import React from 'react';
+import Logo from './Logo.jsx';
 
 var App = () => (
-<div> hello </div>
+  <div><Logo /></div>
 )
 
 export default App
