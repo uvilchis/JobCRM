@@ -4,7 +4,9 @@
   "description": "Greefield project - team Alderaan",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests.js"
+    "test": "mocha ./tests.js",
+    "run": "nodemon ./server/index.js & webpack -w",
+    "stop": "pkill -9 node"
   },
   "author": "Team Alderaan",
   "license": "MIT",
