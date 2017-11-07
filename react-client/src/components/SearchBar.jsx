@@ -8,7 +8,7 @@ export default class SearchBar extends React.Component {
 
   render() {
    return (
-    <div className='SearchBar'><input type="text" /><button type="button">Submit</button></div>
+    <div className='SearchBar'><input type="text" /><button type="button">Search</button></div>
    )
   }
 } 
