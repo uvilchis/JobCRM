@@ -30,8 +30,7 @@ export default class RecordsTable extends React.Component {
           <RecordsTableEntry
            key={record.key}
            record={record}
-           handleRecordListEntryCheck={this.props.handleRecordListEntryCheck}
-          />
+           />
       )}
     </tbody>
     </table>
