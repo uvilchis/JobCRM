@@ -1,8 +1,12 @@
 ## Mac OSX ##
 .DS_Store
 
+## VIM swap files ##
+*.swp
+
 ## NPM ##
 node_modules/
 
 ## Compiled Files ##
-compiled/
+react-client/dist/bundle.js
+react-client/dist/bundle*

@@ -10,8 +10,8 @@ export default class RecordsTable extends React.Component {
 
   render() {
     return (<div className='records-list'>
- <table class="table">
-  <thead class="thead-default">
+ <table className="table">
+  <thead className="thead-default">
     <tr>
       <th>Company</th>
       <th>Location</th>
@@ -26,20 +26,16 @@ export default class RecordsTable extends React.Component {
     </tr>
   </thead>
   <tbody>
-
-      <th
         {this.props.records.map((record) =>
-          <tr>
           <RecordsTableEntry
            key={record.key}
            record={record}
            handleRecordListEntryCheck={this.props.handleRecordListEntryCheck}
           />
-          </tr>
       )}
     </tbody>
     </table>
-    </div>>
+    </div>
     )
   }
 }
