@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests.js",
-    "run": "psql -u & nodemon ./server/server.js & webpack -w",
-    "stop": "pkill -9 sh -c psql & pkill -9 node",
+    "run": "nodemon ./server/server.js & webpack -w",
+    "stop": "pkill node",
     "start": "npm run-script run"
   },
   "author": "Team Alderaan",
