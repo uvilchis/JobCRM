@@ -4,6 +4,7 @@ import LinkButton from './LinkButton.jsx';
 import SearchBar from './SearchBar.jsx';
 import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
+import Input from './Input.jsx';
 
 let testArray = [
    {
@@ -69,11 +70,31 @@ var App = () => (
         </ul>
       </div>
     </nav>
-  <RecordsTable records={testArray} />
+
+    <div>
+      <h1>Records Table</h1>
+        <RecordsTable records={testArray} />
+      <div className="col-md-6 col-md-offset-3">
+        <h1>Input Page</h1>
+        <Input />
+      </div>
 
     </div>
+  </div>
 );
-)
->>>>>>> master
+
+//var App = () => (
+//  <div>
+//    <Logo />
+//    <LinkButton title='Records' />
+//    <LinkButton title='Insert' />
+//    <SearchBar />
+//
+//  <div>
+//    <Input />
+//  </div>
+
+//   </div>
+//)
 
 export default App
