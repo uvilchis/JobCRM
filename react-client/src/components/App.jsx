@@ -8,14 +8,33 @@ import RecordsTableEntry from './RecordsTableEntry.jsx';
 let testArray = [
    {
      company: 'Loomb',
+     location: 'San Francisco',
      contact: 'blep@loooooms.com',
-     key: '1'
+     notes: 'Very bloop.',
+     coverLetter: true,
+     resume: true,
+     firstInterview: true,
+     secondInterview: false,
+     secondInterview: false,
+     offer: false,
+     rejected: true,
+     key: 0
    },
-  {
-    company: 'Plovar',
-    contact: 'tommy.york@gmail.com',
-    key: '2'
-  }
+ 
+   {
+     company: 'iBloomb',
+     location: 'New York',
+     contact: 'blep@ibl.com',
+     notes: 'Very bleem.',
+     coverLetter: true,
+     resume: true,
+     firstInterview: true,
+     secondInterview: true,
+     secondInterview: true,
+     offer: true,
+     rejected: false,
+     key: 1
+   }
 ];
 
 var App = () => (
