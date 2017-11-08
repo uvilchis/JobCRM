@@ -9,6 +9,15 @@ export default class HelperFuncStateStorage {
     stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);
     console.log(inst.state)
-    return null//or promise something
+    return null
+  }
+
+  toggleCheckBox(inst, boxName, e) {
+    let stateUpdate = {};
+
+    stateUpdate[boxName] = !inst.state[boxName]
+    inst.setState(stateUpdate)
+    console.log('firstInt>>>>',inst.state)
+    return null;
   }
 }
