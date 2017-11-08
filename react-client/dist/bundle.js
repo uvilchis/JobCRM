@@ -21435,42 +21435,26 @@ var Input = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
-            'First Interview'
-          )
+          _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
+          'First Interview'
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
-            'Second Interview'
-          )
+          _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
+          'Second Interview'
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
-            'Offer Interview'
-          )
+          _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
+          'Offer Interview'
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
-            'Rejected Interview'
-          )
+          _react2.default.createElement('input', { type: 'checkbox', value: 'First Interview', onChange: this.toggleCheckboxChange }),
+          'Rejected Interview'
         ),
         _react2.default.createElement(
           'div',

@@ -31,30 +31,22 @@ export default class Input extends React.Component {
         Notes:
         <input type="text" value={this.state.value} onChange={this.handleChange} />
       </p>
-      <div>
-        <label>
+        <div>
           <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
           First Interview
-        </label>
-      </div>
-      <div>
-        <label>
+        </div>
+        <div>
           <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
           Second Interview
-        </label>
-      </div>
-      <div>
-        <label>
+        </div>
+        <div>
           <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
           Offer Interview
-        </label>
-      </div>
-      <div>
-        <label>
+        </div>
+        <div>
           <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
           Rejected Interview
-        </label>
-      </div>
+        </div>
       <div>
         <button type="submit" onClick={this.handleClick}> Save </button>
       </div>
