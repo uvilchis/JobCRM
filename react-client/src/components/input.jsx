@@ -16,7 +16,7 @@ export default class Input extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <form onSubmit={this.handleSubmit}>
       <p>
