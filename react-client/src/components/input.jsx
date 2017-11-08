@@ -1,15 +1,12 @@
 import React from 'react';
 
-const items =[
-  'First Interview',
-  'Second Interview',
-  'Third Interview'
-];
-
 export default class Input extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {value:''};
+    super();
+    this.state = {
+      companyValue: '',
+      value:''
+    };
   }
 
   render() {
@@ -17,7 +14,9 @@ export default class Input extends React.Component {
       <form onSubmit={this.handleSubmit}>
       <p>
         Company:
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="text" value={this.state.companyValue} onChange={(e) => {
+          window.hf.updateFieldValue(this, 'companyValue', e)
+        }} />
       </p>
       <p>
         Location:

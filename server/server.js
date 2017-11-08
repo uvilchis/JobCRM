@@ -60,7 +60,7 @@ app.get('/entries', (req, res) => {
 // is it safe to think of express static sending files upon a request to the '/' endpoint?
 
 app.listen(3001, () => {
-  console.log('listening on port 3000')
+  console.log('listening on port 3001')
 })
 
 module.exports = {
