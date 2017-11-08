@@ -5,11 +5,18 @@ export default class Input extends React.Component {
     super();
     this.state = {
       companyValue: '',
-      value:''
+      locationValue: '',
+      contactValue: '',
+      notesValue: '',
+      firstInterview: false,
+      secondInterview: false,
+      offer: false,
+      rejected: false
     };
   }
 
   render() {
+    // console.log(this.state)
     return (
       <form onSubmit={this.handleSubmit}>
       <p>
@@ -20,31 +27,45 @@ export default class Input extends React.Component {
       </p>
       <p>
         Location:
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="text" value={this.state.locationValue} onChange={(e) => {
+          window.hf.updateFieldValue(this, 'locationValue', e)
+        }} />
       </p>
       <p>
         Contact:
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="text" value={this.state.contactValue} onChange={(e) => {
+          window.hf.updateFieldValue(this, 'contactValue', e)
+        }} />
       </p>
       <p>
         Notes:
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="text" value={this.state.notesValue} onChange={(e)=> {
+          window.hf.updateFieldValue(this, 'notesValue', e)
+        }} />
       </p>
         <div>
-          <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
+          <input type="checkbox" value={this.state.firstInterview} onChange={(e) => {
+            window.hf.toggleCheckBox(this, 'firstInterview', e)
+          }}/>
           First Interview
         </div>
         <div>
-          <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
+          <input type="checkbox" value={this.state.secondInterview} onChange={(e)=> {
+            window.hf.toggleCheckBox(this, 'secondInterview', e)
+          }}/>
           Second Interview
         </div>
         <div>
-          <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
-          Offer Interview
+          <input type="checkbox" value={this.state.offer} onChange={(e)=> {
+            window.hf.toggleCheckBox(this, 'offer', e)
+          }}/>
+          Offer
         </div>
         <div>
-          <input type="checkbox" value="First Interview" onChange={this.toggleCheckboxChange}/>
-          Rejected Interview
+          <input type="checkbox" value={this.state.rejection} onChange={(e)=> {
+            window.hf.toggleCheckBox(this, 'rejected', e)
+          }}/>
+          Rejected
         </div>
       <div>
         <button type="submit" onClick={this.handleClick}> Save </button>
