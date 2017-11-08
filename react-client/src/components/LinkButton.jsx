@@ -4,6 +4,7 @@ export default class LinkButton extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+    console.log(window.hf)
   }
 
   render() {
@@ -11,4 +12,4 @@ export default class LinkButton extends React.Component {
     <div className='link-button'>{this.props.title}</div>
    )
   }
-} 
+}

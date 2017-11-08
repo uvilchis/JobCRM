@@ -40,46 +40,46 @@ let testArray = [
 
 var App = () => (
   <div>
-    <nav className="navbar navbar-default">
-      <div className="container-fluid">
-        <ul className="nav navbar-nav navbar-legt">
-          <li className="logo"><Logo />
-          </li>
-          <li className="link-button">
-            <a href="#">
-              <LinkButton title='Records' />
-            </a>
-          </li>
-          <li className="link-button">
-            <a href="#">
-              <LinkButton title='Insert' />
-            </a>
-          </li>
-        </ul>
-        <ul className="nav navbar-nav">
-          <li className="navbar-text navbar-center align-top search-bar">
-            <SearchBar />
-          </li>
-        </ul>
-        <ul className="nav navbar-nav navbar-right">
-          <li className="logout-button">
-            <a href="#">
-              <LinkButton title='Logout' />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <ul className="nav navbar-nav navbar-legt">
+            <li className="logo"><Logo />
+            </li>
+            <li className="link-button">
+              <a href="#">
+                <LinkButton title='Records' />
+              </a>
+            </li>
+            <li className="link-button">
+              <a href="#">
+                <LinkButton title='Insert' />
+              </a>
+            </li>
+          </ul>
+          <ul className="nav navbar-nav">
+            <li className="navbar-text navbar-center align-top search-bar">
+              <SearchBar />
+            </li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
+            <li className="logout-button">
+              <a href="#">
+                <LinkButton title='Logout' />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-    <div>
-      <h1>Records Table</h1>
-        <RecordsTable records={testArray} />
-      <div className="col-md-6 col-md-offset-3">
-        <h1>Input Page</h1>
-        <Input />
-      </div>
+      <div>
+        <h1>Records Table</h1>
+          <RecordsTable records={testArray} />
+        <div className="col-md-6 col-md-offset-3">
+          <h1>Input Page</h1>
+          <Input />
+        </div>
 
-    </div>
+      </div>
   </div>
 );
 
