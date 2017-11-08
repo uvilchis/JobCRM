@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from './Logo.jsx';
 import LinkButton from './LinkButton.jsx';
 import SearchBar from './SearchBar.jsx';
+import Input from './Input.jsx';
 
 var App = () => (
   <div>
@@ -9,6 +10,11 @@ var App = () => (
     <LinkButton title='Records' />
     <LinkButton title='Insert' />
     <SearchBar />
+
+  <div>
+    <Input />
+  </div>
+
    </div>
 )
 
