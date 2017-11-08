@@ -73,7 +73,7 @@ var App = () => (
 
     </div>
 );
-)
->>>>>>> master
+
+
 
 export default App

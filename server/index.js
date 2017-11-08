@@ -1,12 +1,13 @@
 let app = require('./server').app;
-let Main = require('./server').Main;
-let Entrie = require('./server').Entrie;
+let User = require('./server').User;
+let RowEntry = require('./server').RowEntry;
 let port = 3000;
 
-Main.sync({force: true})
+User.sync({force: true})
 .then(function () {
     console.log('Users table created');
-    Main.create({user : 'Christine'});
+    User.create({user : 'Christine'});
+
   })
   .then(function() {
     console.log('Seeded User table');
@@ -15,8 +16,10 @@ Main.sync({force: true})
     });
 });
 
-Entrie.sync({force: true}).then(function() {
-  Entrie.create({
+RowEntry.sync({force: true})
+.then(function() {
+  console.log('RowEntry table created');
+  RowEntry.create({
     company : 'google',
     location : 'googleLand',
     contact : 'google CEO',
@@ -28,17 +31,30 @@ Entrie.sync({force: true}).then(function() {
     offer : true,
     rejected : false
   })
-
-  Entrie.create({
-    company : 'facebook',
-    location : 'california?',
-    contact : 'm zuckerberg',
-    notes : 'sounds like m bison',
-    coverLetter : true,
-    resume : true,
-    firstInterview : true,
-    secondInterview : true,
-    offer : true,
-    rejected : false
-  })
 })
+
+
+//
+// RowEntry.create({
+//   company : 'google',
+//   location : 'googleLand',
+//   contact : 'google CEO',
+//   notes : 'look up the actual info',
+//   coverLetter : true,
+//   resume : true,
+//   firstInterview : true,
+//   secondInterview : true,
+//   offer : true,
+//   rejected : false
+// })
+// RowEntry.create({
+//   company : 'facebook',
+//   location : 'california?',
+//   contact : 'm zuckerberg',
+//   notes : 'sounds like m bison',
+//   coverLetter : true,
+//   resume : true,
+//   firstInterview : true,
+//   secondInterview : true,
+//   offer : true,
+//   rejected : false
