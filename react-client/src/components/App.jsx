@@ -21,7 +21,7 @@ let testArray = [
      rejected: true,
      key: 0
    },
- 
+
    {
      company: 'iBloomb',
      location: 'New York',
@@ -44,7 +44,7 @@ var App = () => (
       <div className="container-fluid">
         <ul className="nav navbar-nav navbar-legt">
           <li className="logo"><Logo />
-          </li>  
+          </li>
           <li className="link-button">
             <a href="#">
               <LinkButton title='Records' />
@@ -70,6 +70,7 @@ var App = () => (
         </ul>
       </div>
     </nav>
+
     <div>
       <h1>Records Table</h1>
         <RecordsTable records={testArray} />
@@ -77,10 +78,10 @@ var App = () => (
         <h1>Input Page</h1>
         <Input />
       </div>
+
     </div>
   </div>
 );
-
 
 //var App = () => (
 //  <div>
