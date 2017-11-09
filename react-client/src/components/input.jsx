@@ -12,14 +12,17 @@ export default class Input extends React.Component {
       firstInterview: false,
       secondInterview: false,
       offer: false,
-      rejected: false
+      rejected: false,
     };
   }
 
   render() {
     console.log(this.state)
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={(e) => {
+        e.preventDefault(); //this just prevents the page from refreshing upon every submit
+        hf.onSubmit(this);
+      }}>
       <p>
         Company:
         <input type="text" value={this.state.companyValue} onChange={(e) => {
