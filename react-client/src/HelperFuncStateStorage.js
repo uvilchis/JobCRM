@@ -6,25 +6,25 @@ class HelperFuncStateStorage {
   //console.log where the function is being called before return and after render
 
 
-    postFieldValue(inst, stateName, e) {
-        e.stopPropagation()     // had some issues with preventDefault() here. Warning!
-        let stateUpdate = {};
-        stateUpdate[stateName] = !inst.state[stateName];
-        inst.setState(stateUpdate);
-      
-      axios.post('update', {        // pass a row id, stateName, and value to our update server route.
-        id: inst.state.key,
-        stateName: stateName,
-        value: inst.state.stateName
+  postFieldValue(inst, stateName, e) {
+    e.stopPropagation()
+    let stateUpdate = {};
+    stateUpdate[stateName] = !inst.state[stateName];
+    inst.setState(stateUpdate);
+
+    axios.post('update', {
+      id: inst.state.key,
+      stateName: stateName,
+      value: inst.state[stateName]
+    })
+      .then(function (response) {
+        console.log(response);
       })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        return null
-    }
+      .catch(function (error) {
+        console.log(error);
+      });
+      return null
+  }
 
   updateFieldValue(inst, stateName, e) {
   	e.stopPropagation()
@@ -40,6 +40,17 @@ class HelperFuncStateStorage {
   //   inst.setState(stateUpdate)
   //   return null;
   // }
+
+  onSubmit(inst) {
+    axios.post('entries', inst.state)
+      .then(function(response) {
+        console.log('works', response);
+      })
+      .catch(function(error) {
+        console.error('error', error);
+      });
+      return null;
+  }
 
 
 }
