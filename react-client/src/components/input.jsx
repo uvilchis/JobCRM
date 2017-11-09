@@ -1,4 +1,5 @@
 import React from 'react';
+import hf from '../HelperFuncStateStorage';
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -22,48 +23,48 @@ export default class Input extends React.Component {
       <p>
         Company:
         <input type="text" value={this.state.companyValue} onChange={(e) => {
-          window.hf.updateFieldValue(this, 'companyValue', e)
+          hf.updateFieldValue(this, 'companyValue', e)
         }} />
       </p>
       <p>
         Location:
         <input type="text" value={this.state.locationValue} onChange={(e) => {
-          window.hf.updateFieldValue(this, 'locationValue', e)
+          hf.updateFieldValue(this, 'locationValue', e)
         }} />
       </p>
       <p>
         Contact:
         <input type="text" value={this.state.contactValue} onChange={(e) => {
-          window.hf.updateFieldValue(this, 'contactValue', e)
+          hf.updateFieldValue(this, 'contactValue', e)
         }} />
       </p>
       <p>
         Notes:
         <input type="text" value={this.state.notesValue} onChange={(e)=> {
-          window.hf.updateFieldValue(this, 'notesValue', e)
+          hf.updateFieldValue(this, 'notesValue', e)
         }} />
       </p>
         <div>
           <input type="checkbox" value={this.state.firstInterview} onChange={(e) => {
-            window.hf.toggleCheckBox(this, 'firstInterview', e)
+            hf.toggleCheckBox(this, 'firstInterview', e)
           }}/>
           First Interview
         </div>
         <div>
           <input type="checkbox" value={this.state.secondInterview} onChange={(e)=> {
-            window.hf.toggleCheckBox(this, 'secondInterview', e)
+            hf.toggleCheckBox(this, 'secondInterview', e)
           }}/>
           Second Interview
         </div>
         <div>
           <input type="checkbox" value={this.state.offer} onChange={(e)=> {
-            window.hf.toggleCheckBox(this, 'offer', e)
+            hf.toggleCheckBox(this, 'offer', e)
           }}/>
           Offer
         </div>
         <div>
           <input type="checkbox" value={this.state.rejection} onChange={(e)=> {
-            window.hf.toggleCheckBox(this, 'rejected', e)
+            hf.toggleCheckBox(this, 'rejected', e)
           }}/>
           Rejected
         </div>

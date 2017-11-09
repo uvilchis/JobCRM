@@ -1,9 +1,6 @@
 import React from 'react';
 
-export default class HelperFuncStateStorage {
-  constructor(props){
-  }
-
+class HelperFuncStateStorage {
   //don't console.log here if you're trying to debug.
   //console.log where the function is being called before return and after render
 
@@ -21,13 +18,8 @@ export default class HelperFuncStateStorage {
     return null;
   }
 
-  switchView(inst, view, e) {
-    console.log('switch!')
-    let stateUpdate = {};
-    // if(view ){
-    // 
-    // }
-    return null;
-  }
 
 }
+
+const instanceHelper = new HelperFuncStateStorage();
+export default instanceHelper
