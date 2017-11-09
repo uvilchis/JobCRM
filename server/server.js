@@ -103,20 +103,6 @@ app.get('/input', (req, res) => {
   res.send('received some input');
 })
 
-// app.get('/userTest', (req, res) => {
-//   res.send(200, loggedInUserId)
-// })
-
-// app.post('/insert', (req, res) => {
-//   // should receive all necessary attribhutes for a new entry row
-//   // then insert a new entry row based on those keys
-
-
-
-
-//   res.send('inserted');
-// })
-
 app.get('/records', (req, res) => {
   User.findById(loggedInUserId)
   .then(user => {
@@ -139,8 +125,6 @@ app.post('/records', (req, res) => {
 
 
 app.post('/update', (req, res) => {
-
-
   console.log(req.body);
   res.send('ok');  // you _must_ close the stream. Send back anything.
 })

@@ -22,9 +22,9 @@ let testArray = [
      coverLetter: true,
      resume: true,
      firstInterview: true,
-     secondInterview: false,
-     secondInterview: false,
-     offer: false,
+     secondInterview: true,
+     secondInterview: true,
+     offer: true,
      rejected: true,
      key: 0
    },
@@ -40,7 +40,7 @@ let testArray = [
      secondInterview: true,
      secondInterview: true,
      offer: true,
-     rejected: false,
+     rejected: true,
      key: 1
    }
 ];
