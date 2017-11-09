@@ -94,6 +94,7 @@ app.post('/entries', (req, res) => {
 
 app.post('/update', (req, res) => {
   console.log(req.body);
+  res.send('ok');
 })
 
 
