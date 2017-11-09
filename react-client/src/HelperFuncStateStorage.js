@@ -23,6 +23,11 @@ export default class HelperFuncStateStorage {
 
   switchView(inst, view, e) {
     console.log('switch!')
+    let stateUpdate = {};
+    // if(view ){
+    // 
+    // }
+    return null;
   }
 
 }

@@ -42,7 +42,10 @@ let testArray = [
 class App extends React.Component {
   constructor() {
     super();
-    this.currentView = {RecordsTable}
+    this.state = {
+      // recordView = true,
+      // inputView = !this.recordView
+    };
   }
 
   render() {
