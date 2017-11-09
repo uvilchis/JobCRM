@@ -111,7 +111,7 @@ app.get('/login', (req, res) => {
   res.send('app')
 })
 
-app.get('/input', (req, res) => {
+app.post('/input', (req, res) => {
   console.log(req.body);
 
   // RowEntry.create({
@@ -131,12 +131,11 @@ app.get('/input', (req, res) => {
 })
 
 app.get('/records', (req, res) => {
-  User.findById(loggedInUserId)
-  .then(user => {
-    res.status(200)
-    res.send(user)
-  })
-
+  RowEntry.findAll()
+    .then((records) => {
+      res.status(200)
+      res.send(records)
+    })
   // should return all records for an ID
 })
 

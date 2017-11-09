@@ -26,6 +26,14 @@ class HelperFuncStateStorage {
       return null
   }
 
+  requestRecords(inst) {
+    return axios.get('records')
+    .then((records) => {
+      console.log(records);
+      return records;
+    });
+  }
+
     loginRequest(inst, value) {
       console.log(value);
       axios.post('login', {

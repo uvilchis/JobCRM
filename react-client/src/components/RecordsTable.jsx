@@ -1,10 +1,20 @@
 import React from 'react';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
+import hf from '../HelperFuncStateStorage';
 
 export default class RecordsTable extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+    this.state = {
+      records: [{key: '2'}]
+    }
+  }
+
+  componentDidMount() {
+    hf.requestRecords().then((x) => {
+      console.log(x);
+      this.setState({records: x.data})});
   }
 
   render() {
@@ -25,7 +35,7 @@ export default class RecordsTable extends React.Component {
     </tr>
   </thead>
   <tbody>
-        {this.props.records.map((record) =>
+        {this.state.records.map((record) =>
           <RecordsTableEntry
            key={record.key}
            record={record}    
