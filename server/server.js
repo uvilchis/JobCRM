@@ -92,6 +92,10 @@ app.post('/entries', (req, res) => {
   })
 })
 
+app.post('/update', (req, res) => {
+  console.log(req.body);
+})
+
 
 // is it safe to think of express static sending files upon a request to the '/' endpoint?
 
