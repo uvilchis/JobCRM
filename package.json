@@ -26,19 +26,7 @@
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.0.0",
-<<<<<<< HEAD
     "react-dom": "^16.0.0",
-=======
-    "react-dom": "^16.0.0"
-  },
-  "dependencies": {
-    "sequelize": "^4.22.5",
-    "sqlite3": "^3.1.13",
-    "webpack": "^3.8.1"
-  },
-  "dependencies": {
-    "webpack-dev-server": "^2.9.4",
->>>>>>> added to package.json
     "sequelize": "^4.22.5",
     "sqlite3": "^3.1.13",
     "webpack": "^3.8.1",
