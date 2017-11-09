@@ -23,35 +23,69 @@ Port: 5432,
 password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
 dialect : 'postgres'})
 
-var loggedInUserId = 0;
-// export to outer file for cleanliness
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+// var loggedInUserId = 0;
+// // export to outer file for cleanliness
 
 let User = sequelize.define('user', {
   user : {type : Sequelize.STRING, unique : true}
 });
 
 let RowEntry = sequelize.define('rowentry', {
-  company : {type: Sequelize.STRING, defaultValue: "Enter Company Name"},
-  location : {type: Sequelize.STRING, defaultValue: "Enter Location"},
-  contact : {type: Sequelize.STRING, defaultValue: "Enter Contact Name"},
-  notes : {type: Sequelize.TEXT, defaultValue: "Notes Go Here"},
-  coverLetter : {type: Sequelize.BOOLEAN, defaultValue: false},
-  resume : {type: Sequelize.BOOLEAN, defaultValue: false},
-  firstInterview : {type: Sequelize.BOOLEAN, defaultValue: false},
-  secondInterview : {type: Sequelize.BOOLEAN, defaultValue: false},
-  offer : {type: Sequelize.BOOLEAN, defaultValue: false},
-  rejected : {type: Sequelize.BOOLEAN, defaultValue: false},
-  user_id : {type: Sequelize.INTEGER, defaultValue: null}
+  company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
+  location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
+  contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
+  notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
+  coverLetter: { type: Sequelize.BOOLEAN, defaultValue: false },
+  resume: { type: Sequelize.BOOLEAN, defaultValue: false },
+  firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
+  secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
+  offer: { type: Sequelize.BOOLEAN, defaultValue: false },
+  rejected: { type: Sequelize.BOOLEAN, defaultValue: false },
+  user_id: { type: Sequelize.INTEGER, defaultValue: null }
 });
+
+User.sync({ force: true }).then(() => {
+  // Table created
+  return User.create({
+    user: 'example user'
+  });
+});
+
+
+RowEntry.sync({ force: true }).then(() => {
+  // Table created
+  return RowEntry.create({
+    company: 'example company',
+    location: 'New York, NY',
+    contact: 'tommy.york@gmail.com',
+    notes: 'example info',
+    coverLetter: true,
+    resume: true,
+    firstInterview: true,
+    secondInterview: false,
+    offer: false,
+    rejected: false
+  });
+});
+
 
 /* =========== ROUTES ============= 
 
 DESC.ROUTE     METHOD    SQL ACTION
 =======================================================
-RECORDS     /records  get       find all
+RECORDS     /records  get       find all  ---> prioritize
 REC/SEARCH  /records  post      find some
-UPDATE      /update   post      update / should update checkbox (true/false) fields on a row
-INSERT      /input   post      insert / should insert a new entries row
+UPDATE      /update   post      update / should update checkbox (true/false) fields on a row ----> prioritize
+INSERT      /input   post      insert / should insert a new entries row ------> prioritize
 LOGIN       /login    post      authentication / should allow us to set the user for all the records and such
 SIGN UP     /signup   post      authentication / signup (currently just creates users, no signup)
 
@@ -87,18 +121,18 @@ app.get('/login', (req, res) => {
 app.get('/input', (req, res) => {
   console.log(req.body);
 
-  RowEntry.create({
-    company: 'B',
-    location: '',
-    contact: 'google CEO',
-    notes: 'look up the actual info',
-    coverLetter: true,
-    resume: true,
-    firstInterview: true,
-    secondInterview: true,
-    offer: true,
-    rejected: false
-  });
+  // RowEntry.create({
+  //   company: 'B',
+  //   location: '',
+  //   contact: 'google CEO',
+  //   notes: 'look up the actual info',
+  //   coverLetter: true,
+  //   resume: true,
+  //   firstInterview: true,
+  //   secondInterview: true,
+  //   offer: true,
+  //   rejected: false
+  // });
 
   res.send('received some input');
 })
@@ -139,8 +173,6 @@ app.post('/records', (req, res) => {
 
 
 app.post('/update', (req, res) => {
-
-
   console.log(req.body);
   res.send('ok');  // you _must_ close the stream. Send back anything.
 })
