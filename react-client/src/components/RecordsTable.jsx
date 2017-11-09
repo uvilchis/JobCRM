@@ -5,7 +5,6 @@ export default class RecordsTable extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    console.log(this.props);
   }
 
   render() {
@@ -29,7 +28,7 @@ export default class RecordsTable extends React.Component {
         {this.props.records.map((record) =>
           <RecordsTableEntry
            key={record.key}
-           record={record}
+           record={record}    
            />
       )}
     </tbody>
@@ -39,6 +38,7 @@ export default class RecordsTable extends React.Component {
   }
 }
 
+// should you want to be more strict:
 //RecordsTable.propTypes = {
 //  records: React.PropTypes.array.isRequired
 //};
