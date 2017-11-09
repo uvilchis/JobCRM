@@ -78,7 +78,7 @@ app.get('/entries', (req, res) => {
 
 app.post('/entries', (req, res) => {
   RowEntry.create({
-    company : '',
+    company : 'B',
     location : '',
     contact : 'google CEO',
     notes : 'look up the actual info',
@@ -94,11 +94,8 @@ app.post('/entries', (req, res) => {
 
 app.post('/update', (req, res) => {
   console.log(req.body);
-  res.send('ok');
+  res.send('ok');  // you _must_ close the stream. Send back anything.
 })
-
-
-// is it safe to think of express static sending files upon a request to the '/' endpoint?
 
 app.listen(3001, () => {
   console.log('listening on port 3001')
@@ -109,21 +106,3 @@ module.exports = {
   User: User,
   RowEntry: RowEntry
 };
-// I'M ADDING A COMMENT AND SAVING IT
-
-
-// upon a get request to the '/user' endpoint, the sequelize function is called and all the users are sent back
-//
-
-/*
-app.get('/login' (req, res)=> {
-authentication
-user puts in a userName
-SELECT FROM MAIN where user = input
-
-User.find()
-
-})
-
-
-*/

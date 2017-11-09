@@ -58,7 +58,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-            <nav className="navbar navbar-default">
+            <nav className="navbar navbar-default">     {/* these classNames refer to bootstrap properties */}
               <div className="container-fluid">
                 <ul className="nav navbar-nav navbar-legt">
                   <li className="logo"><Logo />
@@ -89,9 +89,8 @@ class App extends React.Component {
               </div>
             </nav>
 
+            {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => < RecordsTable records={testArray} /> } />
-
-
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input />} />
 
         </div>
