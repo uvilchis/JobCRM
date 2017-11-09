@@ -5,16 +5,17 @@ class HelperFuncStateStorage {
   //don't console.log here if you're trying to debug.
   //console.log where the function is being called before return and after render
 
+
     postFieldValue(inst, stateName, e) {
         e.stopPropagation()
         let stateUpdate = {};
-        stateUpdate[stateName] = e.target.checked;
+        stateUpdate[stateName] = !inst.state[stateName];
         inst.setState(stateUpdate);
       
       axios.post('update', {
         id: inst.state.key,
         stateName: stateName,
-        value: e.target.checked
+        value: inst.state[stateName]
       })
         .then(function (response) {
           console.log(response);
@@ -28,7 +29,7 @@ class HelperFuncStateStorage {
   updateFieldValue(inst, stateName, e) {
   	e.stopPropagation()
     let stateUpdate = {};
-    stateUpdate[stateName] = e.target.checked;
+    stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);
     return null
   }
