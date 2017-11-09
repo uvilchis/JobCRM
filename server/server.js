@@ -118,7 +118,7 @@ app.get('/login', (req, res) => {
   res.send('app')
 })
 
-app.get('/input', (req, res) => {
+app.post('/input', (req, res) => {
   console.log(req.body);
 
   // RowEntry.create({
