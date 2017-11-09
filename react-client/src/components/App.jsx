@@ -5,7 +5,7 @@ import SearchBar from './SearchBar.jsx';
 import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
 import Login from './Login.jsx';
-import Input from './Input.jsx';
+import Input from './input.jsx';
 import {
     BrowserRouter as Router,
     Route,

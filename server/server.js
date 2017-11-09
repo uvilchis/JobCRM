@@ -51,7 +51,7 @@ DESC.ROUTE     METHOD    SQL ACTION
 RECORDS     /records  get       find all
 REC/SEARCH  /records  post      find some
 UPDATE      /update   post      update / should update checkbox (true/false) fields on a row
-INSERT      /insert   post      insert / should insert a new entries row
+INSERT      /input   post      insert / should insert a new entries row
 LOGIN       /login    post      authentication / should allow us to set the user for all the records and such
 SIGN UP     /signup   post      authentication / signup (currently just creates users, no signup)
 
@@ -80,33 +80,42 @@ app.post('/login', (req, res) => {
   })
 })
 
-// app.post('/input', (req, res) => {
-//   console.log(req.body);
-//   res.send('received some input');
-// })
+app.get('/login', (req, res) => {
+  res.send('app')
+})
+
+app.get('/input', (req, res) => {
+  console.log(req.body);
+
+  RowEntry.create({
+    company: 'B',
+    location: '',
+    contact: 'google CEO',
+    notes: 'look up the actual info',
+    coverLetter: true,
+    resume: true,
+    firstInterview: true,
+    secondInterview: true,
+    offer: true,
+    rejected: false
+  });
+
+  res.send('received some input');
+})
 
 // app.get('/userTest', (req, res) => {
 //   res.send(200, loggedInUserId)
 // })
 
-app.post('/insert', (req, res) => {
-  // should receive all necessary attribhutes for a new entry row
-  // then insert a new entry row based on those keys
+// app.post('/insert', (req, res) => {
+//   // should receive all necessary attribhutes for a new entry row
+//   // then insert a new entry row based on those keys
 
 
-  RowEntry.create({
-    company : 'B',
-    location : '',
-    contact : 'google CEO',
-    notes : 'look up the actual info',
-    coverLetter : true,
-    resume : true,
-    firstInterview : true,
-    secondInterview : true,
-    offer : true,
-    rejected : false
-  })
-})
+
+
+//   res.send('inserted');
+// })
 
 app.get('/records', (req, res) => {
   User.findById(loggedInUserId)
