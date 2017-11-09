@@ -9,31 +9,19 @@
   "author": "Team Alderaan",
   "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
-    "jshint": "^2.9.5",
-    "lodash": "^4.17.4",
-    "react": "^16.0.0",
-<<<<<<< HEAD
-    "react-dom": "^16.0.0",
-=======
-    "react-dom": "^16.0.0"
-  },
-  "dependencies": {
-    "sequelize": "^4.22.5",
-    "sqlite3": "^3.1.13",
-    "webpack": "^3.8.1"
-  },
-  "dependencies": {
-    "webpack-dev-server": "^2.9.4",
->>>>>>> added to package.json
-    "sequelize": "^4.22.5",
-    "sqlite3": "^3.1.13",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+  "babel-core": "^6.26.0",
+  "babel-loader": "^7.1.2",
+  "babel-preset-es2015": "^6.24.1",
+  "babel-preset-react": "^6.24.1",
+  "bootstrap": "^3.3.7",
+  "jquery": "^3.2.1",
+  "jshint": "^2.9.5",
+  "lodash": "^4.17.4",
+  "react": "^16.0.0",
+  "react-dom": "^16.0.0",
+  "sequelize": "^4.22.5",
+  "sqlite3": "^3.1.13",
+  "webpack": "^3.8.1",
+  "webpack-dev-server": "^2.9.4"
   }
 }
