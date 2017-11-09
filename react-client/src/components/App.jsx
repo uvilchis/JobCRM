@@ -6,20 +6,42 @@ import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
 import Login from './Login.jsx';
 import Input from './input.jsx';
+import axios from 'axios';
 import {
     BrowserRouter as Router,
     Route,
     Link
   } from 'react-router-dom'
+
 import hf from '../HelperFuncStateStorage';
+
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      // recordView = true,
-      // inputView = !this.recordView
-    };
+      records: [{}]
+    }
+  }
+
+  componentDidMount() {
+    hf.requestRecords().then((x) => {
+      console.log(x);
+      this.setState({records: x.data })
+    });
+  }
+
+  handleSearch(query) {
+    axios.post('search', { searchValue: query })
+      .then(function (response) {
+        // console.log(response.data)
+        this.setState({records: response.data});
+        // return response.data;
+      }.bind(this))
+      .catch(function (error) {
+        console.error('error', error);
+      });
+    return null;
   }
 
   render() {
@@ -49,7 +71,7 @@ class App extends React.Component {
                 </ul>
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">
-                    <SearchBar />
+                    <SearchBar search={this.handleSearch.bind(this)}/>
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
@@ -63,7 +85,7 @@ class App extends React.Component {
             </nav>
 
             {/* use react router to only show one of our components at a time */}
-            <Route exact path="/" render={() => < RecordsTable records={hf.requestRecords()} /> } />
+            <Route exact path="/" render={() => < RecordsTable records={this.state.records} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input />} />
             <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login />} />
 

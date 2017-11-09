@@ -3,7 +3,7 @@ import hf from '../HelperFuncStateStorage';
 
 export default class SearchBar extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       searchValue: ''
     };
@@ -17,7 +17,7 @@ export default class SearchBar extends React.Component {
           hf.updateFieldValue(this, 'searchValue', e)
         }} />
         <button type="button" onClick={() => {
-          hf.search(this);
+          this.props.search(this.state.searchValue);
         }}>
           Search
         </button>
