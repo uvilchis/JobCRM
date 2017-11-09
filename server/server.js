@@ -44,6 +44,19 @@ let RowEntry = sequelize.define('rowentry', {
   user_id : {type: Sequelize.INTEGER, defaultValue: null}
 });
 
+/* =========== ROUTES ============= 
+
+DESC.ROUTE     METHOD    SQL ACTION
+=======================================================
+RECORDS     /records  get       find all
+REC/SEARCH  /records  post      find some
+UPDATE      /update   post      update / should update checkbox (true/false) fields on a row
+INSERT      /insert   post      insert / should insert a new entries row
+LOGIN       /login    post      authentication / should allow us to set the user for all the records and such
+SIGN UP     /signup   post      authentication / signup (currently just creates users, no signup)
+
+==================================*/
+
 app.post('/signup', (req, res)=> {
   let username = req.body.user;
   User.create({user : username})
@@ -52,18 +65,11 @@ app.post('/signup', (req, res)=> {
     res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
   })});
 
-app.post('/login', (req, res)=> {
-  console.log(req.body);
-  let username = req.body.username;
-  // User.create({user : username});
-  res.send('created a user')
-})
-
-app.get('/users', (req, res) =>{
-  User.findAll().then(users => {
-    res.send(users);
-  })
-})
+// app.get('/users', (req, res) =>{
+//   User.findAll().then(users => {
+//     res.send(users);
+//   })
+// })
 
 app.post('/login', (req, res) => {
   User.findOne({
@@ -74,16 +80,20 @@ app.post('/login', (req, res) => {
   })
 })
 
-app.post('/input', (req, res) => {
-  console.log(req.body);
-  res.send('received some input');
-})
+// app.post('/input', (req, res) => {
+//   console.log(req.body);
+//   res.send('received some input');
+// })
 
-app.get('/userTest', (req, res) => {
-  res.send(200, loggedInUserId)
-})
+// app.get('/userTest', (req, res) => {
+//   res.send(200, loggedInUserId)
+// })
 
-app.post('/entries', (req, res) => {
+app.post('/insert', (req, res) => {
+  // should receive all necessary attribhutes for a new entry row
+  // then insert a new entry row based on those keys
+
+
   RowEntry.create({
     company : 'B',
     location : '',
@@ -98,15 +108,30 @@ app.post('/entries', (req, res) => {
   })
 })
 
-app.get('/record', (req, res) => {
+app.get('/records', (req, res) => {
   User.findById(loggedInUserId)
   .then(user => {
     res.status(200)
     res.send(user)
   })
+
+  // should return all records for an ID
 })
 
+app.post('/records', (req, res) => {
+  User.findById(loggedInUserId)
+    .then(user => {
+      res.status(200)
+      res.send(user)
+    })
+
+  // should perform a search using req.body.searchKeyword or something like that
+})
+
+
 app.post('/update', (req, res) => {
+
+
   console.log(req.body);
   res.send('ok');  // you _must_ close the stream. Send back anything.
 })
