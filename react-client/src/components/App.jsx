@@ -4,7 +4,8 @@ import LinkButton from './LinkButton.jsx';
 import SearchBar from './SearchBar.jsx';
 import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
-import Input from './Input.jsx';
+import Login from './Login.jsx';
+import Input from './input.jsx';
 import {
     BrowserRouter as Router,
     Route,
@@ -73,6 +74,11 @@ class App extends React.Component {
                       <LinkButton title='Insert' />
                     </Link>
                   </li>
+                  <li className="link-button">
+                    <Link to="/login">
+                      <LinkButton title='Login' />
+                    </Link>
+                  </li>
                 </ul>
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">
@@ -92,28 +98,12 @@ class App extends React.Component {
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => < RecordsTable records={testArray} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input />} />
+            <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login />} />
 
         </div>
       </Router>
     )
   }
 }
-
-
-// <Router>
-//     <div>
-//       <ul>
-//         <li><Link to="/">Home</Link></li>
-//         <li><Link to="/about">About</Link></li>
-//         <li><Link to="/topics">Topics</Link></li>
-//       </ul>
-//
-//       <hr/>
-//
-//       <Route exact path="/" component={Home}/>
-//       <Route path="/about" component={About}/>
-//       <Route path="/topics" component={Topics}/>
-//     </div>
-//   </Router>
 
 export default App
