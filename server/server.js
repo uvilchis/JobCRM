@@ -46,6 +46,7 @@ let RowEntry = sequelize.define('rowentry', {
 
 // User.hasMany(RowEntry, {as : 'Job'});
 
+<<<<<<< HEAD
 // is actually doing sign up work
 app.post('/signup', (req, res)=> {
   let username = req.body.user;
@@ -53,6 +54,32 @@ app.post('/signup', (req, res)=> {
   .then((user) => {
     loggedInUserId = user.id;
     res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
+=======
+// User.belongsTo(RowEntry, {as : 'mainRowEntry', constraints : false})
+
+// we should have a function that adds entrie to the specified user
+// and keeps the information there
+
+//
+// app.get('/test', (req, res) => {
+//   RowEntry.findAll({
+//     include : [User]
+//   }).then( entries => {
+//     res.send(entries)
+//   })
+// })
+
+app.post('/login', (req, res)=> {
+  console.log(req.body);
+  let username = req.body.username;
+  // User.create({user : username});
+  res.send('created a user')
+})
+
+app.get('/users', (req, res) =>{
+  User.findAll().then(users => {
+    res.send(users);
+>>>>>>> origin/dev
   })
 })
 
@@ -65,9 +92,24 @@ app.post('/login', (req, res) => {
   })
 })
 
+<<<<<<< HEAD
 app.get('/userTest', (req, res) => {
   res.send(200, loggedInUserId)
 })
+=======
+app.post('/entries', (req, res) => {
+  RowEntry.create({
+    company : 'B',
+    location : '',
+    contact : 'google CEO',
+    notes : 'look up the actual info',
+    coverLetter : true,
+    resume : true,
+    firstInterview : true,
+    secondInterview : true,
+    offer : true,
+    rejected : false
+>>>>>>> origin/dev
 
 app.get('/record', (req, res) => {
   User.findById(loggedInUserId)
@@ -77,6 +119,7 @@ app.get('/record', (req, res) => {
   })
 })
 
+<<<<<<< HEAD
 /**
  * F O R - T E S T I N G ONLY:
  */
@@ -205,6 +248,12 @@ app.get('/record', (req, res) => {
 
 
 // is it safe to think of express static sending files upon a request to the '/' endpoint?
+=======
+app.post('/update', (req, res) => {
+  console.log(req.body);
+  res.send('ok');  // you _must_ close the stream. Send back anything.
+})
+>>>>>>> origin/dev
 
 app.listen(3001, () => {
   console.log('listening on port 3001')
@@ -215,21 +264,3 @@ module.exports = {
   User: User,
   RowEntry: RowEntry
 };
-// I'M ADDING A COMMENT AND SAVING IT
-
-
-// upon a get request to the '/user' endpoint, the sequelize function is called and all the users are sent back
-//
-
-/*
-app.get('/login' (req, res)=> {
-authentication
-user puts in a userName
-SELECT FROM MAIN where user = input
-
-User.find()
-
-})
-
-
-*/

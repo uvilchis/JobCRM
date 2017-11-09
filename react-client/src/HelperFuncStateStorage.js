@@ -1,16 +1,47 @@
 import React from 'react';
+import axios from 'axios';
 
-export default class HelperFuncStateStorage {
-  constructor(props){
-  }
-
+class HelperFuncStateStorage {
   //don't console.log here if you're trying to debug.
   //console.log where the function is being called before return and after render
 
+
+    postFieldValue(inst, stateName, e) {
+        e.stopPropagation()     // had some issues with preventDefault() here. Warning!
+        let stateUpdate = {};
+        stateUpdate[stateName] = !inst.state[stateName];
+        inst.setState(stateUpdate);
+      
+      axios.post('update', {        // pass a row id, stateName, and value to our update server route.
+        id: inst.state.key,
+        stateName: stateName,
+        value: inst.state.stateName
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        return null
+    }
+
+    loginRequest(inst, value) {
+      console.log(value);
+      axios.post('login', {
+        user: value
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function(error) {
+        console.log(error);
+      });
+      return null;
+    }
+
   updateFieldValue(inst, stateName, e) {
-  	e.stopPropagation()
+  	//e.stopPropagation()
     let stateUpdate = {};
-    stateUpdate[stateName] = e.target.checked;
+    stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);
     return null
   }
@@ -21,4 +52,9 @@ export default class HelperFuncStateStorage {
     inst.setState(stateUpdate)
     return null;
   }
+
+
 }
+
+const instanceHelper = new HelperFuncStateStorage();
+export default instanceHelper
