@@ -1,14 +1,15 @@
 let express = require('express');
 let app = express();
 let path = require('path');
-let pg = require('pg')
-let bodyParser = require('body-parser')
+let pg = require('pg');
+let bodyParser = require('body-parser');
 // we import sequelize so we have a way to interact with our postgreSQL database
 let Sequelize = require('sequelize');
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
-app.use(express.static(__dirname + '/../public'))
+app.use(express.static(__dirname + '/../public'));
 
 let sequelize = new Sequelize ({
 dialect: 'postgres',
@@ -58,16 +59,16 @@ let RowEntry = sequelize.define('rowentry', {
 //   })
 // })
 
-app.post('/login', (req, res)=> {
-  let username = req.body.username;
+app.post('/login', (req, res) => {
+  let username = " " + req.body.user;
   User.create({user : username});
-  res.send('created a user')
+  res.send(`created a user: ${username}`)
 })
 
-app.get('/users', (req, res) =>{
+app.get('/users', (req, res) => {
   User.findAll().then(users => {
     res.send(users);
-  })
+  }).catch(err => {console.error(err)})
 })
 
 app.get('/entries', (req, res) => {
