@@ -44,30 +44,13 @@ let RowEntry = sequelize.define('rowentry', {
   user_id : {type: Sequelize.INTEGER, defaultValue: null}
 });
 
-// User.hasMany(RowEntry, {as : 'Job'});
-
-<<<<<<< HEAD
-// is actually doing sign up work
 app.post('/signup', (req, res)=> {
   let username = req.body.user;
   User.create({user : username})
   .then((user) => {
     loggedInUserId = user.id;
     res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
-=======
-// User.belongsTo(RowEntry, {as : 'mainRowEntry', constraints : false})
-
-// we should have a function that adds entrie to the specified user
-// and keeps the information there
-
-//
-// app.get('/test', (req, res) => {
-//   RowEntry.findAll({
-//     include : [User]
-//   }).then( entries => {
-//     res.send(entries)
-//   })
-// })
+  })});
 
 app.post('/login', (req, res)=> {
   console.log(req.body);
@@ -79,7 +62,6 @@ app.post('/login', (req, res)=> {
 app.get('/users', (req, res) =>{
   User.findAll().then(users => {
     res.send(users);
->>>>>>> origin/dev
   })
 })
 
@@ -92,11 +74,15 @@ app.post('/login', (req, res) => {
   })
 })
 
-<<<<<<< HEAD
+app.post('/input', (req, res) => {
+  console.log(req.body);
+  res.send('received some input');
+})
+
 app.get('/userTest', (req, res) => {
   res.send(200, loggedInUserId)
 })
-=======
+
 app.post('/entries', (req, res) => {
   RowEntry.create({
     company : 'B',
@@ -109,7 +95,8 @@ app.post('/entries', (req, res) => {
     secondInterview : true,
     offer : true,
     rejected : false
->>>>>>> origin/dev
+  })
+})
 
 app.get('/record', (req, res) => {
   User.findById(loggedInUserId)
@@ -119,141 +106,10 @@ app.get('/record', (req, res) => {
   })
 })
 
-<<<<<<< HEAD
-/**
- * F O R - T E S T I N G ONLY:
- */
-// app.get('/search', (req, res) => {
-//   ({ company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   } = req.body);
-//
-//   User.findById(loggedInUserId)
-//   .then( user => {
-//     let result = user.getJob({
-//       where: {
-//       company : company,
-//       location: location,
-//       contact : contact,
-//       notes : notes,
-//       coverLetter : coverLetter,
-//       resume : resume,
-//       firstInterview : firstInterview,
-//       secondInterview : secondInterview,
-//       offer : offer,
-//       rejected : rejected }
-//     })
-//     res.status(200)
-//     res.send(result)
-//   })
-// })
-// app.post('/insert', (req, res) => {
-//   ({ company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   } = req.body);
-//   RowEntry.create({
-//     company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   })
-//   .then(job => {
-//     User.findById(loggedInUserId)
-//     .then( user => {
-//       let result = user.setJob(job)
-//       res.status(201)
-//       res.send(result)
-//     })
-//   })
-// })
-//
-// app.get('/users', (req, res) =>{
-//   User.findAll({
-//     //where: ...,
-//     include: [
-//       { model: RowEntry }, // load all jobs
-//       { model: RowEntry, as: 'Job' }, // load the associated jobs.
-//       // Notice that the spelling must be the exact same as the one in the association
-//     ]
-//   }).then(users => {
-//     res.send(users);
-//   })
-// })
-//
-// app.get('/entries', (req, res) => {
-//   RowEntry.findAll().then(entries => {
-//     res.send(entries);
-//   })
-// })
-/**
- * F O R - T E S T I N G ONLY:
- */
-
-
-// app.post('/login', (req, res) => {
-//   let username = " " + req.body.user;
-//   User.create({user : username});
-//   res.send(`created a user: ${username}`)
-// })
-//
-// app.get('/users', (req, res) => {
-//   User.findAll().then(users => {
-//     res.send(users);
-//   }).catch(err => {console.error(err)})
-// })
-//
-// app.get('/entries', (req, res) => {
-//   RowEntry.findAll().then(entries => {
-//     res.send(entries);
-//   })
-// })
-//
-// app.post('/entries', (req, res) => {
-//   RowEntry.create({
-//     company : '',
-//     location : '',
-//     contact : 'google CEO',
-//     notes : 'look up the actual info',
-//     coverLetter : true,
-//     resume : true,
-//     firstInterview : true,
-//     secondInterview : true,
-//     offer : true,
-//     rejected : false
-//
-//   })
-// })
-
-
-// is it safe to think of express static sending files upon a request to the '/' endpoint?
-=======
 app.post('/update', (req, res) => {
   console.log(req.body);
   res.send('ok');  // you _must_ close the stream. Send back anything.
 })
->>>>>>> origin/dev
 
 app.listen(3001, () => {
   console.log('listening on port 3001')
