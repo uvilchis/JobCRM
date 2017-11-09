@@ -11,40 +11,7 @@ import {
     Route,
     Link
   } from 'react-router-dom'
-
-
-let testArray = [
-   {
-     company: 'Loomb',
-     location: 'San Francisco',
-     contact: 'blep@loooooms.com',
-     notes: 'Very bloop.',
-     coverLetter: true,
-     resume: true,
-     firstInterview: true,
-     secondInterview: true,
-     secondInterview: true,
-     offer: true,
-     rejected: true,
-     key: 0
-   },
-
-   {
-     company: 'iBloomb',
-     location: 'New York',
-     contact: 'blep@ibl.com',
-     notes: 'Very bleem.',
-     coverLetter: true,
-     resume: true,
-     firstInterview: true,
-     secondInterview: true,
-     secondInterview: true,
-     offer: true,
-     rejected: true,
-     key: 1
-   }
-];
-
+import hf from '../HelperFuncStateStorage';
 
 class App extends React.Component {
   constructor() {
@@ -96,7 +63,7 @@ class App extends React.Component {
             </nav>
 
             {/* use react router to only show one of our components at a time */}
-            <Route exact path="/" render={() => < RecordsTable records={testArray} /> } />
+            <Route exact path="/" render={() => < RecordsTable records={hf.requestRecords()} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input />} />
             <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login />} />
 
