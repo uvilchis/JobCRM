@@ -7,7 +7,7 @@ export default class RecordsTable extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      records: [{key: '2'}]
+      records: [{}]
     }
   }
 

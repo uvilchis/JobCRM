@@ -63,7 +63,7 @@ User.sync({ force: true }).then(() => {
 User.belongsTo(RowEntry, {as : 'mainRowEntry', constraints : false})
 RowEntry.sync({ force: true }).then(() => {
   // Table created
-  return RowEntry.create({
+  RowEntry.bulkCreate([{
     company: 'example company',
     location: 'New York, NY',
     contact: 'tommy.york@gmail.com',
@@ -74,7 +74,18 @@ RowEntry.sync({ force: true }).then(() => {
     secondInterview: false,
     offer: false,
     rejected: false
-  });
+  },{
+    company: 'another example',
+    location: 'Brooklyn, NY',
+    contact: 'hipsterland@gmail.com',
+    notes: 'more example info',
+    coverLetter: false,
+    resume: false,
+    firstInterview: true,
+    secondInterview: true,
+    offer: true,
+    rejected: false
+  }]);
 });
 
 /* =========== ROUTES ============= 
@@ -180,6 +191,22 @@ app.post('/login', (req, res) => {
   })
 })
 
+app.post('/insert', (req, res) => {
+  console.log(req.body);
+  RowEntry.create({
+    company : req.body.companyValue,
+    location : req.body.locationValue,
+    contact : req.body.contactValue,
+    notes : req.body.notesValue,
+    //coverLetter : req.body.coverLetter,
+    resume : req.body.resume,
+    firstInterview : req.body.firstInterview,
+    secondInterview : req.body.secondInterview,
+    offer : req.body.offer,
+    rejected : req.body.rejected
+  })
+})
+
 // app.post('/entries', (req, res) => {
 //   RowEntry.create({
 //     company : 'B',
@@ -265,38 +292,24 @@ app.post('/login', (req, res) => {
 //     })
 //   })
 // })
-// app.get('/search', (req, res) => {
-//   ({ company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   } = req.body);
-
-//   User.findById(loggedInUserId)
-//   .then( user => {
-//     let result = user.getJob({
-//       where: {
-//       company : company,
-//       location: location,
-//       contact : contact,
-//       notes : notes,
-//       coverLetter : coverLetter,
-//       resume : resume,
-//       firstInterview : firstInterview,
-//       secondInterview : secondInterview,
-//       offer : offer,
-//       rejected : rejected }
-//     })
-//     res.status(200)
-//     res.send(result)
-//   })
-// })
+app.post('/search', (req, res) => {
+  console.log(req.body);
+  RowEntry.findAll({
+    where: {
+      $or: [
+        {company: {like: '%' + req.body.searchValue + '%'}},
+        {location: { like: '%' + req.body.searchValue + '%'}},
+        {contact: { like: '%' + req.body.searchValue + '%'}},
+        {notes: {like: '%' + req.body.searchValue + '%'}}
+      ]
+    }
+  })
+  .then(results => {
+    res.status(200)
+    console.log(results);
+    res.send(results)
+  })
+})
 // app.post('/insert', (req, res) => {
 //   ({ company : company,
 //     location : location,
@@ -366,7 +379,7 @@ app.post('/login', (req, res) => {
 //   })
 // })
 
-app.listen(3001, () => {
+app.listen(3002, () => {
   console.log('listening on port 3001')
 })
 
