@@ -59,8 +59,9 @@ let RowEntry = sequelize.define('rowentry', {
 // })
 
 app.post('/login', (req, res)=> {
+  console.log(req.body);
   let username = req.body.username;
-  User.create({user : username});
+  // User.create({user : username});
   res.send('created a user')
 })
 

@@ -26,20 +26,32 @@ class HelperFuncStateStorage {
         return null
     }
 
+    loginRequest(inst, value) {
+      console.log(value);
+      axios.post('login', {
+        user: value
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function(error) {
+        console.log(error);
+      });
+      return null;
+    }
+
   updateFieldValue(inst, stateName, e) {
-  	e.stopPropagation()
+  	//e.stopPropagation()
     let stateUpdate = {};
     stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);
     return null
   }
 
-  // toggleCheckBox(inst, boxName, e) {
-  //   let stateUpdate = {};
-  //   stateUpdate[boxName] = !inst.state[boxName]
-  //   inst.setState(stateUpdate)
-  //   return null;
-  // }
+  toggleCheckBox(inst, boxName, e) {
+    let stateUpdate = {};
+    stateUpdate[boxName] = !inst.state[boxName]
+    inst.setState(stateUpdate)
+    return null;
+  }
 
 
 }
