@@ -7,6 +7,7 @@ class HelperFuncStateStorage {
 
 
     postFieldValue(inst, stateName, e) {
+        console.log(inst.state);
         e.stopPropagation()
         let stateUpdate = {};
         stateUpdate[stateName] = !inst.state[stateName];
@@ -15,7 +16,7 @@ class HelperFuncStateStorage {
       axios.post('update', {
         id: inst.state.key,
         stateName: stateName,
-        value: inst.state[stateName]
+        value: inst.state.stateName
       })
         .then(function (response) {
           console.log(response);
