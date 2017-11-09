@@ -60,7 +60,7 @@ User.sync({ force: true }).then(() => {
   });
 });
 
-
+User.belongsTo(RowEntry, {as : 'mainRowEntry', constraints : false})
 RowEntry.sync({ force: true }).then(() => {
   // Table created
   return RowEntry.create({
@@ -76,7 +76,6 @@ RowEntry.sync({ force: true }).then(() => {
     rejected: false
   });
 });
-
 
 /* =========== ROUTES ============= 
 
@@ -98,12 +97,6 @@ app.post('/signup', (req, res)=> {
     loggedInUserId = user.id;
     res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
   })});
-
-// app.get('/users', (req, res) =>{
-//   User.findAll().then(users => {
-//     res.send(users);
-//   })
-// })
 
 app.post('/login', (req, res) => {
   User.findOne({
@@ -162,6 +155,217 @@ app.post('/update', (req, res) => {
   console.log(req.body);
   res.send('ok');  // you _must_ close the stream. Send back anything.
 })
+
+app.listen(3001, () => {
+  console.log('listening on port 3001')
+})
+
+app.post('/login', (req, res)=> {
+  console.log(req.body);
+  let username = req.body.username;
+  res.send('created a user')
+})
+
+app.get('/users', (req, res) =>{
+  User.findAll().then(users => {
+    res.send(users);
+  })
+})
+
+app.post('/login', (req, res) => {
+  User.findOne({
+    where : {user : req.body.user}
+  }).then(user => {
+      loggedInUserId = user.id;
+    res.send(200, user.id)
+  })
+})
+
+// app.post('/entries', (req, res) => {
+//   RowEntry.create({
+//     company : 'B',
+//     location : '',
+//     contact : 'google CEO',
+//     notes : 'look up the actual info',
+//     coverLetter : true,
+//     resume : true,
+//     firstInterview : true,
+//     secondInterview : true,
+//     offer : true,
+//     rejected : false
+
+// app.get('/record', (req, res) => {
+//   User.findById(loggedInUserId)
+//   .then(user => {
+//     res.status(200)
+//     res.send(user)
+//   })
+// })
+// app.get('/search', (req, res) => {
+//   ({ company : company,
+//     location : location,
+//     contact : contact,
+//     notes : notes,
+//     coverLetter : coverLetter,
+//     resume : resume,
+//     firstInterview : firstInterview,
+//     secondInterview : secondInterview,
+//     offer : offer,
+//     rejected : rejected
+//   } = req.body);
+
+//   User.findById(loggedInUserId)
+//   .then( user => {
+//     let result = user.getJob({
+//       where: {
+//       company : company,
+//       location: location,
+//       contact : contact,
+//       notes : notes,
+//       coverLetter : coverLetter,
+//       resume : resume,
+//       firstInterview : firstInterview,
+//       secondInterview : secondInterview,
+//       offer : offer,
+//       rejected : rejected }
+//     })
+//     res.status(200)
+//     res.send(result)
+//   })
+// })
+// app.post('/insert', (req, res) => {
+//   ({ company : company,
+//     location : location,
+//     contact : contact,
+//     notes : notes,
+//     coverLetter : coverLetter,
+//     resume : resume,
+//     firstInterview : firstInterview,
+//     secondInterview : secondInterview,
+//     offer : offer,
+//     rejected : rejected
+//   } = req.body);
+//   RowEntry.create({
+//     company : company,
+//     location : location,
+//     contact : contact,
+//     notes : notes,
+//     coverLetter : coverLetter,
+//     resume : resume,
+//     firstInterview : firstInterview,
+//     secondInterview : secondInterview,
+//     offer : offer,
+//     rejected : rejected
+//   })
+//   .then(job => {
+//     User.findById(loggedInUserId)
+//     .then( user => {
+//       let result = user.setJob(job)
+//       res.status(201)
+//       res.send(result)
+//     })
+//   })
+// })
+// app.get('/search', (req, res) => {
+//   ({ company : company,
+//     location : location,
+//     contact : contact,
+//     notes : notes,
+//     coverLetter : coverLetter,
+//     resume : resume,
+//     firstInterview : firstInterview,
+//     secondInterview : secondInterview,
+//     offer : offer,
+//     rejected : rejected
+//   } = req.body);
+
+//   User.findById(loggedInUserId)
+//   .then( user => {
+//     let result = user.getJob({
+//       where: {
+//       company : company,
+//       location: location,
+//       contact : contact,
+//       notes : notes,
+//       coverLetter : coverLetter,
+//       resume : resume,
+//       firstInterview : firstInterview,
+//       secondInterview : secondInterview,
+//       offer : offer,
+//       rejected : rejected }
+//     })
+//     res.status(200)
+//     res.send(result)
+//   })
+// })
+// app.post('/insert', (req, res) => {
+//   ({ company : company,
+//     location : location,
+//     contact : contact,
+//     notes : notes,
+//     coverLetter : coverLetter,
+//     resume : resume,
+//     firstInterview : firstInterview,
+//     secondInterview : secondInterview,
+//     offer : offer,
+//     rejected : rejected
+//   } = req.body);
+//   RowEntry.create({
+//     company : company,
+//     location : location,
+//     contact : contact,
+//     notes : notes,
+//     coverLetter : coverLetter,
+//     resume : resume,
+//     firstInterview : firstInterview,
+//     secondInterview : secondInterview,
+//     offer : offer,
+//     rejected : rejected
+//   })
+//   .then(job => {
+//     User.findById(loggedInUserId)
+//     .then( user => {
+//       let result = user.setJob(job)
+//       res.status(201)
+//       res.send(result)
+//     })
+//   })
+// })
+
+
+// app.post('/login', (req, res) => {
+//   let username = " " + req.body.user;
+//   User.create({user : username});
+//   res.send(`created a user: ${username}`)
+// })
+
+// app.get('/users', (req, res) => {
+//   User.findAll().then(users => {
+//     res.send(users);
+//   }).catch(err => {console.error(err)})
+// })
+
+// app.get('/entries', (req, res) => {
+//   RowEntry.findAll().then(entries => {
+//     res.send(entries);
+//   })
+// })
+
+// app.post('/entries', (req, res) => {
+//   RowEntry.create({
+//     company : '',
+//     location : '',
+//     contact : 'google CEO',
+//     notes : 'look up the actual info',
+//     coverLetter : true,
+//     resume : true,
+//     firstInterview : true,
+//     secondInterview : true,
+//     offer : true,
+//     rejected : false
+
+//   })
+// })
 
 app.listen(3001, () => {
   console.log('listening on port 3001')
