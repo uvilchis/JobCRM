@@ -77,19 +77,8 @@ app.get('/entries', (req, res) => {
 })
 
 app.post('/entries', (req, res) => {
-  RowEntry.create({
-    company : '',
-    location : '',
-    contact : 'google CEO',
-    notes : 'look up the actual info',
-    coverLetter : true,
-    resume : true,
-    firstInterview : true,
-    secondInterview : true,
-    offer : true,
-    rejected : false
-
-  })
+  RowEntry.create(req.body)
+  .then(()=>{res.send(201)})
 })
 
 app.post('/update', (req, res) => {
