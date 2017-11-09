@@ -7,13 +7,12 @@ class HelperFuncStateStorage {
 
 
     postFieldValue(inst, stateName, e) {
-        console.log(inst.state);
-        e.stopPropagation()
+        e.stopPropagation()     // had some issues with preventDefault() here. Warning!
         let stateUpdate = {};
         stateUpdate[stateName] = !inst.state[stateName];
         inst.setState(stateUpdate);
       
-      axios.post('update', {
+      axios.post('update', {        // pass a row id, stateName, and value to our update server route.
         id: inst.state.key,
         stateName: stateName,
         value: inst.state.stateName
@@ -35,12 +34,12 @@ class HelperFuncStateStorage {
     return null
   }
 
-  toggleCheckBox(inst, boxName, e) {
-    let stateUpdate = {};
-    stateUpdate[boxName] = !inst.state[boxName]
-    inst.setState(stateUpdate)
-    return null;
-  }
+  // toggleCheckBox(inst, boxName, e) {
+  //   let stateUpdate = {};
+  //   stateUpdate[boxName] = !inst.state[boxName]
+  //   inst.setState(stateUpdate)
+  //   return null;
+  // }
 
 
 }
