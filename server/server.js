@@ -85,8 +85,8 @@ let RowEntry = sequelize.define('rowentry', {
   // userId: { type: Sequelize.NUMBER, defaultValue: 0, foreignKey: true}
 });
 
-RowEntry.belongsTo(User);
-User.hasMany(RowEntry);
+// RowEntry.belongsTo(User);
+// User.hasMany(RowEntry);
 
 // RowEntry.hasMany(User, {as : 'user_id', constraints : false})
 
@@ -129,6 +129,7 @@ RowEntry.sync({ force: true }).then(() => {
     secondInterview: true,
     offer: true,
     rejected: false,
+    
   }]);
 });
 
@@ -171,7 +172,7 @@ app.post('/login', (req, res) => {
 
 app.get('/records', (req, res) => {
   RowEntry.findAll({
-    include: [{model: User, as: 'username'}]
+    // include: [{model: User, as: 'username'}]
   })
     .then((records) => {
       res.status(200)
