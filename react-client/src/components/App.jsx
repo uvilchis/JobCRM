@@ -44,6 +44,13 @@ class App extends React.Component {
     return null;
   }
 
+  resetRecords() {
+    hf.requestRecords().then((x) => {
+      console.log(x);
+      this.setState({ records: x.data })
+    }).bind(this);
+  }
+
   render() {
     return (
       <Router>
@@ -55,7 +62,7 @@ class App extends React.Component {
                   </li>
                   <li className="link-button">
                     <Link to="/">
-                      <LinkButton title='Records' />
+                      <LinkButton title='Records' clickFunction={this.resetRecords.bind(this)} />
                     </Link>
                   </li>
                   <li className="link-button">
