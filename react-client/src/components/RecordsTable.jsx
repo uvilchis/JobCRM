@@ -7,17 +7,14 @@ export default class RecordsTable extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      records: [{key: '2'}]
+      records: this.props.records
     }
   }
 
-  componentDidMount() {
-    hf.requestRecords().then((x) => {
-      console.log(x);
-      this.setState({records: x.data})});
-  }
+
 
   render() {
+    let records = this.props.records
     return (<div className='records-list'>
  <table className="table">
   <thead className="thead-default">
@@ -35,7 +32,7 @@ export default class RecordsTable extends React.Component {
     </tr>
   </thead>
   <tbody>
-        {this.state.records.map((record) =>
+        { records.map((record) =>
           <RecordsTableEntry
            key={record.key}
            record={record}    

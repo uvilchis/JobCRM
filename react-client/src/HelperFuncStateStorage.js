@@ -62,7 +62,7 @@ class HelperFuncStateStorage {
   }
 
   onSubmit(inst) {
-    axios.post('entries', inst.state)
+    axios.post('insert', inst.state)
       .then(function(response) {
         console.log('works', response);
       })
@@ -72,6 +72,17 @@ class HelperFuncStateStorage {
       return null;
   }
 
+  // search(inst) {
+  //   axios.post('search', { searchValue: inst.state.searchValue })
+  //     .then(function (response) {
+  //       console.log(response.data)
+  //       return response.data;
+  //     })
+  //     .catch(function (error) {
+  //       console.error('error', error);
+  //     });
+  //   return null;
+  // }
 
 }
 
