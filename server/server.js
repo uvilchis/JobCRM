@@ -1,42 +1,74 @@
 let express = require('express');
 let app = express();
 let path = require('path');
-let pg = require('pg');
+//let pg = require('pg');
+
+// we'll want to use body.req and etc.
+// solid middleware
 let bodyParser = require('body-parser');
+
 // we import sequelize so we have a way to interact with our postgreSQL database
 let Sequelize = require('sequelize');
 
+// middleware for the cookies
+//var session = require('express-session')
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// static routes
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../public'));
 
-let sequelize = new Sequelize ({
-dialect: 'postgres',
-dialectOptions: {
-  ssl: true
-},
-host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
-database: `d9kfc0g85kd1q0`,
-username: `rddgghwbqbufnr`,
-Port: 5432,
-password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
-dialect : 'postgres'})
+// want to set up sample cookies
+// even to use as a user tracking
+// authentication feature
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: true }
+// }))
+// eventually you'll access users as
+// req.session.user;
 
+// if you run into problems with the following,
+// either ask tommy, or generate a new
+// postgres instance somewhere. We used
+// postgres on tommy's heroku
+// hobby-dev instance. The way to access
+// this with psql is:
+// psql postgres://rddgghwbqbufnr:a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf@ec2-23-21-220-23.compute-1.amazonaws.com:5432/d9kfc0g85kd1q0
+// sorry for the non-line wrap ;)
+
+let sequelize = new Sequelize ({
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true
+  },
+  host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
+  database: `d9kfc0g85kd1q0`,
+  username: `rddgghwbqbufnr`,
+  Port: 5432,
+  password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
+  dialect : 'postgres'
+})
+
+// confirm that we're connected to postgres. Log the result
+// to the server console. (probably your nodemon.)
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection to database has been established successfully.');
+    console.log('Connection has been established successfully.');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
 
-// var loggedInUserId = 0;
-// // export to outer file for cleanliness
+// define our schema.
 
 let User = sequelize.define('user', {
-  user : {type : Sequelize.STRING, unique : true}
+  username : {type : Sequelize.STRING, unique : true}
 });
 
 let RowEntry = sequelize.define('rowentry', {
@@ -50,19 +82,31 @@ let RowEntry = sequelize.define('rowentry', {
   secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
   offer: { type: Sequelize.BOOLEAN, defaultValue: false },
   rejected: { type: Sequelize.BOOLEAN, defaultValue: false },
-  user_id: { type: Sequelize.INTEGER, defaultValue: null }
+  // userId: { type: Sequelize.NUMBER, defaultValue: 0, foreignKey: true}
 });
 
+RowEntry.belongsTo(User);
+User.hasMany(RowEntry);
+
+// RowEntry.hasMany(User, {as : 'user_id', constraints : false})
+
+// here, force: true forces the server 
+// to drop the tables, then insert our 
+// entries below (in bulkCreate)
 User.sync({ force: true }).then(() => {
   // Table created
-  return User.create({
+  User.bulkCreate([{
     user: 'example user'
-  });
+  },
+  {
+    user: 'Christine Ma'
+  }]);
 });
 
-User.belongsTo(RowEntry, {as : 'mainRowEntry', constraints : false})
+
 RowEntry.sync({ force: true }).then(() => {
-  // Table created
+  // create table - you need bulkCreate 
+  // to create multiple rows at a time.
   RowEntry.bulkCreate([{
     company: 'example company',
     location: 'New York, NY',
@@ -73,7 +117,7 @@ RowEntry.sync({ force: true }).then(() => {
     firstInterview: true,
     secondInterview: false,
     offer: false,
-    rejected: false
+    rejected: false,
   },{
     company: 'another example',
     location: 'Brooklyn, NY',
@@ -84,20 +128,27 @@ RowEntry.sync({ force: true }).then(() => {
     firstInterview: true,
     secondInterview: true,
     offer: true,
-    rejected: false
+    rejected: false,
   }]);
 });
 
 /* =========== ROUTES =============
 
+!!! note that currently, our authentication
+routes do NOT work correctly, we have yet to 
+fully implement express session !!!
+
 DESC.ROUTE     METHOD    SQL ACTION
 =======================================================
-RECORDS     /records  get       find all  ---> prioritize
-REC/SEARCH  /records  post      find some
-UPDATE      /update   post      update / should update checkbox (true/false) fields on a row ----> prioritize
-INSERT      /input   post      insert / should insert a new entries row ------> prioritize
-LOGIN       /login    post      authentication / should allow us to set the user for all the records and such
 SIGN UP     /signup   post      authentication / signup (currently just creates users, no signup)
+LOGIN       /login    post      authentication / should allow us to set the user for all the records and such
+RECORDS     /records  get       find all 
+UPDATE      /update   post      update / should update checkbox (true/false) fields on a row 
+INSERT      /input   post      insert / should insert a new entries row 
+REC/SEARCH  /records  post      find some
+
+!! also, a delete route would be chill !!!
+!!! no logout route yet!!! 
 
 ==================================*/
 
@@ -118,30 +169,16 @@ app.post('/login', (req, res) => {
   })
 })
 
-//There shouldn't be an app.get('/login'... path
-// app.get('/login', (req, res) => {
-//   res.send('app')
-// })
-
 app.get('/records', (req, res) => {
-  RowEntry.findAll()
+  RowEntry.findAll({
+    include: [{model: User, as: 'username'}]
+  })
     .then((records) => {
       res.status(200)
-      // console.log(records); --> see all the records you're returning.
       res.send(records)
     })
   // should return all records for an ID
 })
-
-// app.post('/records', (req, res) => {
-//   User.findById(loggedInUserId)
-//     .then(user => {
-//       res.status(200)
-//       res.send(user)
-//     })
-
-  // should perform a search using req.body.searchKeyword or something like that
-// })
 
 app.post('/update', (req, res) => {
   console.log(req.body);
@@ -160,33 +197,8 @@ app.post('/update', (req, res) => {
       res.send(results)
     })
   })
-  //res.send(req.body);  // you _must_ close the stream. Send back anything.
 })
 
-app.listen(3001, () => {
-  console.log('listening on port 3001')
-})
-
-app.post('/login', (req, res)=> {
-  console.log(req.body);
-  let username = req.body.username;
-  res.send('created a user')
-})
-
-app.get('/users', (req, res) =>{
-  User.findAll().then(users => {
-    res.send(users);
-  })
-})
-
-app.post('/login', (req, res) => {
-  User.findOne({
-    where : {user : req.body.user}
-  }).then(user => {
-      loggedInUserId = user.id;
-    res.send(200, user.id)
-  })
-})
 
 app.post('/insert', (req, res) => {
   //console.log(req.body);
@@ -210,6 +222,7 @@ app.post('/search', (req, res) => {
   RowEntry.findAll({
     where: {
       $or: [
+        // check out all string fields
         {company: {like: '%' + req.body.searchValue + '%'}},
         {location: { like: '%' + req.body.searchValue + '%'}},
         {contact: { like: '%' + req.body.searchValue + '%'}},
@@ -224,12 +237,15 @@ app.post('/search', (req, res) => {
   })
 })
 
+// Believe we need this for front-end routing
 app.get('/*', function (req, res) {
    res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
  });
 
-app.listen(3002, () => {
-  console.log('listening on port 3001')
+// for a while, we were listening on port 3001,
+// but we said we were listening to 3000. D:
+app.listen(3000, () => {
+  console.log('listening on port 3000')
 })
 
 module.exports = {
@@ -237,3 +253,4 @@ module.exports = {
   User: User,
   RowEntry: RowEntry
 };
+
