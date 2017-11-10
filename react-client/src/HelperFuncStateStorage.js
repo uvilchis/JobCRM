@@ -10,12 +10,17 @@ class HelperFuncStateStorage {
     e.stopPropagation()
     let stateUpdate = {};
     stateUpdate[stateName] = !inst.state[stateName];
-    inst.setState(stateUpdate);
+    inst.setState(stateUpdate); 
+    //--> this started throwing strange errors.
+    // now kind of unclear how this works. helpdesk material.
+
+    console.log(inst.props.record);
+    console.log(inst.props.record.id);
 
     axios.post('update', {
-      id: inst.state.key,
+      id: inst.props.record.id,
       stateName: stateName,
-      value: inst.state[stateName]
+      value: !inst.state[stateName]
     })
       .then(function (response) {
         console.log(response);
@@ -29,7 +34,7 @@ class HelperFuncStateStorage {
   requestRecords(inst) {
     return axios.get('records')
     .then((records) => {
-      console.log(records);
+      //console.log(records);
       return records;
     });
   }
@@ -39,7 +44,7 @@ class HelperFuncStateStorage {
       axios.post('login', {
         user: value
       }).then(function (response) {
-        console.log(response);
+        //console.log(response);
       }).catch(function(error) {
         console.log(error);
       });

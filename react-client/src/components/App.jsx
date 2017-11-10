@@ -27,7 +27,7 @@ class App extends React.Component {
   componentDidMount() {
     hf.requestRecords().then((x) => {
       console.log(x);
-      this.setState({records: x.data })
+      this.setState({ records: x.data })
     });
   }
 

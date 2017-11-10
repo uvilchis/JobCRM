@@ -7,7 +7,7 @@ export default class RecordsTableEntry extends React.Component {
     super();
     this.props = props;
     this.state = {
-      key: this.props.record.key,
+      id: this.props.record.id,
       coverLetter: this.props.record.coverLetter,
 			resume: this.props.record.resume,
 			firstInterview: this.props.record.firstInterview,
