@@ -88,7 +88,7 @@ RowEntry.sync({ force: true }).then(() => {
   }]);
 });
 
-/* =========== ROUTES ============= 
+/* =========== ROUTES =============
 
 DESC.ROUTE     METHOD    SQL ACTION
 =======================================================
@@ -378,6 +378,10 @@ app.post('/search', (req, res) => {
 
 //   })
 // })
+
+app.get('/*', function (req, res) {
+   res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
+ });
 
 app.listen(3002, () => {
   console.log('listening on port 3001')
