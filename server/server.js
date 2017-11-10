@@ -26,7 +26,7 @@ dialect : 'postgres'})
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log('Connection to database has been established successfully.');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
@@ -118,9 +118,10 @@ app.post('/login', (req, res) => {
   })
 })
 
-app.get('/login', (req, res) => {
-  res.send('app')
-})
+//There shouldn't be an app.get('/login'... path
+// app.get('/login', (req, res) => {
+//   res.send('app')
+// })
 
 app.get('/records', (req, res) => {
   RowEntry.findAll()
