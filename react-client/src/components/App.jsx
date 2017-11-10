@@ -70,11 +70,11 @@ class App extends React.Component {
                       <LinkButton title='Insert' />
                     </Link>
                   </li>
-                  <li className="link-button">
+                  {/* <li className="link-button">
                     <Link to="/login">
                       <LinkButton title='Login' />
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">

@@ -29,18 +29,21 @@ The project can be broken down into 3 major parts:
   - *React Components*
   - *React-Router*
 
-
 - *axios* : Promise-based library that talks to the server by directing a request(post, get, ...) and instance of 'state' to the appropriate server endpoint
-
-- *webpack config* : >>>>>>>>>>>>> I know we were running off this for a while before we set up the server, but not it just bundles our code? ????????
 
 ## Usage
 - The navigation bar view should persist while views switch between records, input, login, and news.
 - The search bar nested in the nav bar should query and filter from every category in the database.
 
 ## Getting Started
-- npm install
-- npm start
+```sh
+npm install
+npm start
+```
+When finished: 
+```sh
+npm stop.
+```
 
 ## Project Architecture
 
@@ -61,29 +64,22 @@ The project can be broken down into 3 major parts:
     - HelperFuncStateStorage
     - components
       - App.jsx
-      -
-
-
+      - other components
 
 ### Installing Dependencies
 
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
-npm install
-bower install
+npm install 
 ```
-
-1.
 
 ##Server
 - server.js - this is where you require
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+See our waffle link above.
 
 ## Contributing
 

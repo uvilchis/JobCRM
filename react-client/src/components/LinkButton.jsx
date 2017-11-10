@@ -8,7 +8,7 @@ export default class LinkButton extends React.Component {
   render() {
    return (
     <div>
-      <button type="button" className="btn btn-outline-primary" onClick={this.props.clickFunction}>
+      <button type="button" className="btn btn-outline-primary bg-primary" onClick={this.props.clickFunction}>
         {this.props.title}
       </button>
     </div>

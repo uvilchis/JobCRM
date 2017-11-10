@@ -21,74 +21,84 @@ export default class Input extends React.Component {
   render() {
     console.log(this.state)
     return (
+      <div className="container w-50 p-3">
       <form onSubmit={(e) => {
         e.preventDefault(); //this just prevents the page from refreshing upon every submit
         hf.onSubmit(this);
       }}>
-      <p>
-        Company:
-        <input type="text" value={this.state.companyValue} onChange={(e) => {
+      <div className="form-group w-50 p-3">
+        <label>Company</label>
+        <input id="company" type="text" className="form-control" value={this.state.companyValue} onChange={(e) => {
           hf.updateFieldValue(this, 'companyValue', e)
         }} />
-      </p>
-      <p>
-        Location:
-        <input type="text" value={this.state.locationValue} onChange={(e) => {
+      </div>
+      <div className="form-group">
+        <label>Location</label>
+        <input type="text" id="location" className="form-control" value={this.state.locationValue} onChange={(e) => {
           hf.updateFieldValue(this, 'locationValue', e)
         }} />
-      </p>
-      <p>
-        Contact:
-        <input type="text" value={this.state.contactValue} onChange={(e) => {
+      </div>
+      <div className="form-group">
+        <label>Contact</label>
+        <input type="text" className="form-control" value={this.state.contactValue} onChange={(e) => {
           hf.updateFieldValue(this, 'contactValue', e)
         }} />
-      </p>
-      <p>
-        Notes:
-        <input type="text" value={this.state.notesValue} onChange={(e)=> {
+      </div>
+      <div className="form-group">
+        <label>Notes</label>
+        <input type="text" className="form-control" value={this.state.notesValue} onChange={(e)=> {
           hf.updateFieldValue(this, 'notesValue', e)
         }} />
-      </p>
-        <div>
+      </div>
+      <div className="checkbox">
+        <label>
           <input type="checkbox" value={this.state.coverLetter} onChange={(e) => {
-            hf.toggleCheckBox(this, 'coverLetter', e)
+          hf.toggleCheckBox(this, 'coverLetter', e)
           }} />
           Cover Letter
-        </div>
-        <div>
-          <input type="checkbox" value={this.state.resume} onChange={(e) => {
+      </label>
+      </div>
+      <div className="checkbox">
+        <label>  
+        <input type="checkbox" value={this.state.resume} onChange={(e) => {
             hf.toggleCheckBox(this, 'resume', e)
           }} />
           Resume
+        </label>
+      </div>
+      <div className="checkbox">
+        <label>
+        <input className="checkbox" type="checkbox" value={this.state.firstInterview} onChange={(e) => {
+          hf.toggleCheckBox(this, 'firstInterview', e)
+        }}/>First Interview
+        </label>
         </div>
-        <div>
-          <input type="checkbox" value={this.state.firstInterview} onChange={(e) => {
-            hf.toggleCheckBox(this, 'firstInterview', e)
-          }}/>
-          First Interview
-        </div>
-        <div>
-          <input type="checkbox" value={this.state.secondInterview} onChange={(e)=> {
+        <div className="checkbox">
+          <label>
+          <input className="checkbox" type="checkbox" value={this.state.secondInterview} onChange={(e)=> {
             hf.toggleCheckBox(this, 'secondInterview', e)
-          }}/>
-          Second Interview
+          }}/>Second Interview
+          </label>
         </div>
-        <div>
-          <input type="checkbox" value={this.state.offer} onChange={(e)=> {
+        <div className="checkbox">
+        <label>
+          <input className="checkbox" type="checkbox" value={this.state.offer} onChange={(e)=> {
             hf.toggleCheckBox(this, 'offer', e)
-          }}/>
-          Offer
+          }}/>Offer
+          </label>
         </div>
-        <div>
-          <input type="checkbox" value={this.state.rejection} onChange={(e)=> {
+        <div className="checkbox">
+        <label>
+          <input className="checkbox" type="checkbox" value={this.state.rejection} onChange={(e)=> {
             hf.toggleCheckBox(this, 'rejected', e)
-          }}/>
-          Rejected
+          }}/>Rejected
+        </label>
         </div>
       <div>
-        <button type="submit" onClick={this.handleClick}> Save </button>
+        <button type="submit" className="btn btn-outline-secondary bg-primary" onClick={this.handleClick}> Save </button>
       </div>
       </form>
+      </div>
     );
   }
 }
