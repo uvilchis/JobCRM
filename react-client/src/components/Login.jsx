@@ -17,7 +17,7 @@ export default class Login extends React.Component {
                 hf.updateFieldValue(this, 'user', e)
             }}/>
             <div>
-                <button type="submit" onClick={() => hf.loginRequest(this, this.state.user)}> Save </button>
+                <button type="submit" onClick={() => hf.loginRequest(this, this.state.user)}> Login </button>
             </div>
         </div>
     )
