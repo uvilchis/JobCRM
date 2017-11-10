@@ -59,7 +59,7 @@ let sequelize = new Sequelize ({
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log('Connection to database has been established successfully.');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
@@ -90,8 +90,8 @@ let RowEntry = sequelize.define('rowentry', {
 
 // RowEntry.hasMany(User, {as : 'user_id', constraints : false})
 
-// here, force: true forces the server 
-// to drop the tables, then insert our 
+// here, force: true forces the server
+// to drop the tables, then insert our
 // entries below (in bulkCreate)
 User.sync({ force: true }).then(() => {
   // Table created
@@ -105,7 +105,7 @@ User.sync({ force: true }).then(() => {
 
 
 RowEntry.sync({ force: true }).then(() => {
-  // create table - you need bulkCreate 
+  // create table - you need bulkCreate
   // to create multiple rows at a time.
   RowEntry.bulkCreate([{
     company: 'example company',
@@ -129,27 +129,27 @@ RowEntry.sync({ force: true }).then(() => {
     secondInterview: true,
     offer: true,
     rejected: false,
-    
+
   }]);
 });
 
 /* =========== ROUTES =============
 
 !!! note that currently, our authentication
-routes do NOT work correctly, we have yet to 
+routes do NOT work correctly, we have yet to
 fully implement express session !!!
 
 DESC.ROUTE     METHOD    SQL ACTION
 =======================================================
 SIGN UP     /signup   post      authentication / signup (currently just creates users, no signup)
 LOGIN       /login    post      authentication / should allow us to set the user for all the records and such
-RECORDS     /records  get       find all 
-UPDATE      /update   post      update / should update checkbox (true/false) fields on a row 
-INSERT      /input   post      insert / should insert a new entries row 
+RECORDS     /records  get       find all
+UPDATE      /update   post      update / should update checkbox (true/false) fields on a row
+INSERT      /input   post      insert / should insert a new entries row
 REC/SEARCH  /records  post      find some
 
 !! also, a delete route would be chill !!!
-!!! no logout route yet!!! 
+!!! no logout route yet!!!
 
 ==================================*/
 
@@ -169,6 +169,11 @@ app.post('/login', (req, res) => {
     res.send(200, user.id)
   })
 })
+
+//There shouldn't be an app.get('/login'... path
+// app.get('/login', (req, res) => {
+//   res.send('app')
+// })
 
 app.get('/records', (req, res) => {
   RowEntry.findAll({
@@ -218,6 +223,24 @@ app.post('/insert', (req, res) => {
   })
 })
 
+///////////////////
+app.post('/deleteRecord', (req, res) => {
+  console.log(req.body)
+  RowEntry.findOne({
+    where: {
+      id: req.body.id
+    }
+  }).then(id => {
+    console.log(id)
+    id.destroy();
+    res.status(201)
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  })
+})
+//////////////////
+
 app.post('/search', (req, res) => {
   console.log(req.body);
   RowEntry.findAll({
@@ -254,4 +277,3 @@ module.exports = {
   User: User,
   RowEntry: RowEntry
 };
-
