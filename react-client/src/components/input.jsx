@@ -9,6 +9,8 @@ export default class Input extends React.Component {
       locationValue: '',
       contactValue: '',
       notesValue: '',
+      coverLetter: false,
+      resume:false,
       firstInterview: false,
       secondInterview: false,
       offer: false,
@@ -47,6 +49,18 @@ export default class Input extends React.Component {
           hf.updateFieldValue(this, 'notesValue', e)
         }} />
       </p>
+        <div>
+          <input type="checkbox" value={this.state.coverLetter} onChange={(e) => {
+            hf.toggleCheckBox(this, 'coverLetter', e)
+          }} />
+          Cover Letter
+        </div>
+        <div>
+          <input type="checkbox" value={this.state.resume} onChange={(e) => {
+            hf.toggleCheckBox(this, 'resume', e)
+          }} />
+          Resume
+        </div>
         <div>
           <input type="checkbox" value={this.state.firstInterview} onChange={(e) => {
             hf.toggleCheckBox(this, 'firstInterview', e)

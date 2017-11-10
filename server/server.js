@@ -122,48 +122,44 @@ app.get('/login', (req, res) => {
   res.send('app')
 })
 
-app.post('/input', (req, res) => {
-  console.log(req.body);
-
-  // RowEntry.create({
-  //   company: 'B',
-  //   location: '',
-  //   contact: 'google CEO',
-  //   notes: 'look up the actual info',
-  //   coverLetter: true,
-  //   resume: true,
-  //   firstInterview: true,
-  //   secondInterview: true,
-  //   offer: true,
-  //   rejected: false
-  // });
-
-  res.send('received some input');
-})
-
 app.get('/records', (req, res) => {
   RowEntry.findAll()
     .then((records) => {
       res.status(200)
+      // console.log(records); --> see all the records you're returning.
       res.send(records)
     })
   // should return all records for an ID
 })
 
-app.post('/records', (req, res) => {
-  User.findById(loggedInUserId)
-    .then(user => {
-      res.status(200)
-      res.send(user)
-    })
+// app.post('/records', (req, res) => {
+//   User.findById(loggedInUserId)
+//     .then(user => {
+//       res.status(200)
+//       res.send(user)
+//     })
 
   // should perform a search using req.body.searchKeyword or something like that
-})
-
+// })
 
 app.post('/update', (req, res) => {
   console.log(req.body);
-  res.send('ok');  // you _must_ close the stream. Send back anything.
+
+  RowEntry.findOne({
+    where: {
+      id: req.body.id
+    }
+  }).then(results => {
+    let stateUpdate = {};
+    stateUpdate[req.body.stateName] = req.body.value;
+    console.log(stateUpdate);
+    results.update(stateUpdate)
+    .then(() => {
+      res.status(200)
+      res.send(results)
+    })
+  })
+  //res.send(req.body);  // you _must_ close the stream. Send back anything.
 })
 
 app.listen(3001, () => {
@@ -192,13 +188,14 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/insert', (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
+  console.log(req.body.coverLetter);
   RowEntry.create({
     company : req.body.companyValue,
     location : req.body.locationValue,
     contact : req.body.contactValue,
     notes : req.body.notesValue,
-    //coverLetter : req.body.coverLetter,
+    coverLetter : req.body.coverLetter,
     resume : req.body.resume,
     firstInterview : req.body.firstInterview,
     secondInterview : req.body.secondInterview,
@@ -207,91 +204,6 @@ app.post('/insert', (req, res) => {
   })
 })
 
-// app.post('/entries', (req, res) => {
-//   RowEntry.create({
-//     company : 'B',
-//     location : '',
-//     contact : 'google CEO',
-//     notes : 'look up the actual info',
-//     coverLetter : true,
-//     resume : true,
-//     firstInterview : true,
-//     secondInterview : true,
-//     offer : true,
-//     rejected : false
-
-// app.get('/record', (req, res) => {
-//   User.findById(loggedInUserId)
-//   .then(user => {
-//     res.status(200)
-//     res.send(user)
-//   })
-// })
-// app.get('/search', (req, res) => {
-//   ({ company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   } = req.body);
-
-//   User.findById(loggedInUserId)
-//   .then( user => {
-//     let result = user.getJob({
-//       where: {
-//       company : company,
-//       location: location,
-//       contact : contact,
-//       notes : notes,
-//       coverLetter : coverLetter,
-//       resume : resume,
-//       firstInterview : firstInterview,
-//       secondInterview : secondInterview,
-//       offer : offer,
-//       rejected : rejected }
-//     })
-//     res.status(200)
-//     res.send(result)
-//   })
-// })
-// app.post('/insert', (req, res) => {
-//   ({ company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   } = req.body);
-//   RowEntry.create({
-//     company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   })
-//   .then(job => {
-//     User.findById(loggedInUserId)
-//     .then( user => {
-//       let result = user.setJob(job)
-//       res.status(201)
-//       res.send(result)
-//     })
-//   })
-// })
 app.post('/search', (req, res) => {
   console.log(req.body);
   RowEntry.findAll({
@@ -310,74 +222,6 @@ app.post('/search', (req, res) => {
     res.send(results)
   })
 })
-// app.post('/insert', (req, res) => {
-//   ({ company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   } = req.body);
-//   RowEntry.create({
-//     company : company,
-//     location : location,
-//     contact : contact,
-//     notes : notes,
-//     coverLetter : coverLetter,
-//     resume : resume,
-//     firstInterview : firstInterview,
-//     secondInterview : secondInterview,
-//     offer : offer,
-//     rejected : rejected
-//   })
-//   .then(job => {
-//     User.findById(loggedInUserId)
-//     .then( user => {
-//       let result = user.setJob(job)
-//       res.status(201)
-//       res.send(result)
-//     })
-//   })
-// })
-
-
-// app.post('/login', (req, res) => {
-//   let username = " " + req.body.user;
-//   User.create({user : username});
-//   res.send(`created a user: ${username}`)
-// })
-
-// app.get('/users', (req, res) => {
-//   User.findAll().then(users => {
-//     res.send(users);
-//   }).catch(err => {console.error(err)})
-// })
-
-// app.get('/entries', (req, res) => {
-//   RowEntry.findAll().then(entries => {
-//     res.send(entries);
-//   })
-// })
-
-// app.post('/entries', (req, res) => {
-//   RowEntry.create({
-//     company : '',
-//     location : '',
-//     contact : 'google CEO',
-//     notes : 'look up the actual info',
-//     coverLetter : true,
-//     resume : true,
-//     firstInterview : true,
-//     secondInterview : true,
-//     offer : true,
-//     rejected : false
-
-//   })
-// })
 
 app.get('/*', function (req, res) {
    res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
