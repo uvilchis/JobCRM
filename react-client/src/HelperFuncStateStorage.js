@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+let axios = require('axios');
 
 class HelperFuncStateStorage {
 
