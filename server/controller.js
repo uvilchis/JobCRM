@@ -1,6 +1,7 @@
 require('./sequelizeExports.js');
 let User = require('./sequelizeExports').User;
 let RowEntry = require('./sequelizeExports').RowEntry;
+let path = require('path');
 
 
 exports.signUp = function (req, res) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import LinkButton from './LinkButton.jsx';
 import hf from '../HelperFuncStateStorage';
 
 export default class Input extends React.Component {
@@ -49,6 +50,13 @@ export default class Input extends React.Component {
         <input type="text" className="form-control" value={this.state.notesValue} onChange={(e)=> {
           hf.updateFieldValue(this, 'notesValue', e)
         }} />
+      </div>
+      <div className="form-group">
+        <label>Job Application</label>
+        <input type="text" className="form-control" value={this.state.notesValue} onChange={(e)=> {
+          hf.updateFieldValue(this, 'jobApplicationURL', e)
+        }} />
+        <LinkButton title="parse" />
       </div>
       <div className="checkbox">
         <label>

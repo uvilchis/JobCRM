@@ -3,13 +3,8 @@ let app = express();
 let path = require('path');
 let bodyParser = require('body-parser');
 
-require('./sequelizeExports.js');
-let User = require('./sequelizeExports').User;
-let RowEntry = require('./sequelizeExports').RowEntry;
-
 require('./controller.js');
 let controller = require('./controller.js');
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +26,4 @@ app.listen(3000, () => {
 
 module.exports = {
   app: app,
-  User: User,
-  RowEntry: RowEntry
 };
