@@ -1,6 +1,10 @@
 import React from 'react';
 import hf from '../HelperFuncStateStorage';
 
+// not yet implemented.
+// think of this as a skeleton - the following functions aren't correctly implemented
+// in our functions file.
+
 export default class Login extends React.Component {
     constructor(props) {
         super();
