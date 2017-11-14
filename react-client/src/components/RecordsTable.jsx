@@ -11,8 +11,6 @@ export default class RecordsTable extends React.Component {
     }
   }
 
-
-
   render() {
     let records = this.props.records
     return (<div className='records-list'>

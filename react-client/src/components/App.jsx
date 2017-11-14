@@ -6,13 +6,14 @@ import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
 import Login from './Login.jsx';
 import Input from './input.jsx';
-import axios from 'axios';
+// import axios from 'axios';
 import {
     BrowserRouter as Router,
     Route,
     Link
   } from 'react-router-dom'
 
+// hf holds the helper functions
 import hf from '../HelperFuncStateStorage';
 
 
@@ -20,11 +21,11 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      records: [{}]
+      records: [{}]     // you need to initialize the records as blank - our axios request is asynchronous
     }
   }
 
-  componentDidMount() {
+  componentDidMount() {       // reset our records data after component is mounted. Other life cycle methods may infinite loop.
     hf.requestRecords().then((x) => {
       console.log(x);
       this.setState({ records: x.data })
@@ -35,7 +36,7 @@ class App extends React.Component {
     axios.post('search', { searchValue: query })
       .then(function (response) {
         // console.log(response.data)
-        this.setState({records: response.data});
+        this.setState({records: response.data});  // no search results component, just set the state with the results of our search
         // return response.data;
       }.bind(this))
       .catch(function (error) {
@@ -44,7 +45,7 @@ class App extends React.Component {
     return null;
   }
 
-  resetRecords() {
+  resetRecords() {    // needed when you click on the records button
     hf.requestRecords().then((x) => {
       console.log(x);
       this.setState({ records: x.data })
@@ -74,7 +75,7 @@ class App extends React.Component {
                     <Link to="/login">
                       <LinkButton title='Login' />
                     </Link>
-                  </li> */}
+                  </li> login button, also yurs to create */}
                 </ul>
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">
@@ -84,7 +85,7 @@ class App extends React.Component {
                 <ul className="nav navbar-nav navbar-right">
                   <li className="logout-button">
                     <a href="#">
-                      <LinkButton title='Logout' />
+                      <LinkButton title='Logout' />   {/* this is on you! */}
                     </a>
                   </li>
                 </ul>

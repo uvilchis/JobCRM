@@ -4,7 +4,7 @@ import hf from '../HelperFuncStateStorage';
 export default class Input extends React.Component {
   constructor(props) {
     super();
-    this.state = {
+    this.state = {        // these represent all of our database row values.
       companyValue: '',
       locationValue: '',
       contactValue: '',
@@ -26,7 +26,7 @@ export default class Input extends React.Component {
         e.preventDefault(); //this just prevents the page from refreshing upon every submit
         hf.onSubmit(this);
       }}>
-      <div className="form-group w-50 p-3">
+      <div className="form-group w-50 p-3">   {/* delightful bootstrap */}
         <label>Company</label>
         <input id="company" type="text" className="form-control" value={this.state.companyValue} onChange={(e) => {
           hf.updateFieldValue(this, 'companyValue', e)

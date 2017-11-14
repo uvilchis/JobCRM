@@ -9,6 +9,8 @@ export default class SearchBar extends React.Component {
     };
   }
 
+  // read through helper functions to understand the following render.
+
   render() {
     console.log(this.state)
     return (

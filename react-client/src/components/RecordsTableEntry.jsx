@@ -20,6 +20,7 @@ export default class RecordsTableEntry extends React.Component {
     }
   }
 
+  // delete function.
   delete() {
     let statusUpdate = {id : this.props.record.id}
     axios.post('deleteRecord', statusUpdate)
@@ -51,6 +52,8 @@ export default class RecordsTableEntry extends React.Component {
   }
 }
 
+// this code may help you make sure that the object you pass to the RecordsTableEntry is an array.
+// not implemented or tested though.
 //RecordsTableEntry.proptypes = {
 //  record: React.PropTypes.object.isRequired
 //};
