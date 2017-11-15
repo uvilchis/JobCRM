@@ -23,7 +23,9 @@ let sequelize = new Sequelize ({
     });
   
   let User = sequelize.define('user', {
-    username : {type : Sequelize.STRING, unique : true}
+    username : {type : Sequelize.STRING, unique : true},
+    googleId : {type : Sequelize.STRING, unique : true},
+    googleAccessToken : {type : Sequelize.STRING, unique : true}
   });
   
   let RowEntry = sequelize.define('rowentry', {

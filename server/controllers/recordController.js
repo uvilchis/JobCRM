@@ -4,23 +4,6 @@ let RowEntry = require('../sequelize.js').RowEntry;
 let path = require('path');
 let axios = require('axios');
 
-exports.signUp = function (req, res) {
-    let username = req.body.user;
-    User.create({user : username})
-    .then((user) => {
-      loggedInUserId = user.id;
-      res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
-    })};
-  
-exports.login = function (req, res) {
-    User.findOne({
-      where : {user : req.body.user}
-    }).then(user => {
-        loggedInUserId = user.id;
-      res.send(200, user.id)
-    })
-  }
-  
 exports.getAllRecords = function(req, res) {
     RowEntry.findAll({
     })
@@ -108,8 +91,10 @@ exports.search = function(req, res) {
       res.send(results)
     })
   }
-  
+
+// this is for handling the front end routes. 
 exports.frontRoute = function (req, res) {
-  console.log(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
+console.log(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
   res.sendFile(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
 };
+
