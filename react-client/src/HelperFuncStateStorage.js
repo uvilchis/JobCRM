@@ -39,16 +39,15 @@ class HelperFuncStateStorage {
     });
   }
 
-  loadApplicationKeywords(url, e) {
-    e.stopPropagation();
-    console.log(url);
-    return axios.post('loadAppKeywords', {url: url[0]})
+  loadApplicationKeywords(url) {
+    console.log('loadApplicationKeywords ', url);
+    return axios.post('loadAppKeywords', {url: url[0], text: url[1]})
     .then((response) => {
       // console.log('response', response);
       let newArray = response.data.map((x, i) => x = {text: x, id: i})
-      console.log('newArray: ', newArray);
-      console.log('this:', this);
-      this.setState({tags: newArray});
+      // console.log('newArray: ', newArray);
+      // console.log('this:', this);
+      this.setState({tags: this.state.tags.concat(newArray)});
       //console.log('this.state.tags (new):', this.state.tags);
     })
     .catch((err) => console.log(err));
