@@ -80,5 +80,3 @@ let sequelize = new Sequelize ({
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = RowEntry;
-
-//   module.exports = { sequelize, User, RowEntry };

@@ -24,7 +24,7 @@ class App extends React.Component {
     super();
     this.state = {
       records: [{}],    // you need to initialize the records as blank - our axios request is asynchronous
-      user : null
+      user : null,
       currentRecordId: 0
     }
 
@@ -117,14 +117,13 @@ class App extends React.Component {
 
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => < RecordsTable records={this.state.records} /> } />
-            <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input />} />
+            <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input parse={hf.loadApplicationKeywords} />} />
             <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login 
               getUser = {this.getUser}
-              />
-            <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => {
-              return <RecordSummary recordId={this.state.records[match.params.recordID - 1]}  />}
+            />} />
+            <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
+              <RecordSummary recordId={this.state.records[match.params.recordID - 1]} />
             } />
-
         </div>
       </Router>
     )

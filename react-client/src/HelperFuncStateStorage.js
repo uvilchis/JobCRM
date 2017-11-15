@@ -39,6 +39,12 @@ class HelperFuncStateStorage {
     });
   }
 
+  loadApplicationKeywords(url) {
+    console.log('in helper function');
+    return axios.post('loadAppKeywords', {url: url})
+    .then((response) => response);
+  }
+
   // not fully working: method to login to the database.
   // currently does very simple setting of user, without authentication.
   // and even that isn't fully working.

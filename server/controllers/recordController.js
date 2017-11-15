@@ -1,10 +1,10 @@
-require('./sequelizeExports.js');
-let User = require('./sequelizeExports').User;
-let RowEntry = require('./sequelizeExports').RowEntry;
+require('../sequelize.js'); // instantiate
+let User = require('../sequelize.js').User;
+let RowEntry = require('../sequelize.js').RowEntry;
 let path = require('path');
 let LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-let LINKEDIN_KEY = require('./keys/linkedInData.js').LINKEDIN_KEY
-let LINKEDIN_SECRET = require('./keys/linkedInData.js').LINKEDIN_SECRET
+// let LINKEDIN_KEY = require('./keys/linkedInData.js').LINKEDIN_KEY
+// let LINKEDIN_SECRET = require('./keys/linkedInData.js').LINKEDIN_SECRET
 
 // both of these work okay for bcrypt, but will not suffice for passport. 
 // exports.signUp = function (req, res) {
@@ -27,8 +27,8 @@ let LINKEDIN_SECRET = require('./keys/linkedInData.js').LINKEDIN_SECRET
 exports.passportLogin = function (req, res) {
 
 passport.use(new LinkedInStrategy({
-  clientID: LINKEDIN_KEY,
-  clientSecret: LINKEDIN_SECRET,
+  // clientID: LINKEDIN_KEY,
+  // clientSecret: LINKEDIN_SECRET,
   callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
   scope: ['r_emailaddress', 'r_basicprofile'],
 }, function(accessToken, refreshToken, profile, done) {
@@ -126,5 +126,5 @@ exports.search = function(req, res) {
   }
   
 exports.frontRoute = function (req, res) {
-    res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
+    res.sendFile(path.join(__dirname, '../../react-client/dist/', 'index.html'));
 };

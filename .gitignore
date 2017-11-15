@@ -7,6 +7,10 @@
 ## NPM ##
 node_modules/
 server/keys
+
+## WEBPACK ##
+package-lock.json
+
 ## Compiled Files ##
 react-client/dist/bundle.js
 react-client/dist/bundle*

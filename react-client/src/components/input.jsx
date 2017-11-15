@@ -10,12 +10,13 @@ export default class Input extends React.Component {
       locationValue: '',
       contactValue: '',
       notesValue: '',
+      jobApplicationURL: '',
       coverLetter: false,
       resume:false,
       firstInterview: false,
       secondInterview: false,
       offer: false,
-      rejected: false,
+      rejected: false
     };
   }
 
@@ -53,10 +54,9 @@ export default class Input extends React.Component {
       </div>
       <div className="form-group">
         <label>Job Application</label>
-        <input type="text" className="form-control" value={this.state.notesValue} onChange={(e)=> {
+        <input type="text" className="form-control" value={this.state.jobApplicationURL} onChange={(e)=> {
           hf.updateFieldValue(this, 'jobApplicationURL', e)
-        }} />
-        <LinkButton title="parse" />
+        }} /> <LinkButton title='Download Keywords' clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
       </div>
       <div className="checkbox">
         <label>

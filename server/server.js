@@ -3,22 +3,25 @@ let app = express();
 let path = require('path');
 let bodyParser = require('body-parser');
 
-require('./controller.js');
-let controller = require('./controller.js');
+require('./controllers/recordController.js');
+let rec = require('./controllers/recordController.js');
+let nlp = require('./controllers/nlpController');
+// let auth = require('')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(express.static(__dirname + '/../public'));
 
-app.post('/signup', controller.signUp);
-app.post('/login', controller.login);
-app.get('/records', controller.getAllRecords);
-app.post('/update', controller.update);
-app.post('/insert', controller.insert);
-app.post('/deleteRecord', controller.deleteRecord)
-app.post('/search', controller.search);
-app.get('/*', controller.frontRoute);
+// app.post('/signup', controller.signUp);
+// app.post('/login', controller.login);
+app.get('/records', rec.getAllRecords);
+app.post('/update', rec.update);
+app.post('/insert', rec.insert);
+app.post('/deleteRecord', rec.deleteRecord)
+app.post('/search', rec.search);
+app.post('/loadAppKeywords', nlp.loadApplicationKeywords);
+app.get('/*', rec.frontRoute);
 
 app.listen(3000, () => {
   console.log('listening on port 3000')
