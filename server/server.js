@@ -4,6 +4,7 @@ let path = require('path');
 let bodyParser = require('body-parser');
 
 require('./controllers/recordController.js');
+let fullContact = require('./controllers/fullContactProxy.js');
 let rec = require('./controllers/recordController.js');
 let nlp = require('./controllers/nlpController.js');
 // let auth = require('')
@@ -21,7 +22,9 @@ app.post('/insert', rec.insert);
 app.post('/deleteRecord', rec.deleteRecord)
 app.post('/search', rec.search);
 app.post('/loadAppKeywords', nlp.loadApplicationKeywords);
+app.post('/fullContact', fullContact.getContact);
 app.get('/*', rec.frontRoute);
+
 
 app.listen(3000, () => {
   console.log('listening on port 3000')
