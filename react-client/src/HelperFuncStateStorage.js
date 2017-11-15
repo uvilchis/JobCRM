@@ -39,13 +39,19 @@ class HelperFuncStateStorage {
     });
   }
 
-  loadApplicationKeywords(url) {
-    console.log('in helper function');
-    return axios.post('loadAppKeywords', {url: url})
+  loadApplicationKeywords(url, e) {
+    e.stopPropagation();
+    console.log(url);
+    return axios.post('loadAppKeywords', {url: url[0]})
     .then((response) => {
-      console.log(response.data);
-      return response.data;
-    }).catch((errrrr) => {console.log(errrrr)})
+      // console.log('response', response);
+      let newArray = response.data.map((x, i) => x = {text: x, id: i})
+      console.log('newArray: ', newArray);
+      console.log('this:', this);
+      this.setState({tags: newArray});
+      //console.log('this.state.tags (new):', this.state.tags);
+    })
+    .catch((err) => console.log(err));
   }
 
   // not fully working: method to login to the database.
@@ -65,7 +71,7 @@ class HelperFuncStateStorage {
 
     // you want to track field values in states.
   updateFieldValue(inst, stateName, e) {
-  	//e.stopPropagation()
+  	e.stopPropagation()
     let stateUpdate = {};
     stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);

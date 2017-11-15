@@ -10,7 +10,7 @@ export default class LinkButton extends React.Component {
   render() {
    return (
     <div>
-      <button type="button" className="btn btn-outline-secondary bg-primary" onClick={this.props.clickFunction}>
+      <button type="button" className="btn btn-outline-secondary bg-primary" onClick={(e) => this.props.clickFunction(e)}>
         {this.props.title}
       </button>
     </div>

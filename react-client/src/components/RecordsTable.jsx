@@ -32,7 +32,7 @@ export default class RecordsTable extends React.Component {
   <tbody>
         { records.map((record) =>
           <RecordsTableEntry
-           key={record.key}
+           key={Math.floor(Math.random() * 1000000)}
            record={record}    
            />
       )}

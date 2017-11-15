@@ -21,14 +21,15 @@ export default class Input extends React.Component {
       offer: false,
       rejected: false,
       tags: [{ id: 1, text: "Sample Keyword" }]
+
     };
   }
   
 
   render() {
-    console.log(this.state)
+    console.log('render tags:', this.state.tags)
     return (
-      <div className="container w-50 p-3">
+      <div className="container .col-md-4">
       <form onSubmit={(e) => {
         e.preventDefault(); //this just prevents the page from refreshing upon every submit
         hf.onSubmit(this);
@@ -61,17 +62,17 @@ export default class Input extends React.Component {
         <label>Job Application</label>
         <input type="text" className="form-control" value={this.state.jobApplicationURL} onChange={(e)=> {
           hf.updateFieldValue(this, 'jobApplicationURL', e)
-        }} /> <LinkButton title='Populate Keywords' clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
+        }} /> 
+          <div>
+            <LinkButton title='Populate Keywords' clickFunction={this.props.parse.bind(this, [this.state.jobApplicationURL])} />
+          </div>
       </div>
       <div className="form-group">
         <label>Keywords</label>
-        <input type="text" className="form-control" value={this.state.jobApplicationURL} onChange={(e)=> {
-          hf.updateFieldValue(this, 'jobApplicationURL', e)
-        }} /> <LinkButton title='Download Keywords' clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
-      </div>
-      <div className="form-group">
-        <label>Keywords</label>
-        <TagList clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
+        <TagList tags={this.state.tags} onChange={(e)=> {
+          
+          hf.updateFieldValue(this, 'tags', e)
+        }} />
       </div>
       <div className="checkbox">
         <label>

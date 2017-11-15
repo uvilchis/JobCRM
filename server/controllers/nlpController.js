@@ -7,6 +7,7 @@ let parseApplicationText = require('./nlpResources/nlp_demo.js').parseApplicatio
 
 exports.loadApplicationKeywords = function(req, res) {
   textract.fromUrl(req.body.url, (error, text) => {
+    console.log(error);
     // console.log(parseApplicationText(text));
     // console.log(typeof parseApplicationText(text));
     res.send(parseApplicationText(text));
