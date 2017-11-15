@@ -75,7 +75,7 @@ export default class Input extends React.Component {
 
       <div className="form-group">
         <label>Job Application Text</label>
-        <input type="text" rows="5" className="form-control" value={this.state.jobApplicationText} onChange={(e)=> {
+        <textarea type="text" rows="5" className="form-control" value={this.state.jobApplicationText} onChange={(e)=> {
           hf.updateFieldValue(this, 'jobApplicationText', e)
         }} /> 
       </div>
