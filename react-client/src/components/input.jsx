@@ -1,6 +1,9 @@
 import React from 'react';
 import LinkButton from './LinkButton.jsx';
+import TagList from './TagList.jsx';
+
 import hf from '../HelperFuncStateStorage';
+import { WithContext as ReactTags } from 'react-tag-input';
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -16,9 +19,11 @@ export default class Input extends React.Component {
       firstInterview: false,
       secondInterview: false,
       offer: false,
-      rejected: false
+      rejected: false,
+      tags: [{ id: 1, text: "Sample Keyword" }]
     };
   }
+  
 
   render() {
     console.log(this.state)
@@ -56,7 +61,17 @@ export default class Input extends React.Component {
         <label>Job Application</label>
         <input type="text" className="form-control" value={this.state.jobApplicationURL} onChange={(e)=> {
           hf.updateFieldValue(this, 'jobApplicationURL', e)
+        }} /> <LinkButton title='Populate Keywords' clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
+      </div>
+      <div className="form-group">
+        <label>Keywords</label>
+        <input type="text" className="form-control" value={this.state.jobApplicationURL} onChange={(e)=> {
+          hf.updateFieldValue(this, 'jobApplicationURL', e)
         }} /> <LinkButton title='Download Keywords' clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
+      </div>
+      <div className="form-group">
+        <label>Keywords</label>
+        <TagList clickFunction={this.props.parse.bind(this, this.state.jobApplicationURL)} />
       </div>
       <div className="checkbox">
         <label>

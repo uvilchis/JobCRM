@@ -4,8 +4,6 @@ let RowEntry = require('../sequelize.js').RowEntry;
 let path = require('path');
 let axios = require('axios');
 
-
-
 exports.signUp = function (req, res) {
     let username = req.body.user;
     User.create({user : username})
@@ -112,5 +110,6 @@ exports.search = function(req, res) {
   }
   
 exports.frontRoute = function (req, res) {
-    res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
+  console.log(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
+  res.sendFile(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
 };
