@@ -9,9 +9,20 @@ export default class Login extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            user: ''
+
         };
     }
+
+  loginRequest(value) {
+    axios.post('login', {
+      user: value
+    }).then(function (response) {
+      //console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
+    return null;
+  }
 
     render() {
     return(
