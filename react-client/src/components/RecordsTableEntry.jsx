@@ -2,6 +2,11 @@ import React from 'react';
 import hf from '../HelperFuncStateStorage';
 import axios from 'axios';
 import LinkButton from './LinkButton.jsx';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
 // import Axios from 'axios';
 
@@ -46,6 +51,7 @@ export default class RecordsTableEntry extends React.Component {
       <td> <input type="checkbox" name="secondInterview" checked={this.state.secondInterview} onChange={(e) => {hf.postFieldValue(this, 'secondInterview', e)}} /></td>
       <td> <input type="checkbox" name="offer" checked={this.state.offer} onChange={(e) => {hf.postFieldValue(this, 'offer', e)}} /></td>
       <td> <input type="checkbox" name="rejected" checked={this.state.rejected} onChange={(e) => {hf.postFieldValue(this, 'rejected', e)}} /></td>
+      <td> <Link to={`/record/${this.props.record.id}`}><LinkButton title="Info" clickFunction={undefined}/> </Link> </td>
       <td> <LinkButton title="Remove" clickFunction={this.delete.bind(this)}/> </td>
     </tr>
   )

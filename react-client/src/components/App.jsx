@@ -4,6 +4,7 @@ import LinkButton from './LinkButton.jsx';
 import SearchBar from './SearchBar.jsx';
 import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
+import RecordSummary from  './RecordSummary.jsx';
 import Login from './Login.jsx';
 import Input from './input.jsx';
 import axios from 'axios';
@@ -22,14 +23,15 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      records: [{}]     // you need to initialize the records as blank - our axios request is asynchronous
+      records: [{}],     // you need to initialize the records as blank - our axios request is asynchronous
+      currentRecordId: 0
     }
   }
 
   componentDidMount() {       // reset our records data after component is mounted. Other life cycle methods may infinite loop.
     hf.requestRecords().then((x) => {
-      console.log(x);
-      this.setState({ records: x.data })
+      // console.log(x);
+      this.setState({ records: x.data });
     });
   }
 
@@ -48,12 +50,19 @@ class App extends React.Component {
 
   resetRecords() {    // needed when you click on the records button
     hf.requestRecords().then((x) => {
-      console.log(x);
+      // console.log(x);
       this.setState({ records: x.data })
     }).bind(this);
   }
 
+  //set recordId state for record summary route onclick of info button 
+  setCurrentRecord(id) {
+    this.setState({currentRecordId: id}).bind(this);
+  }
+
+
   render() {
+    console.log(this.state.records);
     return (
       <Router>
         <div>
@@ -97,6 +106,9 @@ class App extends React.Component {
             <Route exact path="/" render={() => < RecordsTable records={this.state.records} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input />} />
             <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login />} />
+            <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => {
+              return <RecordSummary recordId={this.state.records[match.params.recordID - 1]}  />}
+            } />
 
         </div>
       </Router>
