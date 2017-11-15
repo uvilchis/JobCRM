@@ -6,7 +6,7 @@
 
 ## NPM ##
 node_modules/
-
+server/keys
 ## Compiled Files ##
 react-client/dist/bundle.js
 react-client/dist/bundle*

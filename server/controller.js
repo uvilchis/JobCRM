@@ -2,24 +2,50 @@ require('./sequelizeExports.js');
 let User = require('./sequelizeExports').User;
 let RowEntry = require('./sequelizeExports').RowEntry;
 let path = require('path');
+let LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+let LINKEDIN_KEY = require('./keys/linkedInData.js').LINKEDIN_KEY
+let LINKEDIN_SECRET = require('./keys/linkedInData.js').LINKEDIN_SECRET
 
-
-exports.signUp = function (req, res) {
-    let username = req.body.user;
-    User.create({user : username})
-    .then((user) => {
-      loggedInUserId = user.id;
-      res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
-    })};
+// both of these work okay for bcrypt, but will not suffice for passport. 
+// exports.signUp = function (req, res) {
+//     let username = req.body.user;
+//     User.create({user : username})
+//     .then((user) => {
+//       loggedInUserId = user.id;
+//       res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
+//     })};
   
-exports.login = function (req, res) {
-    User.findOne({
-      where : {user : req.body.user}
-    }).then(user => {
-        loggedInUserId = user.id;
-      res.send(200, user.id)
-    })
-  }
+// exports.login = function (req, res) {
+//     User.findOne({
+//       where : {user : req.body.user}
+//     }).then(user => {
+//         loggedInUserId = user.id;
+//       res.send(200, user.id)
+//     })
+//   }
+
+exports.passportLogin = function (req, res) {
+
+passport.use(new LinkedInStrategy({
+  clientID: LINKEDIN_KEY,
+  clientSecret: LINKEDIN_SECRET,
+  callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
+  scope: ['r_emailaddress', 'r_basicprofile'],
+}, function(accessToken, refreshToken, profile, done) {
+  // asynchronous verification, for effect... 
+  process.nextTick(function () {
+    // To keep the example simple, the user's LinkedIn profile is returned to 
+    // represent the logged-in user. In a typical application, you would want 
+    // to associate the LinkedIn account with a user record in your database, 
+    // and return that user instead. 
+    return done(null, profile);
+  });
+}));
+
+
+
+}
+
   
 exports.getAllRecords = function(req, res) {
     RowEntry.findAll({
