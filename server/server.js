@@ -7,13 +7,15 @@ let session = require('express-session')
 
 require('./controllers/recordController.js');
 let rec = require('./controllers/recordController.js');
+
 let nlp = require('./controllers/nlpController');
 let auth = require('./controllers/authController')
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/../react-client/dist'));
-app.use(express.static(__dirname + '/../public'));
+// console.log(serverPath);
+app.use(express.static(path.resolve(__dirname + '/../react-client/dist/')));
 
 // for passports and sessions: 
 app.use(passport.initialize());

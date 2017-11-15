@@ -1,9 +1,9 @@
-require('../sequelize.js'); // instantiate
+require('../sequelize.js');
 let User = require('../sequelize.js').User;
 let RowEntry = require('../sequelize.js').RowEntry;
 let path = require('path');
+let axios = require('axios');
 
-  
 exports.getAllRecords = function(req, res) {
     RowEntry.findAll({
     })
@@ -21,7 +21,7 @@ exports.update = function(req, res) {
     }).then(results => {
       let stateUpdate = {};
       stateUpdate[req.body.stateName] = req.body.value;
-      console.log(stateUpdate);
+      // console.log(stateUpdate);
       results.update(stateUpdate)
       .then(() => {
         res.status(200)
@@ -30,6 +30,16 @@ exports.update = function(req, res) {
     })
   }
   
+// exports.loadApplicationKeywords = function(req, res) {
+//   // // console.log(req.body[0]);
+//   // console.log('in controller function');
+//   // console.log(req.body.url);
+//   // axios.get(req.body.url, {mode: 'no-cors'})
+//   // .then((response) => console.log(response));
+
+//   textract.fromUrl(req.body.url, (error, text) => console.log(text));
+// }
+
   
 exports.insert = function (req, res) {
     RowEntry.create({
@@ -47,13 +57,13 @@ exports.insert = function (req, res) {
   }
   
  exports.deleteRecord = function(req, res) {
-    console.log(req.body)
+    // console.log(req.body)
     RowEntry.findOne({
       where: {
         id: req.body.id
       }
     }).then(id => {
-      console.log(id)
+      // console.log(id)
       id.destroy();
       res.status(201)
     })
@@ -63,7 +73,7 @@ exports.insert = function (req, res) {
   }
 
 exports.search = function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     RowEntry.findAll({
       where: {
         $or: [
@@ -77,14 +87,14 @@ exports.search = function(req, res) {
     })
     .then(results => {
       res.status(200)
-      console.log(results);
+      // console.log(results);
       res.send(results)
     })
   }
 
 // this is for handling the front end routes. 
 exports.frontRoute = function (req, res) {
-    res.sendFile(path.join(__dirname, '../../react-client/dist/', 'index.html'));
+console.log(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
+  res.sendFile(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
 };
-
 

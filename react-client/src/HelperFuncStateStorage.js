@@ -40,14 +40,22 @@ class HelperFuncStateStorage {
   }
 
   loadApplicationKeywords(url) {
-    console.log('in helper function');
-    return axios.post('loadAppKeywords', {url: url})
-    .then((response) => response);
+    console.log('loadApplicationKeywords ', url);
+    return axios.post('loadAppKeywords', {url: url[0], text: url[1]})
+    .then((response) => {
+      // console.log('response', response);
+      let newArray = response.data.map((x, i) => x = {text: x, id: i})
+      // console.log('newArray: ', newArray);
+      // console.log('this:', this);
+      this.setState({tags: this.state.tags.concat(newArray)});
+      //console.log('this.state.tags (new):', this.state.tags);
+    })
+    .catch((err) => console.log(err));
   }
 
     // you want to track field values in states.
   updateFieldValue(inst, stateName, e) {
-  	//e.stopPropagation()
+  	e.stopPropagation()
     let stateUpdate = {};
     stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);
