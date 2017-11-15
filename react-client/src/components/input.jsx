@@ -63,9 +63,9 @@ export default class Input extends React.Component {
         <input type="text" className="form-control" value={this.state.jobApplicationURL} onChange={(e)=> {
           hf.updateFieldValue(this, 'jobApplicationURL', e)
         }} /> 
-          <div>
-            <LinkButton title='Populate Keywords' clickFunction={this.props.parse.bind(this, [this.state.jobApplicationURL])} />
-          </div>
+        <div className="btn">
+          <LinkButton title='Populate Keywords' clickFunction={this.props.parse.bind(this, [this.state.jobApplicationURL])} />
+        </div>
       </div>
       <div className="form-group">
         <label>Keywords</label>
