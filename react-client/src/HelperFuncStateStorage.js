@@ -42,7 +42,10 @@ class HelperFuncStateStorage {
   loadApplicationKeywords(url) {
     console.log('in helper function');
     return axios.post('loadAppKeywords', {url: url})
-    .then((response) => response);
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    }).catch((errrrr) => {console.log(errrrr)})
   }
 
   // not fully working: method to login to the database.

@@ -5,7 +5,7 @@ let bodyParser = require('body-parser');
 
 require('./controllers/recordController.js');
 let rec = require('./controllers/recordController.js');
-let nlp = require('./controllers/nlpController');
+let nlp = require('./controllers/nlpController.js');
 // let auth = require('')
 
 app.use(bodyParser.json());
