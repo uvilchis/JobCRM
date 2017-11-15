@@ -45,21 +45,6 @@ class HelperFuncStateStorage {
     .then((response) => response);
   }
 
-  // not fully working: method to login to the database.
-  // currently does very simple setting of user, without authentication.
-  // and even that isn't fully working.
-  loginRequest(inst, value) {
-    console.log(value);
-    axios.post('login', {
-      user: value
-    }).then(function (response) {
-      //console.log(response);
-    }).catch(function(error) {
-      console.log(error);
-    });
-    return null;
-  }
-
     // you want to track field values in states.
   updateFieldValue(inst, stateName, e) {
   	//e.stopPropagation()
