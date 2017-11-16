@@ -58,12 +58,11 @@ exports.callback = function(req, res) {
 	console.log('req.user', req)
 	// at the end of what
 	res.redirect('/')
-	// make new user, populate with response. 
-=======
+  // make new user, populate with response. 
+}
+
 exports.callback = function(req, res) {
-
     res.redirect('/')
-
 }
 
 
