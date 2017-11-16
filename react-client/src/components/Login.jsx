@@ -18,13 +18,13 @@ export default class Login extends React.Component {
 
   loginRequest(value) {
     console.log('the login request gets called')
-    axios.get('redirect', {
-      // some information? 
-    }).then(function (response) {
-      //console.log(response);
-    }).catch(function(error) {
-      // console.log(error);
-    });
+    // axios.get('redirect', {
+    //   // some information? 
+    // }).then(function (response) {
+    //   //console.log(response);
+    // }).catch(function(error) {
+    //   // console.log(error);
+    // });
   }
   signupRequest(value) {
     axios.post('signup', {

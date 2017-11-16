@@ -17,20 +17,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(serverPath);
 app.use(express.static(path.resolve(__dirname + '/../react-client/dist/')));
 
-// for passports and sessions: 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false
 }));
 
+// for passports and sessions: 
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.get('/auth', auth.authenticate);
-app.get('/auth/callback', auth.callback)
+app.get('/auth/callback', auth.return, auth.callback)
 
 app.get('/records', rec.getAllRecords);
 app.post('/update', rec.update);

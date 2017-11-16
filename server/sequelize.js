@@ -24,8 +24,8 @@ let sequelize = new Sequelize ({
   
   let User = sequelize.define('user', {
     username : {type : Sequelize.STRING, unique : true},
-    googleId : {type : Sequelize.STRING, unique : true},
-    googleAccessToken : {type : Sequelize.STRING, unique : true}
+    googleId : {type : Sequelize.STRING},
+    googleAccessToken : {type : Sequelize.STRING}
   });
   
   let RowEntry = sequelize.define('rowentry', {
@@ -42,42 +42,42 @@ let sequelize = new Sequelize ({
     // userId: { type: Sequelize.NUMBER, defaultValue: 0, foreignKey: true}
   });
   
-  User.sync({ force: true }).then(() => {
-    User.bulkCreate([{
-      user: 'example user'
-    },
-    {
-      user: 'Christine Ma'
-    }]);
-  });
+  // User.sync({ force: true }).then(() => {
+  //   User.bulkCreate([{
+  //     user: 'example user'
+  //   },
+  //   {
+  //     user: 'Christine Ma'
+  //   }]);
+  // });
   
   
-  RowEntry.sync({ force: true }).then(() => {
-    RowEntry.bulkCreate([{
-      company: 'example company',
-      location: 'New York, NY',
-      contact: 'tommy.york@gmail.com',
-      notes: 'example info',
-      coverLetter: true,
-      resume: true,
-      firstInterview: true,
-      secondInterview: false,
-      offer: false,
-      rejected: false,
-    },{
-      company: 'another example',
-      location: 'Brooklyn, NY',
-      contact: 'hipsterland@gmail.com',
-      notes: 'more example info',
-      coverLetter: false,
-      resume: false,
-      firstInterview: true,
-      secondInterview: true,
-      offer: true,
-      rejected: false,
+  // RowEntry.sync({ force: true }).then(() => {
+  //   RowEntry.bulkCreate([{
+  //     company: 'example company',
+  //     location: 'New York, NY',
+  //     contact: 'tommy.york@gmail.com',
+  //     notes: 'example info',
+  //     coverLetter: true,
+  //     resume: true,
+  //     firstInterview: true,
+  //     secondInterview: false,
+  //     offer: false,
+  //     rejected: false,
+  //   },{
+  //     company: 'another example',
+  //     location: 'Brooklyn, NY',
+  //     contact: 'hipsterland@gmail.com',
+  //     notes: 'more example info',
+  //     coverLetter: false,
+  //     resume: false,
+  //     firstInterview: true,
+  //     secondInterview: true,
+  //     offer: true,
+  //     rejected: false,
   
-    }]);
-  });
+  //   }]);
+  // });
 
 exports.sequelize = sequelize;
 exports.User = User;

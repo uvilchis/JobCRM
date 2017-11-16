@@ -52,7 +52,7 @@ class App extends React.Component {
     return null;
   }
 
-  resetRecords() {    // needed when you click on the records button
+  resetRecords(e) {    // needed when you click on the records button
     axios.get('records')
       .then((records) => {
         this.setState({records : records.data})
@@ -89,13 +89,13 @@ class App extends React.Component {
 
                   <li className="link-button">
                     <Link to="/input">
-                      <LinkButton title='Insert' />
+                      <LinkButton title='Insert' clickFunction={() => {}} />
                     </Link>
                   </li>
 
                   <li className="link-button">
                     <Link to="/login">
-                      <LinkButton title='Login' />
+                      <LinkButton title='Login' clickFunction={() => {}} />
                     </Link>
                   </li>
 
