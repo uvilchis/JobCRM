@@ -22,7 +22,7 @@ sequelize
        console.error('Unable to connect to the database:', err);
        });
 
-//sequelize.sync({force: true})
+
 
 let User = sequelize.define('user', {
   username : {type : Sequelize.STRING},
@@ -59,6 +59,7 @@ let Record = sequelize.define('record', {
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
   coverLetter: { type: Sequelize.BOOLEAN, defaultValue: false },
   resume: { type: Sequelize.BOOLEAN, defaultValue: false },
+  tags: { type: Sequelize.STRING, default: 'default'},
   firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
   secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
   offer: { type: Sequelize.BOOLEAN, defaultValue: false },
@@ -75,6 +76,7 @@ Record.sync().then(() => {
     contact: 'tommy.york@gmail.com',
     notes: 'example info',
     coverLetter: true,
+    tags: 'Javascript React',
     resume: true,
     firstInterview: true,
     secondInterview: false,
@@ -88,6 +90,7 @@ Record.sync().then(() => {
     contact: 'hipsterland@gmail.com',
     notes: 'more example info',
     coverLetter: false,
+    tags: 'C Networks',
     resume: false,
     firstInterview: true,
     secondInterview: true,
@@ -140,9 +143,9 @@ recordsContactMap.sync({force: true}).then(() => {
   }])
 })
 
-
-
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
-
+exports.Company = Company;
+exports.Artifacts = Artifacts;
+exports.recordsContactMap = recordsContactMap;

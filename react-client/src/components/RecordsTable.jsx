@@ -21,6 +21,7 @@ export default class RecordsTable extends React.Component {
       <th>Location</th>
       <th>Contact</th>
       <th>Notes</th>
+      <th>Tags</th>
       <th>Cover Letter</th>
       <th>Resume</th>
       <th>First Interview</th>

@@ -17,6 +17,7 @@ export default class RecordsTableEntry extends React.Component {
     this.state = {
       id: this.props.record.id,
       coverLetter: this.props.record.coverLetter,
+      tags: this.props.record.tags,
 			resume: this.props.record.resume,
 			firstInterview: this.props.record.firstInterview,
 			secondInterview: this.props.record.secondInterview,
@@ -39,12 +40,15 @@ export default class RecordsTableEntry extends React.Component {
   }
 
   render() {
+    let nameObj =Object.assign({}, this.props.record.company);
+    console.log(nameObj.name);
     return (
       <tr>
-      <td>{this.props.record.company}</td>
+      <td>{nameObj.name}</td>
       <td>{this.props.record.location}</td>
       <td>{this.props.record.contact}</td>
       <td>{this.props.record.notes}</td>
+      <td>{this.props.record.tags}</td>
       <td> <input type="checkbox" name="coverLetter" checked={this.state.coverLetter} onChange={(e) => {hf.postFieldValue(this, 'coverLetter', e)}} /></td>
       <td> <input type="checkbox" name="resume" checked={this.state.resume} onChange={(e) => {hf.postFieldValue(this, 'resume', e)}} /></td>
       <td> <input type="checkbox" name="firstInterview" checked={this.state.firstInterview} onChange={(e) => {hf.postFieldValue(this, 'firstInterview', e)}} /></td>
