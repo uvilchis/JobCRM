@@ -27,6 +27,7 @@ let User = sequelize.define('user', {
   token: { type: Sequelize.STRING, defuatValue: ''},
 });
 
+// User.drop()
 User.sync().then(() => {
   User.bulkCreate([{
     username: 'example user',
@@ -42,6 +43,7 @@ let Company = sequelize.define('company', {
   name: {type: Sequelize.STRING}
 });
 
+// Company.drop()
 Company.sync().then(() => {
   Company.bulkCreate([{
     name: 'SerumCorp'
@@ -66,6 +68,7 @@ let Record = sequelize.define('record', {
 
 Record.belongsTo(User);
 Record.belongsTo(Company);
+
 
 Record.sync().then(() => {
   Record.bulkCreate([{
@@ -107,6 +110,7 @@ let Artifacts = sequelize.define('artifact', {
 
 Artifacts.belongsTo(Record);
 
+Artifacts.drop();
 Artifacts.sync().then(() => {
   Artifacts.bulkCreate([{
     type: 'Empty',
@@ -114,8 +118,6 @@ Artifacts.sync().then(() => {
     artifactTitle: 'Empty artifact.',
   }])
 })
-
-
 
 let Contact = sequelize.define('contact', {
   name: {type: Sequelize.STRING},
@@ -135,7 +137,8 @@ let recordsContactMap = sequelize.define('recordscontact');
 recordsContactMap.belongsTo(Contact);
 recordsContactMap.belongsTo(Record);
 
-recordsContactMap.sync({force: true}).then(() => {
+recordsContactMap.drop()
+recordsContactMap.sync().then(() => {
   recordsContactMap.bulkCreate([{
     contactId: 1,
     recordId: 1
