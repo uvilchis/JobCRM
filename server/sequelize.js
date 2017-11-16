@@ -119,8 +119,6 @@ Artifacts.sync(forceObj).then(() => {
   }])
 })
 
-
-
 let Contact = sequelize.define('contact', {
   name: {type: Sequelize.STRING},
   emailAddress: {type: Sequelize.STRING},

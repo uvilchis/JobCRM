@@ -6,6 +6,8 @@ import ContactInput from './FullContact/ContactInput.jsx';
 import hf from '../HelperFuncStateStorage';
 import { WithContext as ReactTags } from 'react-tag-input';
 import axios from 'axios'
+import ResumeFrame from './ResumeManager/ResumeFrame.js'
+
 
 
 import {

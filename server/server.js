@@ -32,6 +32,9 @@ app.use(passport.session());
 app.get('/auth', auth.authenticate);
 app.get('/auth/callback', auth.return, auth.callback)
 
+app.get('/user', auth.getUser)
+
+
 app.get('/records', rec.getAllRecords);
 app.post('/update', rec.update);
 app.post('/insert', rec.insert);
