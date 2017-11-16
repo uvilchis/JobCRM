@@ -33,6 +33,7 @@ export default class RecordsTable extends React.Component {
   <tbody>
         { records.map((record) =>
           <RecordsTableEntry
+           searchFunction={this.props.searchFunction}
            key={Math.floor(Math.random() * 1000000)}
            record={record}    
            />

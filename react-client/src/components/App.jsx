@@ -116,7 +116,7 @@ class App extends React.Component {
             </nav>
 
             {/* use react router to only show one of our components at a time */}
-            <Route exact path="/" render={() => < RecordsTable records={this.state.records} /> } />
+            <Route exact path="/" render={() => < RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input parse={hf.loadApplicationKeywords} />} />
             <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login 
               getUser = {this.getUser}

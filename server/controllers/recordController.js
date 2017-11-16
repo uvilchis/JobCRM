@@ -77,6 +77,7 @@ exports.insert = function (req, res) {
     })  
   }
   
+  
  exports.deleteRecord = function(req, res) {
     // console.log(req.body)
     RowEntry.findOne({
