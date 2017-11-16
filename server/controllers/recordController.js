@@ -31,6 +31,8 @@ exports.update = function(req, res) {
     })
   }
 
+
+  
 exports.insert = function (req, res) {
     console.log('=======================')
     console.log(req.body.companyValue);
@@ -52,12 +54,6 @@ exports.insert = function (req, res) {
         })
       }})
         .then((x) => {
-          console.log(x);
-          // newCompanyId = x.dataValues.id;
-          console.log(newCompanyId);
-          console.log('=======================');
-          console.log('new company: ', newCompanyId);
-          console.log('=======================');
           RowEntry.create({
             companyId : newCompanyId,
             location : req.body.locationValue,

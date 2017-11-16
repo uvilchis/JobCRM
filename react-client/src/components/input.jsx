@@ -181,7 +181,9 @@ export default class Input extends React.Component {
         </label>
         </div>
       <div>
+      <Link to={`/`}>
         <button type="submit" className="btn btn-outline-secondary bg-primary" onClick={this.handleClick}> Save </button>
+      </Link>
       </div>
       </form>
       </div>

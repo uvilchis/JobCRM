@@ -13,6 +13,8 @@ let sequelize = new Sequelize ({
                                dialect : 'postgres'
                                })
 
+let forceObj = {force: true};                               
+
 sequelize
 .authenticate()
 .then(() => {
@@ -25,22 +27,26 @@ sequelize
 
 
 let User = sequelize.define('user', {
-  googleId : { type : Sequelize.STRING, defaultValue: '' }, 
-  accessToken : { type : Sequelize.STRING, defualtValue: ''}, 
-  expires_in : { type : Sequelize.INTEGER, defualtValue: ''}, 
-  refreshToken : { type : Sequelize.STRING, defualtValue: ''},
-  profileJSON : { type : Sequelize.JSON}
+  username : {type : Sequelize.STRING},
+  token: { type: Sequelize.STRING, defuatValue: ''},
 });
 
-// User.drop()
-
+User.sync(forceObj).then(() => {
+  User.bulkCreate([{
+    username: 'example user',
+    token: '123456'
+  },
+  {
+    username: 'Christine Ma',
+    token: '123456'
+  }]);
+});
 
 let Company = sequelize.define('company', {
   name: {type: Sequelize.STRING}
 });
 
-// Company.drop()
-Company.sync().then(() => {
+Company.sync(forceObj).then(() => {
   Company.bulkCreate([{
     name: 'SerumCorp'
   },{
@@ -65,7 +71,7 @@ let Record = sequelize.define('record', {
 Record.belongsTo(User);
 Record.belongsTo(Company);
 
-Record.sync().then(() => {
+Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
     // company: 'example company',
     location: 'New York, NY',
@@ -105,13 +111,15 @@ let Artifacts = sequelize.define('artifact', {
 
 Artifacts.belongsTo(Record);
 
-Artifacts.sync().then(() => {
+Artifacts.sync(forceObj).then(() => {
   Artifacts.bulkCreate([{
     type: 'Empty',
     artifact: '',
     artifactTitle: 'Empty artifact.',
   }])
 })
+
+
 
 let Contact = sequelize.define('contact', {
   name: {type: Sequelize.STRING},
@@ -123,28 +131,24 @@ Contact.sync().then(() => {
     name: 'Tommy York (Corporate)',
     emailAddress: 'tommy.york@gmail.com'
   }])
-  .catch((err) => console.log(err));
-});
+})
+.catch((err) => console.log(err));
 
+let recordsContactMap = sequelize.define('recordscontact');
 
-// let recordsContactMap = sequelize.define('recordscontact');
+recordsContactMap.belongsTo(Contact);
+recordsContactMap.belongsTo(Record);
 
-// recordsContactMap.belongsTo(Contact);
-// recordsContactMap.belongsTo(Record);
-
-// recordsContactMap.drop()
-// recordsContactMap.sync().then(() => {
-//   recordsContactMap.bulkCreate([{
-//     contactId: 1,
-//     recordId: 1
-//   }])
-
-
-
+recordsContactMap.sync(forceObj).then(() => {
+  recordsContactMap.bulkCreate([{
+    contactId: 1,
+    recordId: 1
+  }])
+})
 
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
-// exports.recordsContactMap = recordsContactMap;
+exports.recordsContactMap = recordsContactMap;
