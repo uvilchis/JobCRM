@@ -51,9 +51,14 @@ exports.insert = function (req, res) {
         console.log('results are null')
         Company.create({
           name: req.body.companyValue
-        }).then((x) => newCompanyId = x.id)
-      }})
-        .then((x) => {
+        }).then((x) => {
+            // console.log(x);
+            // console.log('x ', x.dataValues.id);
+            newCompanyId = x.dataValues.id;
+          })
+        }
+      })
+        .then(() => {
           RowEntry.create({
             companyId : newCompanyId,
             location : req.body.locationValue,
@@ -66,7 +71,8 @@ exports.insert = function (req, res) {
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
             rejected : req.body.rejected
-          }).then(() => res.end())
+          })
+            .then(() => res.end())
         })
       } 
   
