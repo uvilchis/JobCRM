@@ -27,9 +27,9 @@ export default class Input extends React.Component {
   
 
   render() {
-    console.log('render tags:', this.state.tags)
+    console.log(this.state)
     return (
-      <div className="container .col-md-4">
+      <div className="container w-50 p-3">
       <form onSubmit={(e) => {
         e.preventDefault(); //this just prevents the page from refreshing upon every submit
         hf.onSubmit(this);

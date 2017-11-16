@@ -6,6 +6,7 @@ let passport = require('passport')
 let session = require('express-session')
 
 require('./controllers/recordController.js');
+let fullContact = require('./controllers/fullContactProxy.js');
 let rec = require('./controllers/recordController.js');
 
 let nlp = require('./controllers/nlpController');
@@ -38,7 +39,9 @@ app.post('/insert', rec.insert);
 app.post('/deleteRecord', rec.deleteRecord)
 app.post('/search', rec.search);
 app.post('/loadAppKeywords', nlp.loadApplicationKeywords);
+app.post('/fullContact', fullContact.getContact);
 app.get('/*', rec.frontRoute);
+
 
 app.listen(3000, () => {
   console.log('listening on port 3000')
