@@ -22,95 +22,127 @@ sequelize
        console.error('Unable to connect to the database:', err);
        });
 
+//sequelize.sync({force: true})
+
 let User = sequelize.define('user', {
-                            username: {type: Sequelize.STRING, defaultValue: ''}
-                            });
-User.sync({force: true});
+  username : {type : Sequelize.STRING},
+  token: { type: Sequelize.STRING, defuatValue: ''},
+});
 
-let Record = sequelize.define('record');
+User.sync().then(() => {
+  User.bulkCreate([{
+    username: 'example user',
+    token: '123456'
+  },
+  {
+    username: 'Christine Ma',
+    token: '123456'
+  }]);
+});
+
+let Company = sequelize.define('company', {
+  name: {type: Sequelize.STRING}
+});
+
+Company.sync().then(() => {
+  Company.bulkCreate([{
+    name: 'SerumCorp'
+  },{
+    name: 'Mighty Pastry'
+  }])
+})
+
+let Record = sequelize.define('record', {
+  //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
+  location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
+  contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
+  notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
+  coverLetter: { type: Sequelize.BOOLEAN, defaultValue: false },
+  resume: { type: Sequelize.BOOLEAN, defaultValue: false },
+  firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
+  secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
+  offer: { type: Sequelize.BOOLEAN, defaultValue: false },
+  rejected: { type: Sequelize.BOOLEAN, defaultValue: false },
+});
+
 Record.belongsTo(User);
-Record.sync({force: false})
+Record.belongsTo(Company);
+
+Record.sync().then(() => {
+  Record.bulkCreate([{
+    // company: 'example company',
+    location: 'New York, NY',
+    contact: 'tommy.york@gmail.com',
+    notes: 'example info',
+    coverLetter: true,
+    resume: true,
+    firstInterview: true,
+    secondInterview: false,
+    offer: false,
+    rejected: false,
+    userId: 1,
+    companyId: 1
+  },{
+    // company: 'another example',
+    location: 'Brooklyn, NY',
+    contact: 'hipsterland@gmail.com',
+    notes: 'more example info',
+    coverLetter: false,
+    resume: false,
+    firstInterview: true,
+    secondInterview: true,
+    offer: true,
+    rejected: false,
+    userId: 2,
+    companyId: 2
+  }]);
+});
+
+let Artifacts = sequelize.define('artifact', {
+  type: {type: Sequelize.STRING},
+  artifact: {type: Sequelize.BLOB},
+  artifactTitle: {type: Sequelize.STRING}
+})
+
+Artifacts.belongsTo(Record);
+
+Artifacts.sync().then(() => {
+  Artifacts.bulkCreate([{
+    type: 'Empty',
+    artifact: '',
+    artifactTitle: 'Empty artifact.',
+  }])
+})
+
+
+let Contact = sequelize.define('contact', {
+  name: {type: Sequelize.STRING},
+  emailAddress: {type: Sequelize.STRING},
+});
+
+Contact.sync().then(() => {
+  Contact.bulkCreate([{
+    name: 'Tommy York (Corporate)',
+    emailAddress: 'tommy.york@gmail.com'
+  }])
+})
+.catch((err) => console.log(err));
+
+let recordsContactMap = sequelize.define('recordscontact');
+
+recordsContactMap.belongsTo(Contact);
+recordsContactMap.belongsTo(Record);
+
+recordsContactMap.sync({force: true}).then(() => {
+  recordsContactMap.bulkCreate([{
+    contactId: 1,
+    recordId: 1
+  }])
+})
 
 
 
+exports.sequelize = sequelize;
+exports.User = User;
+exports.RowEntry = Record;
 
-
-// let User = sequelize.define('user', {
-//   username : {type : Sequelize.STRING, unique : true},
-//   token: { type: Sequelize.STRING, defuatValue: ''},
-//   username: { type: Sequelize.STRING, defaultValue: ''}
-// });
-
-// User.sync({ force: true }).then(() => {
-//   User.bulkCreate([{
-//     username: 'example user',
-//     token: '123456'
-//   },
-//   {
-//     username: 'Christine Ma',
-//     token: '123456'
-//   }]);
-// });
-
-
-
-
-// let RowEntry = sequelize.define('rowentry', {
-//   company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
-//   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
-//   contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
-//   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
-//   coverLetter: { type: Sequelize.BOOLEAN, defaultValue: false },
-//   resume: { type: Sequelize.BOOLEAN, defaultValue: false },
-//   firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
-//   secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
-//   offer: { type: Sequelize.BOOLEAN, defaultValue: false },
-//   rejected: { type: Sequelize.BOOLEAN, defaultValue: false },
-//   // id_Users: { type: Sequelize.INTEGER, defaultValue: 0, foreignKey: true}
-// });
-
-// RowEntry.belongsTo(User);
-
-// RowEntry.sync({ force: true }).then(() => {
-//   RowEntry.bulkCreate([{
-//     company: 'example company',
-//     location: 'New York, NY',
-//     contact: 'tommy.york@gmail.com',
-//     notes: 'example info',
-//     coverLetter: true,
-//     resume: true,
-//     firstInterview: true,
-//     secondInterview: false,
-//     offer: false,
-//     rejected: false,
-//     id_Users: 0
-//   },{
-//     company: 'another example',
-//     location: 'Brooklyn, NY',
-//     contact: 'hipsterland@gmail.com',
-//     notes: 'more example info',
-//     coverLetter: false,
-//     resume: false,
-//     firstInterview: true,
-//     secondInterview: true,
-//     offer: true,
-//     rejected: false,
-//     id_Users: 1
-
-//   }]);
-// });
-
-
-// User.hasMany(RowEntry);
-
-
-
-
-
-
-
-
-
-// exports.sequelize = sequelize;
-// exports.User = User;
-// exports.RowEntry = RowEntry;
