@@ -17,6 +17,7 @@ import {
 export default class Input extends React.Component {
   constructor(props) {
     super();
+    this.props = props;
     this.state = {        // these represent all of our database row values.
       companyValue: '',
       locationValue: '',
@@ -34,7 +35,10 @@ export default class Input extends React.Component {
       jobApplicationURL: '',
       jobApplicationText: ''
     };
+    this.refresh = this.props.refresh.bind(this)
   }
+
+  
 
   //fetch social media profiles from fullcontact api via server route as proxy.
   getSocialProfiles(){
@@ -121,11 +125,11 @@ export default class Input extends React.Component {
       </div>
 
       <div className="btn">
-        <LinkButton title='Populate Keywords' clickFunction={this.props.parse.bind(this, [this.state.jobApplicationURL, this.state.jobApplicationText])} />
+        <LinkButton title='Populate Tags' clickFunction={this.props.parse.bind(this, [this.state.jobApplicationURL, this.state.jobApplicationText])} />
       </div>
       
       <div className="form-group">
-        <label><h4>Keywords</h4></label>
+        <label><h4>Tags</h4></label>
         <TagList tags={this.state.tags} onChange={(e)=> {
           hf.updateFieldValue(this, 'tags', e)
         }} />
@@ -183,9 +187,9 @@ export default class Input extends React.Component {
         </label>
         </div>
       <div>
-          <button type="submit" className="btn btn-default btn-outline-secondary" onClick={this.handleClick}> Save </button>
+          <button type="submit" className="btn btn-default btn-outline-secondary" onChange={this.handleClick}> Save </button>
             <Link to={`/`} className="btn">
-              <button type="submit" className="btn btn-primary btn-outline-primary" onClick={this.handleClick}> Return to Records Page </button>
+              <button onClick={this.refresh} type="submit" className="btn btn-primary btn-outline-primary"> Return to Records Page </button>
             </Link>
       </div>
       </form>

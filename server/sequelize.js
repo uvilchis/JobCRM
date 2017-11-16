@@ -13,7 +13,7 @@ let sequelize = new Sequelize ({
                                dialect : 'postgres'
                                })
 
-let forceObj = {force: true};                               
+let forceObj = {force: false};                               
 
 sequelize
 .authenticate()

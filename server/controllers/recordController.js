@@ -32,7 +32,7 @@ exports.update = function(req, res) {
   }
 
 
-  
+
 exports.insert = function (req, res) {
     console.log('=======================')
     console.log(req.body.companyValue);
@@ -51,7 +51,7 @@ exports.insert = function (req, res) {
         console.log('results are null')
         Company.create({
           name: req.body.companyValue
-        })
+        }).then((x) => newCompanyId = x.id)
       }})
         .then((x) => {
           RowEntry.create({
