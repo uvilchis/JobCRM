@@ -10,57 +10,60 @@ var REDIRECT_URL = require('../keys/googleOAuth.js').REDIRECT_URL;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport')
 
-
 // Passport session setup.
 //
 //   For persistent logins with sessions, Passport needs to serialize users into
 //   and deserialize users out of the session. Typically, this is as simple as
 //   storing the user ID when serializing, and finding the user by ID when
 //   deserializing.
-// passport.serializeUser(function(user, done) {
-//   // done(null, user.id); // need to add this.
-//   done(null, user);
-// });
 
-// passport.deserializeUser(function(obj, done) {
-//   // Users.findById(obj, done); // need to add this.
-//   done(null, obj);
-// });
+passport.serializeUser(function(user, done) {
+	console.log('user', user)
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  // Users.findById(obj, done); // need to add this.
+  done(null, obj);
+});
 
 
 passport.use(new GoogleStrategy({
-                                clientID: GOOGLE_CLIENT_ID,
-                                clientSecret: GOOGLE_CLIENT_SECRET,
-                                callbackURL: REDIRECT_URL
-                                },
-                                
-                                function(accessToken, refreshToken, profile, done) {
-                                User.findOrCreate({ googleId: profile.id }, function (err, profile) {
-                                                  return done(err, profile);
-                                                  });
-                                }
-                                
-                                ));
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: REDIRECT_URL,
+    scope : ['https://mail.google.com/']
+  },
 
-// exports.login = function(req, res) {
-//   res.render('login', {
-//     user: req.user
-//  	});
-// }
+  function(accessToken, refreshToken, profile, done) {
+  	console.log('profile', profile.access)
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    	console.log('this is the user', user)
+      return done(err, profile);
+    });
+  }
 
-exports.authenticate = passport.authenticate('google', { scope: ['https://mail.google.com/']})
+));
+
+exports.authenticate = passport.authenticate('google', { scope: ['https://mail.google.com/']}, {failureRedirect: '/input', successRedirect : '/'})
+
+
+exports.return = passport.authenticate('google', { 
+  failureRedirect: '/input',
+	scope: ['https://mail.google.com/'], 
+})
 
 exports.callback = function(req, res) {
-    
-    
-    
-    
-    
-    
-    
-    // at the end of what
+	// console.log('this is the req from callback', req)	
+	console.log('req.user', req)
+	// at the end of what
+	res.redirect('/')
+	// make new user, populate with response. 
+=======
+exports.callback = function(req, res) {
+
     res.redirect('/')
-    // make new user, populate with response.
+
 }
 
 
