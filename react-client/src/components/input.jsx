@@ -150,9 +150,11 @@ export default class Input extends React.Component {
           }} />
           Resume
         </label>
-        <Link to='/resumeSubmit'>
-          <button type="submit" className="btn btn-outline-secondary bg-primary">Submit Resume</button>
-        </Link>
+        <label>
+          <Link to='/resumeSubmit'>
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Submit Resume</button>
+          </Link>
+        </label>
       </div>
       <div className="checkbox">
         <label>
@@ -183,9 +185,10 @@ export default class Input extends React.Component {
         </label>
         </div>
       <div>
-      <Link to={`/`}>
-        <button type="submit" className="btn btn-outline-secondary bg-primary" onClick={this.handleClick}> Save </button>
-      </Link>
+          <button type="submit" className="btn btn-default btn-outline-secondary" onClick={this.handleClick}> Save </button>
+            <Link to={`/`} className="btn">
+              <button type="submit" className="btn btn-primary btn-outline-primary" onClick={this.handleClick}> Return to Records Page </button>
+            </Link>
       </div>
       </form>
       </div>
