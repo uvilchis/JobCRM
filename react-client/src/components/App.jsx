@@ -115,6 +115,11 @@ class App extends React.Component {
                     <SearchBar search={this.handleSearch.bind(this)}/>
                   </li>
                 </ul>
+                <ul className="nav navbar-nav">
+                  <li className="navbar-text navbar-center align-top search-bar">
+                    <h4> Welcome Back {this.state.displayName.split(" ")[0]}!</h4> 
+                  </li>
+                </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li className="logout-button">
                     <a href="#">
