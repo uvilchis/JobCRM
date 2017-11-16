@@ -25,19 +25,28 @@ class App extends React.Component {
     this.state = {
       records: [{}],    // you need to initialize the records as blank - our axios request is asynchronous
       user : null,
-      currentRecordId: 0
+      currentRecordId: 0, 
+      displayName : null, 
     }
 
     this.handleSearch = this.handleSearch.bind(this); 
     this.resetRecords = this.resetRecords.bind(this); 
     this.getUser = this.getUser.bind(this)
+    this.getDisplayName = this.getDisplayName.bind(this)
   }
 
   componentDidMount() {       // reset our records data after component is mounted. Other life cycle methods may infinite loop.
-    hf.requestRecords().then((x) => {
-      // console.log(x);
-      this.setState({ records: x.data });
-    });
+    this.resetRecords()
+    this.getDisplayName()
+  }
+
+  getDisplayName() {
+    // use axios to get the current session and then setState to the displayName
+    axios.get('/session')
+    .then((response) => {
+      console.log('this is the response of the getSession func', response.data)
+      this.setState({displayName : response.data})
+    })
   }
 
   handleSearch(query) {
@@ -70,9 +79,10 @@ class App extends React.Component {
   }
 
 
+
   render() {
-    console.log(this.state.records);
-    return (
+    return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
+     (
       <Router>
         <div>
             <nav className="navbar navbar-default">     {/* these classNames refer to bootstrap properties */}
@@ -103,6 +113,11 @@ class App extends React.Component {
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">
                     <SearchBar search={this.handleSearch.bind(this)}/>
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav">
+                  <li className="navbar-text navbar-center align-top search-bar">
+                    <h4> Welcome Back {this.state.displayName.split(" ")[0]}!</h4> 
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
