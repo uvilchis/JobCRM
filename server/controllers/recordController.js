@@ -1,13 +1,14 @@
 require('../sequelize.js');
 let User = require('../sequelize.js').User;
 let RowEntry = require('../sequelize.js').RowEntry;
+let Company = require('../sequelize.js').Company;
 let path = require('path');
 let axios = require('axios');
 
 exports.getAllRecords = function(req, res) {
-    RowEntry.findAll({
-    })
+    RowEntry.findAll({include: [{model: Company}]})
       .then((records) => {
+        //console.log(records);
         res.status(200)
         res.send(records)
       })
@@ -29,24 +30,14 @@ exports.update = function(req, res) {
       })
     })
   }
-  
-// exports.loadApplicationKeywords = function(req, res) {
-//   // // console.log(req.body[0]);
-//   // console.log('in controller function');
-//   // console.log(req.body.url);
-//   // axios.get(req.body.url, {mode: 'no-cors'})
-//   // .then((response) => console.log(response));
 
-//   textract.fromUrl(req.body.url, (error, text) => console.log(text));
-// }
-
-  
 exports.insert = function (req, res) {
     RowEntry.create({
       company : req.body.companyValue,
       location : req.body.locationValue,
       contact : req.body.contactValue,
       notes : req.body.notesValue,
+      keywords : req.body.tags.map((x) => x = x.text).join(' '),
       coverLetter : req.body.coverLetter,
       resume : req.body.resume,
       firstInterview : req.body.firstInterview,
@@ -81,7 +72,8 @@ exports.search = function(req, res) {
           {company: {like: '%' + req.body.searchValue + '%'}},
           {location: { like: '%' + req.body.searchValue + '%'}},
           {contact: { like: '%' + req.body.searchValue + '%'}},
-          {notes: {like: '%' + req.body.searchValue + '%'}}
+          {notes: {like: '%' + req.body.searchValue + '%'}},
+          {keywords: {like: '%' + req.body.searchValue + '%'}}
         ]
       }
     })

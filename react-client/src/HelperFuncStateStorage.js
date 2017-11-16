@@ -72,6 +72,8 @@ class HelperFuncStateStorage {
 
   // handle submissions of the data.
   onSubmit(inst) {
+    console.log('=======================');
+    console.log(inst.state.tags);
     axios.post('insert', inst.state)
       .then(function(response) {
         console.log('works', response);
