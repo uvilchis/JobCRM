@@ -22,8 +22,6 @@ sequelize
        console.error('Unable to connect to the database:', err);
        });
 
-
-
 let User = sequelize.define('user', {
   username : {type : Sequelize.STRING},
   token: { type: Sequelize.STRING, defuatValue: ''},
@@ -116,6 +114,7 @@ Artifacts.sync().then(() => {
     artifactTitle: 'Empty artifact.',
   }])
 })
+
 
 
 let Contact = sequelize.define('contact', {

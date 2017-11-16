@@ -32,8 +32,34 @@ exports.update = function(req, res) {
   }
 
 exports.insert = function (req, res) {
+    console.log('=======================')
+    console.log(req.body.companyValue);
+    // var companyId;
+    var companyId;
+    Company.findOne({
+      where: {
+        name: req.body.companyValue
+      }
+    }).then((results) => {
+      if (results) {
+        console.log('=======================');
+        console.log(results.dataValues.id);
+        companyId = results.dataValues.id;
+      } else {
+        console.log('results are null')
+        Company.create({
+          name: req.body.companyValue
+        })
+        .then((x) => companyId = x.id);
+      }
+      })
+      .then((results) => {
+
+    console.log('=======================');
+    console.log(companyId);
+    console.log('=======================');
     RowEntry.create({
-      company : req.body.companyValue,
+      companyId : companyId,
       location : req.body.locationValue,
       contact : req.body.contactValue,
       notes : req.body.notesValue,
@@ -45,6 +71,7 @@ exports.insert = function (req, res) {
       offer : req.body.offer,
       rejected : req.body.rejected
     })
+    });
   }
   
  exports.deleteRecord = function(req, res) {
