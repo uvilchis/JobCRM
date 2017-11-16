@@ -18,11 +18,12 @@ var passport = require('passport')
 //   deserializing.
 
 passport.serializeUser(function(user, done) {
-	console.log('user', user)
+	console.log('serializeUser')
   done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
+  console.log('deserializeUser')
   // Users.findById(obj, done); // need to add this.
   done(null, obj);
 });
@@ -32,109 +33,69 @@ passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: REDIRECT_URL,
-    scope : ['https://mail.google.com/']
+    scope : ['https://mail.google.com/', 'profile'], 
+    // accessType: 'offline',
   },
 
-  function(accessToken, refreshToken, profile, done) {
-  	console.log('profile', profile.access)
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    	console.log('this is the user', user)
-      return done(err, profile);
-    });
-  }
+  function(accessToken, refreshToken, params, profile, done) {
+    profile.accessToken = accessToken
+    profile.expires_in = params.expires_in
+    if (refreshToken !== undefined) profile.refreshToken = refreshToken
+    console.log('profile.id', profile.id)
+    // send to db
+    User.findOne({where : {googleId : profile.id} })
+      .then(function(obj) {
+        // if that obj exists
+        if (obj) {
+          return obj.update({
+            accessToken : profile.accessToken, 
+            expires_in : profile.expires_in, 
+            refreshToken : profile.refreshToken,
+            profileJSON : profile._json
+          })
+        } else {
+          return User.create({
+            googleId : profile.id,
+            accessToken : profile.accessToken, 
+            expires_in : profile.expires_in, 
+            refreshToken : profile.refreshToken,
+            profileJSON : profile._json
+          })
+        }
+      })
+      .then(done(null, profile))
+    }
+  )
+);
 
-));
-
-exports.authenticate = passport.authenticate('google', { scope: ['https://mail.google.com/']}, {failureRedirect: '/input', successRedirect : '/'})
+exports.authenticate = passport.authenticate('google', { 
+  successRedirect: '/auth/callback', 
+  failureRedirect: '/auth/callback',
+  scope: ['https://mail.google.com/', 'profile'], 
+  accessType: 'offline',
+  approvalPrompt: 'force'
+})
 
 
 exports.return = passport.authenticate('google', { 
-  failureRedirect: '/input',
-	scope: ['https://mail.google.com/'], 
+  accessType: 'offline',
+  approvalPrompt: 'force',
+  successRedirect: '/', 
+  failureRedirect: '/',
+	scope: ['https://mail.google.com/', 'profile'], 
 })
 
 exports.callback = function(req, res) {
-	// console.log('this is the req from callback', req)	
-	console.log('req.user', req)
-	// at the end of what
-	res.redirect('/')
-  // make new user, populate with response. 
-}
-
-exports.callback = function(req, res) {
-    res.redirect('/')
+	res.redirect('/');
 }
 
 
 
 
-
-
-
-
-
-
-
-// this was the oauth strategy using google directly.
-// var readline = require('readline'); // google's sample code was using this, but I am not sure that we actually need it.
-// var google = require('googleapis');
-// var OAuth2Client = google.auth.OAuth2;
-
-
-
-// var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-
-// var rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// });
-
-// // this just gets AccessToken to be later
-// var getAccessToken = function(oauth2Client, callback, req, res) {
-//   // generate consent page url
-//   var url = oauth2Client.generateAuthUrl({
-//     access_type: 'offline', // will return a refresh token
-//     // these are 'painting with a wide brush'. Once we figure out what we
-//     // actually need, we should change our scopes to be more specific.
-//     scope: [
-//     	'https://mail.google.com/',
-//     	'https://www.googleapis.com/auth/drive',
-//     ]
-//   });
-//   // redirect user to this url
-//   console.log('Visit the url: ', url);
-
-//   // the user is redirected and signs in.
-//   res.redirect(url, (response) => {
-//   	console.log(response)
-//   })
-// 	// google should make a get request to /auth that contains the token.
-// 	// when they make this get request
-
-
-//     // request access token
-//     // oauth2Client.getToken(code, function (err, tokens) {
-//     //   if (err) {
-//     //     return callback(err);
-//     //   }
-//     //   // set tokens to the client
-//     //   // TODO: tokens should be set by OAuth2 client.
-//     //   oauth2Client.setCredentials(tokens);
-//     //   callback();
-//     // });
-
-// }
-
-// // retrieve an access token
-// getAccessToken(oauth2Client, function () {
-//   // retrieve user profile
-//   // plus.people.get({ userId: 'me', auth: oauth2Client }, function (err, profile) {
-//   //   if (err) {
-//   //     return console.log('An error occured', err);
-//   //   }
-//   //   console.log(profile.displayName, ':', profile.tagline);
-//   // });
-// });
+// # dropping tables from the PSQL command line: 
+// drop schema public cascade;
+// drop schema public cascade;
+// create schema public;
 
 
 
@@ -143,30 +104,4 @@ exports.callback = function(req, res) {
 
 
 
-
-
-
-
-
-
-
-
-// both of these could be built out to work okay for bcrypt, but will not suffice for passport.
-// exports.signUp = function (req, res) {
-//     let username = req.body.user;
-//     User.create({user : username})
-//     .then((user) => {
-//       loggedInUserId = user.id;
-//       res.send(`created a user ${username} + ${user.id} + ${loggedInUserId}`)
-//     })};
-
-// exports.login = function (req, res) {
-//     User.findOne({
-//       where : {user : req.body.user}
-//     }).then(user => {
-//         loggedInUserId = user.id;
-//       res.send(200, user.id)
-//     })
-//   }
-// }
 

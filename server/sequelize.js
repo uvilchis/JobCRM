@@ -23,19 +23,23 @@ sequelize
        });
 
 let User = sequelize.define('user', {
-  username : {type : Sequelize.STRING},
-  token: { type: Sequelize.STRING, defuatValue: ''},
+  googleId : { type : Sequelize.STRING, defaultValue: '' }, 
+  accessToken : { type : Sequelize.STRING, defualtValue: ''}, 
+  expires_in : { type : Sequelize.INTEGER, defualtValue: ''}, 
+  refreshToken : { type : Sequelize.STRING, defualtValue: ''},
+  profileJSON : { type : Sequelize.JSON}
 });
 
 User.sync().then(() => {
-  User.bulkCreate([{
-    username: 'example user',
-    token: '123456'
-  },
+  User.bulkCreate([
   {
-    username: 'Christine Ma',
-    token: '123456'
-  }]);
+    googleId : 123, 
+    accessToken : 'ser', 
+    expires_in : 123333, 
+    refreshToken : '123123',
+    profileJSON : '12321213213231'
+  }
+  ]);
 });
 
 let Company = sequelize.define('company', {

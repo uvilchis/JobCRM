@@ -36,6 +36,7 @@
     "passport-linkedin-oauth2": "^1.5.0",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
+    "psql": "0.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
