@@ -35,7 +35,7 @@ exports.insert = function (req, res) {
     console.log('=======================')
     console.log(req.body.companyValue);
     // var companyId;
-    var companyId;
+    var newCompanyId;
     Company.findOne({
       where: {
         name: req.body.companyValue
@@ -44,34 +44,37 @@ exports.insert = function (req, res) {
       if (results) {
         console.log('=======================');
         console.log(results.dataValues.id);
-        companyId = results.dataValues.id;
+        newCompanyId = results.dataValues.id;
       } else {
         console.log('results are null')
         Company.create({
           name: req.body.companyValue
         })
-        .then((x) => companyId = x.id);
-      }
-      })
-      .then((results) => {
-
-    console.log('=======================');
-    console.log(companyId);
-    console.log('=======================');
-    RowEntry.create({
-      companyId : companyId,
-      location : req.body.locationValue,
-      contact : req.body.contactValue,
-      notes : req.body.notesValue,
-      keywords : req.body.tags.map((x) => x = x.text).join(' '),
-      coverLetter : req.body.coverLetter,
-      resume : req.body.resume,
-      firstInterview : req.body.firstInterview,
-      secondInterview : req.body.secondInterview,
-      offer : req.body.offer,
-      rejected : req.body.rejected
-    })
-    });
+        .then((x) => {
+          console.log(x);
+          newCompanyId = x.dataValues.id;
+          console.log(newCompanyId);
+        })
+        .then((results) => {
+          console.log('=======================');
+          console.log('new company: ', newCompanyId);
+          console.log('=======================');
+          RowEntry.create({
+            companyId : newCompanyId,
+            location : req.body.locationValue,
+            contact : req.body.contactValue,
+            notes : req.body.notesValue,
+            keywords : req.body.tags.map((x) => x = x.text).join(' '),
+            coverLetter : req.body.coverLetter,
+            resume : req.body.resume,
+            firstInterview : req.body.firstInterview,
+            secondInterview : req.body.secondInterview,
+            offer : req.body.offer,
+            rejected : req.body.rejected
+          })
+        });
+      }   // close else branch
+    })  
   }
   
  exports.deleteRecord = function(req, res) {
