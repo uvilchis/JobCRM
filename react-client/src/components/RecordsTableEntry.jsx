@@ -34,10 +34,11 @@ export default class RecordsTableEntry extends React.Component {
     let statusUpdate = {id : this.props.record.id}
     axios.post('deleteRecord', statusUpdate)
       .then(function(response) {
-
+        console.log(response)
       })
       .then(() => {
         console.log('attempting to refresh')
+        this.state.searchFunction();
       })
       
     return null
@@ -65,6 +66,7 @@ export default class RecordsTableEntry extends React.Component {
     </tr>
   )
 }}
+
 
 // this code may help you make sure that the object you pass to the RecordsTableEntry is an array.
 // not implemented or tested though.

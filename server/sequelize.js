@@ -22,6 +22,8 @@ sequelize
        console.error('Unable to connect to the database:', err);
        });
 
+
+
 let User = sequelize.define('user', {
   googleId : { type : Sequelize.STRING, defaultValue: '' }, 
   accessToken : { type : Sequelize.STRING, defualtValue: ''}, 
@@ -31,17 +33,7 @@ let User = sequelize.define('user', {
 });
 
 // User.drop()
-User.sync().then(() => {
-  User.bulkCreate([
-  {
-    googleId : 123, 
-    accessToken : 'ser', 
-    expires_in : 123333, 
-    refreshToken : '123123',
-    profileJSON : '12321213213231'
-  }
-  ]);
-});
+
 
 let Company = sequelize.define('company', {
   name: {type: Sequelize.STRING}
@@ -72,7 +64,6 @@ let Record = sequelize.define('record', {
 
 Record.belongsTo(User);
 Record.belongsTo(Company);
-
 
 Record.sync().then(() => {
   Record.bulkCreate([{
@@ -114,7 +105,6 @@ let Artifacts = sequelize.define('artifact', {
 
 Artifacts.belongsTo(Record);
 
-Artifacts.drop();
 Artifacts.sync().then(() => {
   Artifacts.bulkCreate([{
     type: 'Empty',
@@ -133,25 +123,28 @@ Contact.sync().then(() => {
     name: 'Tommy York (Corporate)',
     emailAddress: 'tommy.york@gmail.com'
   }])
-})
-.catch((err) => console.log(err));
+  .catch((err) => console.log(err));
+});
 
-let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.belongsTo(Contact);
-recordsContactMap.belongsTo(Record);
+// let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.drop()
-recordsContactMap.sync().then(() => {
-  recordsContactMap.bulkCreate([{
-    contactId: 1,
-    recordId: 1
-  }])
-})
+// recordsContactMap.belongsTo(Contact);
+// recordsContactMap.belongsTo(Record);
+
+// recordsContactMap.drop()
+// recordsContactMap.sync().then(() => {
+//   recordsContactMap.bulkCreate([{
+//     contactId: 1,
+//     recordId: 1
+//   }])
+
+
+
 
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
-exports.recordsContactMap = recordsContactMap;
+// exports.recordsContactMap = recordsContactMap;

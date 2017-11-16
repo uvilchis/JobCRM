@@ -50,12 +50,11 @@ exports.insert = function (req, res) {
         Company.create({
           name: req.body.companyValue
         })
+      }})
         .then((x) => {
           console.log(x);
-          newCompanyId = x.dataValues.id;
+          // newCompanyId = x.dataValues.id;
           console.log(newCompanyId);
-        })
-        .then((results) => {
           console.log('=======================');
           console.log('new company: ', newCompanyId);
           console.log('=======================');
@@ -71,13 +70,11 @@ exports.insert = function (req, res) {
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
             rejected : req.body.rejected
-          })
-        });
-      }   // close else branch
-    })  
-  }
+          }).then(() => res.end())
+        })
+      } 
   
-  
+
  exports.deleteRecord = function(req, res) {
     // console.log(req.body)
     RowEntry.findOne({
@@ -88,6 +85,7 @@ exports.insert = function (req, res) {
       // console.log(id)
       id.destroy();
       res.status(201)
+      res.send();
     })
     .catch(err => {
       console.error('Unable to connect to the database:', err);
