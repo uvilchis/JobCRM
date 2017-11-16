@@ -10,12 +10,7 @@ var REDIRECT_URL = require('../keys/googleOAuth.js').REDIRECT_URL;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport')
 
-// Passport session setup.
-//
-//   For persistent logins with sessions, Passport needs to serialize users into
-//   and deserialize users out of the session. Typically, this is as simple as
-//   storing the user ID when serializing, and finding the user by ID when
-//   deserializing.
+
 
 passport.serializeUser(function(user, done) {
 	console.log('serializeUser')
@@ -24,24 +19,25 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(obj, done) {
   console.log('deserializeUser')
-  // Users.findById(obj, done); // need to add this.
   done(null, obj);
 });
-
 
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: REDIRECT_URL,
-    scope : ['https://mail.google.com/', 'profile'], 
-    // accessType: 'offline',
+    scope: [
+    'profile', 
+    'https://www.googleapis.com/auth/drive', 
+    'https://www.googleapis.com/auth/user.emails.read',
+    ], 
   },
 
   function(accessToken, refreshToken, params, profile, done) {
     profile.accessToken = accessToken
     profile.expires_in = params.expires_in
     if (refreshToken !== undefined) profile.refreshToken = refreshToken
-    console.log('profile.id', profile.id)
+    // console.log('profile', profile)
     // send to db
     User.findOne({where : {googleId : profile.id} })
       .then(function(obj) {
@@ -68,10 +64,15 @@ passport.use(new GoogleStrategy({
   )
 );
 
+
 exports.authenticate = passport.authenticate('google', { 
   successRedirect: '/auth/callback', 
   failureRedirect: '/auth/callback',
-  scope: ['https://mail.google.com/', 'profile'], 
+  scope: [
+    'profile', 
+    'https://www.googleapis.com/auth/drive', 
+    'https://www.googleapis.com/auth/user.emails.read',
+    ],
   accessType: 'offline',
   approvalPrompt: 'force'
 })
@@ -81,12 +82,25 @@ exports.return = passport.authenticate('google', {
   accessType: 'offline',
   approvalPrompt: 'force',
   successRedirect: '/', 
-  failureRedirect: '/',
-	scope: ['https://mail.google.com/', 'profile'], 
+  failureRedirect: '/login',
+	scope: [
+    'profile', 
+    'https://www.googleapis.com/auth/drive', 
+    'https://www.googleapis.com/auth/user.emails.read',
+  ],
 })
 
 exports.callback = function(req, res) {
-	res.redirect('/');
+  // this callback is for the sake of getting around the need for sessions. 
+  
+
+}
+
+exports.getUser = function() {
+ // this getUser function needs to get the session after the session has been 
+ // set by signing in with the oauth. 
+
+
 }
 
 
