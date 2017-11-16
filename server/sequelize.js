@@ -119,8 +119,6 @@ Artifacts.sync(forceObj).then(() => {
   }])
 })
 
-
-
 let Contact = sequelize.define('contact', {
   name: {type: Sequelize.STRING},
   emailAddress: {type: Sequelize.STRING},
@@ -134,21 +132,37 @@ Contact.sync().then(() => {
 })
 .catch((err) => console.log(err));
 
-let recordsContactMap = sequelize.define('recordscontact');
+// let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.belongsTo(Contact);
-recordsContactMap.belongsTo(Record);
+// recordsContactMap.belongsTo(Contact);
+// recordsContactMap.belongsTo(Record);
 
-recordsContactMap.sync(forceObj).then(() => {
-  recordsContactMap.bulkCreate([{
-    contactId: 1,
-    recordId: 1
-  }])
-})
+// recordsContactMap.sync(forceObj).then(() => {
+//   recordsContactMap.bulkCreate([{
+//     contactId: 1,
+//     recordId: 1
+//   }])
+// })
+
+let SocialProfile = sequelize.define('socialprofile', {
+  name: {type: Sequelize.STRING},
+  url: {type: Sequelize.STRING},
+});
+
+SocialProfile.sync({force: true})
+
+let socialProfileMap = sequelize.define('socialprofilecontact');
+
+socialProfileMap.belongsTo(Contact)
+socialProfileMap.belongsTo(SocialProfile)
+
+socialProfileMap.sync({force: true});
 
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
-exports.recordsContactMap = recordsContactMap;
+// exports.recordsContactMap = recordsContactMap;
+exports.SocialProfile = SocialProfile;
+exports.socialProfileMap = socialProfileMap;
