@@ -146,9 +146,25 @@ recordsContactMap.sync({force: true}).then(() => {
   }])
 })
 
+let SocialProfile = sequelize.define('socialprofile', {
+  name: {type: Sequelize.STRING},
+  url: {type: Sequelize.STRING},
+});
+
+SocialProfile.sync({force: true})
+
+let socialProfileMap = sequelize.define('socialprofilecontact');
+
+socialProfileMap.belongsTo(Contact)
+socialProfileMap.belongsTo(SocialProfile)
+
+socialProfileMap.sync({force: true});
+
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
 exports.recordsContactMap = recordsContactMap;
+exports.SocialProfile = SocialProfile;
+exports.socialProfileMap = socialProfileMap;
