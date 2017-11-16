@@ -1,9 +1,11 @@
 import React from 'react';
 import LinkButton from './LinkButton.jsx';
 import TagList from './TagList.jsx';
+import ContactInput from './FullContact/ContactInput.jsx';
 
 import hf from '../HelperFuncStateStorage';
 import { WithContext as ReactTags } from 'react-tag-input';
+import axios from 'axios'
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -12,6 +14,8 @@ export default class Input extends React.Component {
       companyValue: '',
       locationValue: '',
       contactValue: '',
+      contactEmail: '',
+      socialProfiles: [],
       notesValue: '',
       coverLetter: false,
       resume:false,
@@ -24,12 +28,22 @@ export default class Input extends React.Component {
       jobApplicationText: ''
     };
   }
-  
+
+  //fetch social media profiles from fullcontact api via server route as proxy.
+  getSocialProfiles(){
+    console.log(this.state.contactEmail);
+    axios.post('/fullContact', {contactEmail: this.state.contactEmail})
+    .then((response) => {
+      this.setState({socialProfiles: response.data})
+      console.log(this.state.socialProfiles);
+    })
+    .catch((err) => console.log('GETSOCIALPROFILE ERROR: ', err));
+  }
 
   render() {
-    console.log('render tags:', this.state.tags)
+    // console.log(this.state)
     return (
-      <div className="container .col-md-4">
+      <div className="container w-50 p-3">
       <form onSubmit={(e) => {
         e.preventDefault(); //this just prevents the page from refreshing upon every submit
         hf.onSubmit(this);
@@ -57,8 +71,27 @@ export default class Input extends React.Component {
         }} />
       </div>
 
+      <label><h3>Contact Social Media Info</h3></label>
       <div className="form-group">
-        <label>Notes</label>
+        <label>Contact Email</label>
+        <input type="text" className="form-control" value={this.state.contactEmail} onChange={(e) => {
+          hf.updateFieldValue(this, 'contactEmail', e)
+        }} />
+      </div>
+
+      <div className="btn">
+        <button type="button" className="btn btn-outline-secondary bg-primary" onClick={this.getSocialProfiles.bind(this)}>
+          Get Social Media Profiles
+        </button>
+      </div>
+      
+      <div className="form-group">
+        {this.state.socialProfiles.length ? <label><h4>Social Media Profiles</h4></label> : null}
+        {this.state.socialProfiles.length ? this.state.socialProfiles.map((profile, idx) => <ContactInput profile={profile} key={idx}/>) : null}
+      </div>
+
+      <div className="form-group">
+        <label><h3>Notes</h3></label>
         <input type="text" className="form-control" value={this.state.notesValue} onChange={(e)=> {
           hf.updateFieldValue(this, 'notesValue', e)
         }} />
