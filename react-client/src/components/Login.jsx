@@ -45,7 +45,7 @@ export default class Login extends React.Component {
             {/*<input type="text" value={this.state.currentValue}  onChange={(e) => {this.setState({currentValue: e.target.value})
             }}/> */}
             <a href='/auth'> 
-              <button type="submit" onClick={() => {this.loginRequest()}}>
+              <button type="submit" onClick={hf.onSubmit}>
                Login With Google 
               </button>
             </a>

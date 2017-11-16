@@ -7,6 +7,13 @@ import hf from '../HelperFuncStateStorage';
 import { WithContext as ReactTags } from 'react-tag-input';
 import axios from 'axios'
 
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+
 export default class Input extends React.Component {
   constructor(props) {
     super();
@@ -141,6 +148,9 @@ export default class Input extends React.Component {
           }} />
           Resume
         </label>
+        <Link to='/resumeSubmit'>
+          <button type="submit" className="btn btn-outline-secondary bg-primary">Submit Resume</button>
+        </Link>
       </div>
       <div className="checkbox">
         <label>
@@ -171,7 +181,9 @@ export default class Input extends React.Component {
         </label>
         </div>
       <div>
+      <Link to={`/`}>
         <button type="submit" className="btn btn-outline-secondary bg-primary" onClick={this.handleClick}> Save </button>
+      </Link>
       </div>
       </form>
       </div>

@@ -13,6 +13,8 @@ let sequelize = new Sequelize ({
                                dialect : 'postgres'
                                })
 
+let forceObj = {force: true};                               
+
 sequelize
 .authenticate()
 .then(() => {
@@ -22,31 +24,29 @@ sequelize
        console.error('Unable to connect to the database:', err);
        });
 
+
+
 let User = sequelize.define('user', {
-  googleId : { type : Sequelize.STRING, defaultValue: '' }, 
-  accessToken : { type : Sequelize.STRING, defualtValue: ''}, 
-  expires_in : { type : Sequelize.INTEGER, defualtValue: ''}, 
-  refreshToken : { type : Sequelize.STRING, defualtValue: ''},
-  profileJSON : { type : Sequelize.JSON}
+  username : {type : Sequelize.STRING},
+  token: { type: Sequelize.STRING, defuatValue: ''},
 });
 
-User.sync().then(() => {
-  User.bulkCreate([
+User.sync(forceObj).then(() => {
+  User.bulkCreate([{
+    username: 'example user',
+    token: '123456'
+  },
   {
-    googleId : 123, 
-    accessToken : 'ser', 
-    expires_in : 123333, 
-    refreshToken : '123123',
-    profileJSON : '12321213213231'
-  }
-  ]);
+    username: 'Christine Ma',
+    token: '123456'
+  }]);
 });
 
 let Company = sequelize.define('company', {
   name: {type: Sequelize.STRING}
 });
 
-Company.sync().then(() => {
+Company.sync(forceObj).then(() => {
   Company.bulkCreate([{
     name: 'SerumCorp'
   },{
@@ -71,7 +71,7 @@ let Record = sequelize.define('record', {
 Record.belongsTo(User);
 Record.belongsTo(Company);
 
-Record.sync().then(() => {
+Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
     // company: 'example company',
     location: 'New York, NY',
@@ -111,7 +111,7 @@ let Artifacts = sequelize.define('artifact', {
 
 Artifacts.belongsTo(Record);
 
-Artifacts.sync().then(() => {
+Artifacts.sync(forceObj).then(() => {
   Artifacts.bulkCreate([{
     type: 'Empty',
     artifact: '',
@@ -139,7 +139,7 @@ let recordsContactMap = sequelize.define('recordscontact');
 recordsContactMap.belongsTo(Contact);
 recordsContactMap.belongsTo(Record);
 
-recordsContactMap.sync({force: true}).then(() => {
+recordsContactMap.sync(forceObj).then(() => {
   recordsContactMap.bulkCreate([{
     contactId: 1,
     recordId: 1
