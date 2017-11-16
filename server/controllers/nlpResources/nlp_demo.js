@@ -1,5 +1,4 @@
 let _ = require('underscore');
-let nlp = require('compromise');
 
 // let exampleApplication = require('./example_job_app.js');
 

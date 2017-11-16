@@ -17,6 +17,17 @@ var passport = require('passport')
 //   storing the user ID when serializing, and finding the user by ID when
 //   deserializing.
 
+passport.serializeUser(function(user, done) {
+	console.log('user', user)
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  // Users.findById(obj, done); // need to add this.
+  done(null, obj);
+});
+
+
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -37,19 +48,6 @@ passport.use(new GoogleStrategy({
 exports.authenticate = passport.authenticate('google', { scope: ['https://mail.google.com/']}, {failureRedirect: '/input', successRedirect : '/'})
 
 
-
-passport.serializeUser(function(user, done) {
-	console.log('user', user)
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  // Users.findById(obj, done); // need to add this.
-  done(null, obj);
-});
-
-
-
 exports.return = passport.authenticate('google', { 
   failureRedirect: '/input',
 	scope: ['https://mail.google.com/'], 
@@ -61,6 +59,11 @@ exports.callback = function(req, res) {
 	// at the end of what
 	res.redirect('/')
 	// make new user, populate with response. 
+=======
+exports.callback = function(req, res) {
+
+    res.redirect('/')
+
 }
 
 
@@ -73,8 +76,8 @@ exports.callback = function(req, res) {
 
 
 
-// this was the oauth strategy using google directly. 
-// var readline = require('readline'); // google's sample code was using this, but I am not sure that we actually need it. 
+// this was the oauth strategy using google directly.
+// var readline = require('readline'); // google's sample code was using this, but I am not sure that we actually need it.
 // var google = require('googleapis');
 // var OAuth2Client = google.auth.OAuth2;
 
@@ -92,22 +95,22 @@ exports.callback = function(req, res) {
 //   // generate consent page url
 //   var url = oauth2Client.generateAuthUrl({
 //     access_type: 'offline', // will return a refresh token
-//     // these are 'painting with a wide brush'. Once we figure out what we 
-//     // actually need, we should change our scopes to be more specific. 
+//     // these are 'painting with a wide brush'. Once we figure out what we
+//     // actually need, we should change our scopes to be more specific.
 //     scope: [
-//     	'https://mail.google.com/', 
-//     	'https://www.googleapis.com/auth/drive', 
+//     	'https://mail.google.com/',
+//     	'https://www.googleapis.com/auth/drive',
 //     ]
 //   });
 //   // redirect user to this url
 //   console.log('Visit the url: ', url);
 
-//   // the user is redirected and signs in. 
+//   // the user is redirected and signs in.
 //   res.redirect(url, (response) => {
 //   	console.log(response)
 //   })
-// 	// google should make a get request to /auth that contains the token. 
-// 	// when they make this get request 
+// 	// google should make a get request to /auth that contains the token.
+// 	// when they make this get request
 
 
 //     // request access token
@@ -149,7 +152,7 @@ exports.callback = function(req, res) {
 
 
 
-// both of these could be built out to work okay for bcrypt, but will not suffice for passport. 
+// both of these could be built out to work okay for bcrypt, but will not suffice for passport.
 // exports.signUp = function (req, res) {
 //     let username = req.body.user;
 //     User.create({user : username})
@@ -167,4 +170,4 @@ exports.callback = function(req, res) {
 //     })
 //   }
 // }
-  
+

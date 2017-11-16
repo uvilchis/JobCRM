@@ -1,5 +1,5 @@
-let User = require('../sequelize.js').User;
-let RowEntry = require('../sequelize.js').RowEntry;
+// let User = require('../sequelize.js').User;
+// let RowEntry = require('../sequelize.js').RowEntry;
 let path = require('path');
 
 let textract = require('textract');
