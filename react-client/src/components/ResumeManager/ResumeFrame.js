@@ -8,19 +8,13 @@ export default class ResumeFrame extends React.Component {
 
           
         };
-      this.loginRequest = this.loginRequest.bind(this)
-    }
 
-  loginRequest(value) {
-    // if we wanted something besides the oAuth to run when you press the 
-    // login button, we could put it here. 
-    // console.log('the login request gets called')
-  }
+    }
 
   render() {
     return(
       <div>
-
+      THIS IS WHERE THE RESUMES WILL GO
 
 
 

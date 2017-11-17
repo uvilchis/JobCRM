@@ -32,7 +32,10 @@ app.use(passport.session());
 app.get('/auth', auth.authenticate);
 app.get('/auth/callback', auth.return)
 
-app.get('/session', auth.getSession)
+// these get information about the session and send it back to app. 
+app.get('/session/displayName', auth.getSessionDisplayName)
+app.get('/session/all', auth.getSessionAll)
+
 app.get('/logout', auth.destroySession)
 
 app.get('/records', rec.getAllRecords);
