@@ -39,24 +39,31 @@ class HelperFuncStateStorage {
     });
   }
 
-  // not fully working: method to login to the database.
-  // currently does very simple setting of user, without authentication.
-  // and even that isn't fully working.
-  loginRequest(inst, value) {
-    console.log(value);
-    axios.post('login', {
-      user: value
-    }).then(function (response) {
-      //console.log(response);
-    }).catch(function(error) {
-      console.log(error);
+  requestRecentApplications(inst) {
+    return axios.get('records')
+    .then((records) => {
+      //console.log(records);
+      return records.slice(0,10);
     });
-    return null;
+  }
+
+  loadApplicationKeywords(url) {
+    console.log('loadApplicationKeywords ', url);
+    return axios.post('loadAppKeywords', {url: url[0], text: url[1]})
+    .then((response) => {
+      // console.log('response', response);
+      let newArray = response.data.map((x, i) => x = {text: x, id: i})
+      // console.log('newArray: ', newArray);
+      // console.log('this:', this);
+      this.setState({tags: this.state.tags.concat(newArray)});
+      //console.log('this.state.tags (new):', this.state.tags);
+    })
+    .catch((err) => console.log(err));
   }
 
     // you want to track field values in states.
   updateFieldValue(inst, stateName, e) {
-  	//e.stopPropagation()
+  	e.stopPropagation()
     let stateUpdate = {};
     stateUpdate[stateName] = e.target.value;
     inst.setState(stateUpdate);
@@ -73,6 +80,8 @@ class HelperFuncStateStorage {
 
   // handle submissions of the data.
   onSubmit(inst) {
+    console.log('=======================');
+    console.log(inst.state.tags);
     axios.post('insert', inst.state)
       .then(function(response) {
         console.log('works', response);
