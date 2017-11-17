@@ -32,15 +32,18 @@ class App extends React.Component {
       googleId : null, 
     }
 
-    this.handleSearch = this.handleSearch.bind(this); 
-    this.resetRecords = this.resetRecords.bind(this); 
-
     // these four calls could be combined into one, but it is nice to have them 
     // seperate for modularity. 
     this.getDisplayName = this.getDisplayName.bind(this); 
     this.getAccessToken = this.getAccessToken.bind(this); 
     this.getRefreshToken = this.getRefreshToken.bind(this); 
+    
+    this.filterByGoogleId = this.filterByGoogleId.bind(this); 
+    // the below calls the above: 
     this.getGoogleId = this.getGoogleId.bind(this); 
+   
+    this.handleSearch = this.handleSearch.bind(this); 
+    this.resetRecords = this.resetRecords.bind(this); 
   }
 
   componentDidMount() { 
@@ -48,6 +51,8 @@ class App extends React.Component {
     this.getDisplayName(); // this has a seperate call so that the page will render on the first request. 
     this.getAccessToken();
     this.getRefreshToken();
+    // in the promise for getGoogleId, filterByGoogleId is run which filters the records
+    // by the googleId in the backend. 
     this.getGoogleId();
 
     this.resetRecords() // this is last so that it can do it based on the user's id.  
@@ -80,12 +85,17 @@ class App extends React.Component {
     })
   }
 
+  filterByGoogleId() { 
+    console.log('this shit gets run')
+
+  }
   getGoogleId() {
     axios.get('/session/all')
     .then((response) => {
       let googleId = response.data.user.id
       this.setState({googleId})
     })
+    .then(this.filterByGoogleId)
   }
 
 
@@ -114,7 +124,6 @@ class App extends React.Component {
   }
 
   render() {
-  console.log(this.state)
     return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
      (
       <Router>
