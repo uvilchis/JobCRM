@@ -13,6 +13,15 @@ exports.getAllRecords = function(req, res) {
         res.send(records)
       })
   }
+
+  exports.getRecentRecords = function(req, res) {
+    RowEntry.findAll({include: [{model: Company}], order: ['updatedAt', 'DESC']})
+      .then((records) => {
+        console.log(records);
+        res.status(200)
+        res.send(records)
+      })
+  }
   
 exports.update = function(req, res) {
     RowEntry.findOne({

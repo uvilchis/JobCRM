@@ -31,6 +31,7 @@ class App extends React.Component {
       accessToken : null,
       refreshToken : null, 
       googleId : null, 
+      companyList: null
     }
 
     // these four calls could be combined into one, but it is nice to have them 
@@ -120,20 +121,19 @@ class App extends React.Component {
   }
 
 
-  getRecentRecords(inst) {
-    return axios.get('records')
-    .then((records) => {
-      //console.log(records);
-      return records.slice(0,10);
-    });
-  }
-
   //set recordId state for record summary route onclick of info button 
   setCurrentRecord(id) {
     this.setState({currentRecordId: id}).bind(this);
   }
 
+
+  // componentWillUpdate() {
+  //   console.log(this.state.companyList);
+  // }
+  
+
   render() {
+    
     return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
      (
       <Router>
@@ -145,8 +145,14 @@ class App extends React.Component {
                   </li>
 
                   <li className="link-button">
+                    <Link to="/dashboard">
+                      <LinkButton title='Dashboard' />
+                    </Link>
+                  </li>
+
+                  <li className="link-button">
                     <Link to="/">
-                      <LinkButton title='Records' clickFunction={this.resetRecords.bind(this)} />
+                      <LinkButton title='Records' clickFunction={this.resetRecords.bind(this) }/>
                     </Link>
                   </li>
 
@@ -187,7 +193,7 @@ class App extends React.Component {
 
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
-            <Route exact path="/dashboard" render={() => <Dashboard searchFunction={this.getRecentRecords.bind(this)} /> } />
+            <Route exact path="/dashboard" render={() => <Dashboard /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
             <Route exact path="/resume" render={() => <ResumeFrame accessToken={this.state.accessToken} refreshToken={this.state.refreshToken} googleId={this.state.googleId}/> } />
             <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 

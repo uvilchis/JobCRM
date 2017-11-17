@@ -156,7 +156,7 @@ export default class Input extends React.Component {
         </label>
         <label>
           <Link to='/resumeSubmit'>
-            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Submit Resume</button>
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Upload Resume</button>
           </Link>
         </label>
       </div>

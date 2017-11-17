@@ -15,7 +15,7 @@ let sequelize = new Sequelize ({
 
 let forceObj = {force: false};
 
-sequelize
+sequelize 
 .authenticate()
 .then(() => {
       console.log('Connection to database has been established successfully.');
@@ -50,9 +50,9 @@ let Company = sequelize.define('company', {
 
 Company.sync(forceObj).then(() => {
   Company.bulkCreate([{
-    name: 'SerumCorp'
+    name: 'Bitcoin'
   },{
-    name: 'Mighty Pastry'
+    name: 'Google'
   }])
 })
 

@@ -29,15 +29,15 @@ export default class RecordsTableEntry extends React.Component {
 
   // delete function.
   delete() {
-    console.log('in delete function');
+    //console.log('in delete function');
 
     let statusUpdate = {id : this.props.record.id}
     axios.post('deleteRecord', statusUpdate)
       .then(function(response) {
-        console.log(response)
+        //console.log(response)
       })
       .then(() => {
-        console.log('attempting to refresh')
+        //console.log('attempting to refresh')
         this.state.searchFunction();
       })
       
@@ -47,7 +47,7 @@ export default class RecordsTableEntry extends React.Component {
   
   render() {
     let nameObj =Object.assign({}, this.props.record.company);
-    console.log(nameObj.name);
+    //console.log(nameObj.name);
     return (
       <tr>
       <td>{nameObj.name}</td>
