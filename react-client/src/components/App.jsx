@@ -5,6 +5,7 @@ import SearchBar from './SearchBar.jsx';
 import RecordsTable from './RecordsTable.jsx';
 import RecordsTableEntry from './RecordsTableEntry.jsx';
 import RecordSummary from  './RecordSummary.jsx';
+import Dashboard from './Dashboard.jsx';
 import Login from './Login.jsx';
 import Input from './input.jsx';
 import axios from 'axios';
@@ -108,6 +109,15 @@ class App extends React.Component {
     return null;
   }
 
+
+  getRecentRecords(inst) {
+    return axios.get('records')
+    .then((records) => {
+      //console.log(records);
+      return records.slice(0,10);
+    });
+  }
+
   //set recordId state for record summary route onclick of info button 
   setCurrentRecord(id) {
     this.setState({currentRecordId: id}).bind(this);
@@ -168,6 +178,7 @@ class App extends React.Component {
 
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
+            <Route exact path="/dashboard" render={() => <Dashboard searchFunction={this.getRecentRecords.bind(this)} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
             <Route exact path="/resume" render={() => <ResumeFrame accessToken={this.state.accessToken} refreshToken={this.state.refreshToken} googleId={this.state.googleId}/> } />
             <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
