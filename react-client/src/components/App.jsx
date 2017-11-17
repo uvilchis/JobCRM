@@ -147,8 +147,8 @@ class App extends React.Component {
                   </li>
 
                   <li className="link-button">
-                    <Link to="/resume">
-                      <LinkButton title='Resumes' clickFunction={() => {}} />
+                    <Link to="/docs">
+                      <LinkButton title='Documents' clickFunction={() => {}} />
                     </Link>
                   </li>
 
@@ -178,7 +178,7 @@ class App extends React.Component {
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
-            <Route exact path="/resume" render={() => 
+            <Route exact path="/docs" render={() => 
               <ResumeFrame 
                 accessToken={this.state.accessToken} 
                 refreshToken={this.state.refreshToken} 

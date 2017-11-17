@@ -10,8 +10,6 @@ var REDIRECT_URL = require('../keys/googleOAuth.js').REDIRECT_URL;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport')
 
-
-
 passport.serializeUser(function(user, done) {
 	console.log('serializeUser')
   done(null, user);
