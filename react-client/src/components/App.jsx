@@ -8,6 +8,7 @@ import RecordSummary from  './RecordSummary.jsx';
 import Login from './Login.jsx';
 import Input from './input.jsx';
 import axios from 'axios';
+import ResumeFrame from './ResumeManager/ResumeFrame.js'
 
 import {
     BrowserRouter as Router,
@@ -24,28 +25,74 @@ class App extends React.Component {
     super();
     this.state = {
       records: [{}],    // you need to initialize the records as blank - our axios request is asynchronous
-      user : null,
       currentRecordId: 0, 
       displayName : null, 
+      accessToken : null,
+      refreshToken : null, 
+      googleId : null, 
     }
 
     this.handleSearch = this.handleSearch.bind(this); 
     this.resetRecords = this.resetRecords.bind(this); 
-    this.getUser = this.getUser.bind(this)
-    this.getDisplayName = this.getDisplayName.bind(this)
+
+    // these four calls could be combined into one, but it is nice to have them 
+    // seperate for modularity. 
+    this.getDisplayName = this.getDisplayName.bind(this); 
+    this.getAccessToken = this.getAccessToken.bind(this); 
+    this.getRefreshToken = this.getRefreshToken.bind(this); 
+    this.getGoogleId = this.getGoogleId.bind(this); 
   }
 
-  componentDidMount() {       // reset our records data after component is mounted. Other life cycle methods may infinite loop.
-    this.resetRecords()
-    this.getDisplayName()
+  componentDidMount() { 
+    // these just populate state so that information can be sent down. 
+    this.getDisplayName(); // this has a seperate call so that the page will render on the first request. 
+    this.getAccessToken();
+    this.getRefreshToken();
+    this.getGoogleId();
+
+    this.resetRecords() // this is last so that it can do it based on the user's id.  
   }
 
   getDisplayName() {
     // use axios to get the current session and then setState to the displayName
-    axios.get('/session')
+    axios.get('/session/displayName')
     .then((response) => {
-      console.log('this is the response of the getSession func', response.data)
       this.setState({displayName : response.data})
+    })
+  }
+
+  getAccessToken() {
+    axios.get('/session/all')
+    .then((response) => {
+      console.log('accessToken', response.data.user.accessToken)
+      let accessToken = response.data.user.accessToken
+      this.setState({accessToken})
+    })
+  }
+
+  getRefreshToken() {
+    axios.get('/session/all')
+    .then((response) => {
+      // console.log('this is the response of the getSession func', response.data)
+      // set the state with the authKey. 
+      let refreshToken = response.data.user.refreshToken
+      this.setState({refreshToken})
+    })
+  }
+
+  getGoogleId() {
+    axios.get('/session/all')
+    .then((response) => {
+      let googleId = response.data.user.id
+      this.setState({googleId})
+    })
+  }
+
+
+  resetRecords(e) {    // needed when you click on the records button
+    axios.get('records')
+      .then((records) => {
+        this.setState({records : records.data})
     })
   }
 
@@ -61,26 +108,13 @@ class App extends React.Component {
     return null;
   }
 
-  resetRecords(e) {    // needed when you click on the records button
-    axios.get('records')
-      .then((records) => {
-        this.setState({records : records.data})
-    })
-  }
-
-  getUser(user) {
-    // this function is passed down to the Login component to handle setting the state of the user. 
-    this.setState({user})
-  }
-
   //set recordId state for record summary route onclick of info button 
   setCurrentRecord(id) {
     this.setState({currentRecordId: id}).bind(this);
   }
 
-
-
   render() {
+  console.log(this.state)
     return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
      (
       <Router>
@@ -104,8 +138,8 @@ class App extends React.Component {
                   </li>
 
                   <li className="link-button">
-                    <Link to="/login">
-                      <LinkButton title='Login' clickFunction={() => {}} />
+                    <Link to="/resume">
+                      <LinkButton title='Resumes' clickFunction={() => {}} />
                     </Link>
                   </li>
 
@@ -122,8 +156,10 @@ class App extends React.Component {
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li className="logout-button">
-                    <a href="#">
-                      <LinkButton title='Logout' />   {/* this is on you! */}
+                    <a href="/logout">
+                      <LinkButton title='Logout' clickFunction={() => {
+                        axios.get('/logout')
+                      }}/>  
                     </a>
                   </li>
                 </ul>
@@ -131,11 +167,9 @@ class App extends React.Component {
             </nav>
 
             {/* use react router to only show one of our components at a time */}
-            <Route exact path="/" render={() => < RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
+            <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
-            <Route exact path="/login" className="col-md-6 col-md-offset-3" render={() => <Login 
-              getUser = {this.getUser}
-            />} />
+            <Route exact path="/resume" render={() => <ResumeFrame accessToken={this.state.accessToken} refreshToken={this.state.refreshToken} googleId={this.state.googleId}/> } />
             <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
               <RecordSummary recordId={this.state.records[match.params.recordID - 1]} />
             } />

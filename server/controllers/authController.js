@@ -77,16 +77,6 @@ exports.authenticate = passport.authenticate('google', {
   approvalPrompt: 'force'
 })
 
-exports.getSession = function(req, res) {
-  // this getUser function needs to get the session after the session has been 
-  // set by signing in with the oauth. 
-  let userInfo = req.session.passport.user
-  let userFullName = userInfo.displayName
-
-  // console.log('this is what is sent by getSession', userFullName)
-  res.send(userFullName)
-}
-
 
 exports.return = passport.authenticate('google', { 
   accessType: 'offline',
@@ -100,9 +90,21 @@ exports.return = passport.authenticate('google', {
   ],
 })
 
+exports.destroySession = function (req, res) {
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  })
+};
 
 
+exports.getSessionDisplayName = function(req, res) {
+  let userFullName = req.session.passport.user.displayName || null
+  res.send(userFullName)
+}
 
+exports.getSessionAll = function(req, res) {
+  res.send(req.session.passport)
+}
 
 
 
