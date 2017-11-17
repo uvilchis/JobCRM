@@ -39,6 +39,14 @@ class HelperFuncStateStorage {
     });
   }
 
+  requestRecentApplications(inst) {
+    return axios.get('records')
+    .then((records) => {
+      //console.log(records);
+      return records.slice(0,10);
+    });
+  }
+
   loadApplicationKeywords(url) {
     console.log('loadApplicationKeywords ', url);
     return axios.post('loadAppKeywords', {url: url[0], text: url[1]})
