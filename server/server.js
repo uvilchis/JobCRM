@@ -33,7 +33,7 @@ app.get('/auth', auth.authenticate);
 app.get('/auth/callback', auth.return)
 
 app.get('/session', auth.getSession)
-
+app.get('/logout', auth.destroySession)
 
 app.get('/records', rec.getAllRecords);
 app.post('/update', rec.update);

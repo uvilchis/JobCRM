@@ -122,8 +122,10 @@ class App extends React.Component {
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li className="logout-button">
-                    <a href="#">
-                      <LinkButton title='Logout' />   {/* this is on you! */}
+                    <a href="/logout">
+                      <LinkButton title='Logout' clickFunction={() => {
+                        axios.get('/logout')
+                      }}/>  
                     </a>
                   </li>
                 </ul>
