@@ -13,6 +13,8 @@ let sequelize = new Sequelize ({
                                dialect : 'postgres'
                                })
 
+let forceObj = {force: false};
+
 sequelize
 .authenticate()
 .then(() => {
@@ -30,7 +32,7 @@ let User = sequelize.define('user', {
   profileJSON : { type : Sequelize.JSON}
 });
 
-User.sync().then(() => {
+User.sync(forceObj).then(() => {
   User.bulkCreate([
   {
     googleId : 123, 
@@ -46,7 +48,7 @@ let Company = sequelize.define('company', {
   name: {type: Sequelize.STRING}
 });
 
-Company.sync().then(() => {
+Company.sync(forceObj).then(() => {
   Company.bulkCreate([{
     name: 'SerumCorp'
   },{
@@ -71,7 +73,7 @@ let Record = sequelize.define('record', {
 Record.belongsTo(User);
 Record.belongsTo(Company);
 
-Record.sync().then(() => {
+Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
     // company: 'example company',
     location: 'New York, NY',
@@ -111,7 +113,7 @@ let Artifacts = sequelize.define('artifact', {
 
 Artifacts.belongsTo(Record);
 
-Artifacts.sync().then(() => {
+Artifacts.sync(forceObj).then(() => {
   Artifacts.bulkCreate([{
     type: 'Empty',
     artifact: '',
@@ -124,7 +126,7 @@ let Contact = sequelize.define('contact', {
   emailAddress: {type: Sequelize.STRING},
 });
 
-Contact.sync().then(() => {
+Contact.sync(forceObj).then(() => {
   Contact.bulkCreate([{
     name: 'Tommy York (Corporate)',
     emailAddress: 'tommy.york@gmail.com'
@@ -137,7 +139,7 @@ let recordsContactMap = sequelize.define('recordscontact');
 recordsContactMap.belongsTo(Contact);
 recordsContactMap.belongsTo(Record);
 
-recordsContactMap.sync({force: true}).then(() => {
+recordsContactMap.sync(forceObj).then(() => {
   recordsContactMap.bulkCreate([{
     contactId: 1,
     recordId: 1
