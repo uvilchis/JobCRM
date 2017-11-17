@@ -3,9 +3,9 @@ let Sequelize = require('sequelize');
 let sequelize = new Sequelize ({
                                dialect: 'postgres',
                                dialectOptions: {
-                               ssl: true
+                               ssl: false
                                },
-                               host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
+                               host: `localhost`,//ec2-23-21-220-23.compute-1.amazonaws.com
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
                                Port: 5432,
