@@ -11,7 +11,7 @@ let rec = require('./controllers/recordController.js');
 
 let nlp = require('./controllers/nlpController');
 let auth = require('./controllers/authController')
-let doc = require('./controllers/docController')
+let docs = require('./controllers/docController')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,9 +38,9 @@ app.get('/session/all', auth.getSessionAll)
 
 app.get('/logout', auth.destroySession)
 
-// this posts to resumes
-app.post('/')
-
+// these post to the docs. 
+app.post('/docs/coverLetter', docs.addResume)
+app.post('/docs/resume', docs.addCoverLetter)
 
 app.get('/records', rec.getAllRecords);
 // app.get('/records/:googleid', rec.getRecordsByGoogleId)

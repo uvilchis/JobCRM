@@ -1,4 +1,6 @@
-exports.addCoverLetter = function(req, res) {
+
+// this takes in a resume
+exports.addResume = function(req, res) {
   console.log('req.body: ', req.body);
   // console.log(req.body.url);
   // console.log(req.body.text);
