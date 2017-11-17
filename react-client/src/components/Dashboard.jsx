@@ -25,9 +25,9 @@ export default class Dashboard extends React.Component {
 
   getTopCompanies() {
     return axios.get('recentrecords').then((results) => {
-      let returnValue = results.data.slice(0,1);
+      let returnValue = results.data.slice(0,5);
       console.log(returnValue);
-      return returnValue;
+      return _.uniq(returnValue.map((x) => x = x.company.name));
     });
   }
   
@@ -39,7 +39,7 @@ export default class Dashboard extends React.Component {
         console.log('getRecentNews results: ', results);
         if (results && results.length > 0) {
           results.forEach((x) => {
-              axios.get(`https://newsapi.org/v2/everything?q=${x.company.name}&apiKey=f8ea23698b664c35a7c9598fe183e2ec`).then((x) => newNews.push(x)).then(() => this.setState({news: newNews}))
+              axios.get(`https://newsapi.org/v2/everything?q=${x}&apiKey=f8ea23698b664c35a7c9598fe183e2ec`).then((x) => newNews.push(x)).then(() => this.setState({news: newNews}))
               console.log('axios get newNews: ', newNews);
             })
           }})
