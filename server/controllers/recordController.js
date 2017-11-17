@@ -121,3 +121,17 @@ console.log(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
   res.sendFile(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
 };
 
+
+exports.getRecordsByGoogleId = function(req, res) {
+  console.log('some poor soul still needs to write getRecordsByGoogleId')
+}
+
+
+
+
+
+
+
+
+
+

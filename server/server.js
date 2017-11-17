@@ -39,6 +39,8 @@ app.get('/session/all', auth.getSessionAll)
 app.get('/logout', auth.destroySession)
 
 app.get('/records', rec.getAllRecords);
+// app.get('/records/:googleid', rec.getRecordsByGoogleId)
+
 app.post('/update', rec.update);
 app.post('/insert', rec.insert);
 app.post('/deleteRecord', rec.deleteRecord)

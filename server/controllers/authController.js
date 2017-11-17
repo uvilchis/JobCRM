@@ -30,6 +30,7 @@ passport.use(new GoogleStrategy({
     'profile', 
     'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
+    'https://www.googleapis.com/auth/drive.readonly', 
     ], 
   },
 
@@ -72,6 +73,7 @@ exports.authenticate = passport.authenticate('google', {
     'profile', 
     'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
+    'https://www.googleapis.com/auth/drive.readonly', 
     ],
   accessType: 'offline',
   approvalPrompt: 'force'
@@ -87,6 +89,7 @@ exports.return = passport.authenticate('google', {
     'profile', 
     'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
+    'https://www.googleapis.com/auth/drive.readonly', 
   ],
 })
 
