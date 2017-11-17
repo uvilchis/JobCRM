@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios'; 
 import Iframe from 'react-iframe'
 
-export default class Resume extends React.Component {
+export default class ResumeEditor extends React.Component {
   constructor(props) {
     super(props);
     

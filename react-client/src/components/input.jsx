@@ -27,8 +27,10 @@ export default class Input extends React.Component {
       contactEmail: '',
       socialProfiles: [],
       notesValue: '',
-      coverLetter: false,
-      resume:false,
+      coverLetterName: '', 
+      coverLetterURL: null,
+      resumeName: '',
+      resumeURL: null,
       firstInterview: false,
       secondInterview: false,
       offer: false,
@@ -141,25 +143,27 @@ export default class Input extends React.Component {
 
       <div className="checkbox">
         <label>
-          <input type="checkbox" value={this.state.coverLetter} onChange={(e) => {
-          hf.toggleCheckBox(this, 'coverLetter', e)
-          }} />
           Cover Letter
-      </label>
-      </div>
-      <div className="checkbox">
-        <label>  
-        <input type="checkbox" value={this.state.resume} onChange={(e) => {
-            hf.toggleCheckBox(this, 'resume', e)
-          }} />
-          Resume
         </label>
         <label>
-          <Link to='/resumeSubmit'>
-            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Submit Resume</button>
+          <Link to='/docs'>
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Cover Letter</button>
           </Link>
         </label>
       </div>
+      
+      <div className="checkbox">
+        <label>  
+          Resume
+        </label>
+        <label>
+          <Link to='/docs'> {/* TODO: make this so that the picker loads. */}
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Resume</button>
+          }
+          </Link>
+        </label>
+      </div>
+      
       <div className="checkbox">
         <label>
         <input className="checkbox" type="checkbox" value={this.state.firstInterview} onChange={(e) => {
