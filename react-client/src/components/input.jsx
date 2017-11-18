@@ -74,6 +74,7 @@ export default class Input extends React.Component {
       <div className="form-group w-50 p-3">   {/* delightful bootstrap */}
         <label>Company</label>
         <input id="company" type="text" className="form-control" value={this.state.companyValue} onChange={(e) => {
+          
           hf.updateFieldValue(this, 'companyValue', e)
         }} />
       </div>
@@ -146,15 +147,13 @@ export default class Input extends React.Component {
       </div>
 
       <label><h3>Progress</h3></label>
-
+    {/*}
       <div className="checkbox">
         <label>
           Cover Letter
         </label>
         <label>
-          <Link to='/docs'>
-            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Cover Letter</button>
-          </Link>
+          <h5> Add resume on the re
         </label>
       </div>
       
@@ -163,12 +162,13 @@ export default class Input extends React.Component {
           Resume
         </label>
         <label>
-          <Link to='/docs'> {/* TODO: make this so that the picker loads. */}
+          <Link to='/docs'> {/* TODO: make this so that the picker loads. 
             <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Resume</button>
           }
           </Link>
         </label>
       </div>
+      */}
       
       <div className="checkbox">
         <label>

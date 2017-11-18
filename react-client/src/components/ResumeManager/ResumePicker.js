@@ -32,13 +32,17 @@ export default class ResumePicker extends React.Component {
       // axios request to the db to add the embedded urls
       // targetDocument will either be 'resume' or 'coverLetter'
       axios.post(`docs/${this.props.targetDocument}`, {
-        name : openInGoogleEditorURL, 
-        url : documentName, 
+        name : documentName, 
+        url : openInGoogleEditorURL, 
         recordId : this.props.recordId, 
       })
       .then((response) => {
-        let resURL = response.data.openInGoogleEditorURL
-        let resName = response.data.documentName
+        // console.log('this is the response that you get from the handleDocumentAdd: ', response.data)
+        let resURL = response.data.resumeURL
+        let resName = response.data.resumeName
+
+        // console.log('resName: ', resName)
+        // console.log('resURL', resURL)
         this.setState({openInGoogleEditorURL : resURL})
         this.setState({documentName : resName})
         // this updates the name on the recordsTableEntry. 
@@ -75,7 +79,7 @@ export default class ResumePicker extends React.Component {
         }
       }
       >
-      <button>Add A Resume</button>
+      <button>Add A {(this.props.targetDocument == 'coverLetter') ? 'Cover Letter' : 'Resume'}</button>
       <div className="google"></div>
     </GooglePicker>
     )

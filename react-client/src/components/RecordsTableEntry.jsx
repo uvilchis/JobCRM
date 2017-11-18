@@ -9,6 +9,8 @@ import {
 } from 'react-router-dom';
 import ResumeEditor from './ResumeManager/ResumeEditor'
 import ResumePicker from './ResumeManager/ResumePicker'
+import CoverLetterField from './ResumeManager/CoverLetterField'
+// import ResumeField from './ResumeManager/ResumeField'
 
 // import Axios from 'axios';
 
@@ -54,6 +56,7 @@ export default class RecordsTableEntry extends React.Component {
   }
 
   updateCoverLetterName(coverLetterName) {
+    console.log('the axios in resume picker is calling this', coverLetterName)
     this.setState({coverLetterName})
     // then send an axios request that updates the current coverLetterName and 
     // coverLetterURL based on the record id. 
@@ -79,13 +82,11 @@ export default class RecordsTableEntry extends React.Component {
 
       {/* This the cover letter. */}
       <td> 
-        {/*<ResumeEditor recordId = {this.props.record.id} targetDocument = 'coverLetter' /> */}
-        <h5> current cover letter: {this.state.coverLetterName}</h5> 
-        <ResumePicker 
+        <CoverLetterField 
+          coverLetterName = {this.state.coverLetterName}
           updateName = {this.updateCoverLetterName}
-          recordId = {this.props.record.id} 
-          targetDocument = 'coverLetter'
-        />
+          recordId = {this.props.record.id}
+        /> 
       </td>
       
       {/* This the resume */}
