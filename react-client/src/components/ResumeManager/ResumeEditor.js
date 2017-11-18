@@ -7,7 +7,7 @@ export default class ResumeEditor extends React.Component {
     super(props);
     
     this.state = {
-      editorOpen : false, 
+      editorOpen : true, 
     }
     this.openEditor = this.openEditor.bind(this)
   }
@@ -20,12 +20,12 @@ export default class ResumeEditor extends React.Component {
   render() {
     return (this.state.editorOpen) ? (
       <div> 
-        THIS IS WHERE the nav bar is going to go for each resume <button> button1. </button> 
+        <button>  </button> 
       </div>
         ) : (
         <div>
           <Iframe
-            // url={this.state.openInGoogleEditorURL}
+            url='www.google.com'
             // width="450px"
             height="450px"
             // id={this.state.documentName || '#'} 
