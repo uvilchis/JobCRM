@@ -92,7 +92,6 @@ export default class Input extends React.Component {
         }} />
       </div>
 
-      <label><h3>Contact Social Media Info</h3></label>
       <div className="form-group">
         <label>Contact Email</label>
         <input type="text" className="form-control" value={this.state.contactEmail} onChange={(e) => {
@@ -108,7 +107,9 @@ export default class Input extends React.Component {
       
       <div className="form-group">
         {this.state.socialProfiles.length ? <label><h4>Social Media Profiles</h4></label> : null}
+        <ul>
         {this.state.socialProfiles.length ? this.state.socialProfiles.map((profile, idx) => <ContactInput profile={profile} key={idx}/>) : null}
+        </ul>
       </div>
 
       <div className="form-group">
