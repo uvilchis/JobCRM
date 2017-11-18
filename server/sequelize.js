@@ -9,13 +9,14 @@ let sequelize = new Sequelize ({
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
                                Port: 5432,
+                               logging: true,
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
                                })
 
 let forceObj = {force: false};
 
-sequelize
+sequelize 
 .authenticate()
 .then(() => {
       console.log('Connection to database has been established successfully.');
@@ -50,14 +51,15 @@ let Company = sequelize.define('company', {
 
 Company.sync(forceObj).then(() => {
   Company.bulkCreate([{
-    name: 'SerumCorp'
+    name: 'Bitcoin'
   },{
-    name: 'Mighty Pastry'
+    name: 'Google'
   }])
 })
 
 let Record = sequelize.define('record', {
   //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
+  googleId: {type: Sequelize.STRING},
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
   contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
@@ -66,7 +68,7 @@ let Record = sequelize.define('record', {
   coverLetterURL: { type: Sequelize.STRING, defaultValue: ''},
   resumeName: { type: Sequelize.STRING, defaultValue: 'none yet!' },
   resumeURL: { type: Sequelize.STRING, defaultValue: '' },
-  
+
   tags: { type: Sequelize.STRING, default: 'default'},
   firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
   secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
@@ -89,7 +91,8 @@ Record.sync(forceObj).then(() => {
     offer: false,
     rejected: false,
     userId: 1,
-    companyId: 1
+    companyId: 1,
+    googleId: 0
   },{
     // company: 'another example',
     location: 'Brooklyn, NY',
