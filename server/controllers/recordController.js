@@ -96,6 +96,10 @@ exports.insert = function (req, res) {
             
           })
             .then(() => res.end())
+            //get contact name, profile, and email, 
+            //find one contact name
+            //if found update the contact with new record id
+            //if not found create the contact with the record id
         })
       } 
   
