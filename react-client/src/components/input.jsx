@@ -9,7 +9,6 @@ import axios from 'axios'
 import ResumeFrame from './ResumeManager/ResumeFrame.js'
 
 
-
 import {
   BrowserRouter as Router,
   Route,
@@ -35,7 +34,8 @@ export default class Input extends React.Component {
       rejected: false,
       tags: [{ id: 1, text: "Sample Keyword" }],
       jobApplicationURL: '',
-      jobApplicationText: ''
+      jobApplicationText: '',
+      googleId: this.props.googleId,
     };
     this.refresh = this.props.refresh.bind(this)
   }
@@ -156,7 +156,7 @@ export default class Input extends React.Component {
         </label>
         <label>
           <Link to='/resumeSubmit'>
-            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Submit Resume</button>
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Upload Resume</button>
           </Link>
         </label>
       </div>
