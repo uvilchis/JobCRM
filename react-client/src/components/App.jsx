@@ -209,7 +209,7 @@ class App extends React.Component {
             <Route exact path="/input" className="col-md-6 col-md-offset-3" 
               render={() =>
                 <Input
-                 refresh={this.resetRecords.bind(this)}
+                  refresh={this.resetRecords.bind(this)}
                   parse={hf.loadApplicationKeywords}
                   googleId={this.state.googleId}
                 />
