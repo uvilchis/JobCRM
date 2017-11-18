@@ -73,7 +73,7 @@ exports.insert = function (req, res) {
             console.log('x, ', x.dataValues.id);
             // console.log('x ', x.dataValues.id);
             newCompanyId = x.dataValues.id;
-          })
+          })}})
         .then(() => {
           // console.log('new comapny id: ', newCompanyId)
           RowEntry.create({
@@ -105,8 +105,6 @@ exports.insert = function (req, res) {
           .then(() => res.end())
         })
       } 
-    })
-  }
   
 
  exports.deleteRecord = function(req, res) {

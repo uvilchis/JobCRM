@@ -57,7 +57,9 @@ export default class Dashboard extends React.Component {
 
     return (<div className='records-list'>
       <h1>Recent news:</h1>
-        <NewsItems news={this.state.news}/>
+        <div className="container">
+          <NewsItems news={this.state.news}/>
+        </div>
     </div>
 
     )
