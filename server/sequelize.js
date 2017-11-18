@@ -63,10 +63,12 @@ let Record = sequelize.define('record', {
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
   contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
+
   coverLetterName: { type: Sequelize.STRING, defaultValue: '' }, 
   coverLetterURL: { type: Sequelize.STRING, defaultValue: ''},
   resumeName: { type: Sequelize.STRING, defaultValue: '' },
   resumeURL: { type: Sequelize.STRING, defaultValue: '' },
+
   tags: { type: Sequelize.STRING, default: 'default'},
   firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
   secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
@@ -89,7 +91,8 @@ Record.sync(forceObj).then(() => {
     offer: false,
     rejected: false,
     userId: 1,
-    companyId: 1
+    companyId: 1,
+    googleId: 0
   },{
     // company: 'another example',
     location: 'Brooklyn, NY',

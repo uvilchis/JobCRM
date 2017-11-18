@@ -6,11 +6,13 @@ let path = require('path');
 let axios = require('axios');
 
 exports.getAllRecords = function(req, res) {
-    console.log('getAllRecords ===== req.params ========>')
-    console.log(req.user.id);
+    // console.log('getAllRecords ===== req.params ========>')
+    // console.log(req.user.id);
+    // console.log('params: googleId: ', req.params.googleId);
+    // console.log('props googleId: ', this.props.googleId)
     RowEntry.findAll({include: [{model: Company}], where: {googleId: req.user.id}})
       .then((records) => {
-        console.log(records);
+        //console.log(records);
         //if (typeof records) res.send([]);
         res.status(200)
         res.send(records)
@@ -19,9 +21,10 @@ exports.getAllRecords = function(req, res) {
   }
 
   exports.getRecentRecords = function(req, res) {
+
     RowEntry.findAll({include: [{model: Company}], order: ['updatedAt', 'DESC'], where: {googleId: req.params.googleId}})
       .then((records) => {
-        console.log(records);
+        //console.log(records);
         res.status(200)
         res.send(records)
       })
@@ -47,9 +50,9 @@ exports.update = function(req, res) {
 
 
 exports.insert = function (req, res) {
-    console.log(req.body);
-    console.log('=======================')
-    console.log(req.body.companyValue);
+    // console.log(req.body);
+    // console.log('=======================')
+    // console.log(req.body.companyValue);
     // var companyId;
     var newCompanyId;
     Company.findOne({
@@ -79,8 +82,8 @@ exports.insert = function (req, res) {
             contact : req.body.contactValue,
             notes : req.body.notesValue,
             keywords : req.body.tags.map((x) => x = x.text).join(' '),
-            coverLetter : req.body.coverLetter,
-            resume : req.body.resume,
+            // coverLetter : req.body.coverLetter,
+            // resume : req.body.resume,
             firstInterview : req.body.firstInterview,
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
