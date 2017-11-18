@@ -3,20 +3,22 @@ let Sequelize = require('sequelize');
 let sequelize = new Sequelize ({
                                dialect: 'postgres',
                                dialectOptions: {
-                               ssl: true
+                               ssl: false
                                },
-                               host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
+                               host: `localhost`,//ec2-23-21-220-23.compute-1.amazonaws.com
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
                                Port: 5432,
+
                                logging: false, 
+
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
                                })
 
 let forceObj = {force: false};
 
-sequelize
+sequelize 
 .authenticate()
 .then(() => {
       console.log('Connection to database has been established successfully.');
@@ -30,7 +32,8 @@ let User = sequelize.define('user', {
   accessToken : { type : Sequelize.STRING, defualtValue: ''}, 
   expires_in : { type : Sequelize.INTEGER, defualtValue: ''}, 
   refreshToken : { type : Sequelize.STRING, defualtValue: ''},
-  profileJSON : { type : Sequelize.JSON}
+  profileJSON : { type : Sequelize.JSON},
+  emailAddress : { type: Sequelize.STRING}
 });
 
 User.sync(forceObj).then(() => {
@@ -51,23 +54,24 @@ let Company = sequelize.define('company', {
 
 Company.sync(forceObj).then(() => {
   Company.bulkCreate([{
-    name: 'SerumCorp'
+    name: 'Bitcoin'
   },{
-    name: 'Mighty Pastry'
+    name: 'Google'
   }])
 })
 
 let Record = sequelize.define('record', {
   //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
+  googleId: {type: Sequelize.STRING},
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
-  contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
+  // contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
   
   coverLetterName: { type: Sequelize.STRING, defaultValue: 'none yet!' }, 
   coverLetterURL: { type: Sequelize.STRING, defaultValue: ''},
   resumeName: { type: Sequelize.STRING, defaultValue: 'none yet!' },
   resumeURL: { type: Sequelize.STRING, defaultValue: '' },
-  
+
   tags: { type: Sequelize.STRING, default: 'default'},
   firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
   secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
@@ -78,11 +82,19 @@ let Record = sequelize.define('record', {
 Record.belongsTo(User);
 Record.belongsTo(Company);
 
+let Contact = sequelize.define('contact', {
+  name: {type: Sequelize.STRING},
+  emailAddress: {type: Sequelize.STRING},
+});
+
+Record.hasMany(Contact, {as: 'Record'});
+Contact.hasOne(Record);
+
 Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
     // company: 'example company',
     location: 'New York, NY',
-    contact: 'tommy.york@gmail.com',
+    // contact: 'tommy.york@gmail.com',
     notes: 'example info',
     tags: 'Javascript React',
     firstInterview: true,
@@ -90,11 +102,12 @@ Record.sync(forceObj).then(() => {
     offer: false,
     rejected: false,
     userId: 1,
-    companyId: 1
+    companyId: 1,
+    googleId: 0
   },{
     // company: 'another example',
     location: 'Brooklyn, NY',
-    contact: 'hipsterland@gmail.com',
+    // contact: 'hipsterland@gmail.com',
     notes: 'more example info',
     tags: 'C Networks',
     firstInterview: true,
@@ -122,10 +135,7 @@ Artifacts.sync(forceObj).then(() => {
   }])
 })
 
-let Contact = sequelize.define('contact', {
-  name: {type: Sequelize.STRING},
-  emailAddress: {type: Sequelize.STRING},
-});
+
 
 Contact.sync(forceObj).then(() => {
   Contact.bulkCreate([{
@@ -135,21 +145,22 @@ Contact.sync(forceObj).then(() => {
 })
 .catch((err) => console.log(err));
 
-let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.belongsTo(Contact);
-recordsContactMap.belongsTo(Record);
+// let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.sync(forceObj).then(() => {
-  recordsContactMap.bulkCreate([{
-    contactId: 1,
-    recordId: 1
-  }])
-})
+// recordsContactMap.belongsTo(Contact);
+// recordsContactMap.belongsTo(Record);
+
+// recordsContactMap.sync(forceObj).then(() => {
+//   recordsContactMap.bulkCreate([{
+//     contactId: 1,
+//     recordId: 1
+//   }])
+// })
 
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
-exports.recordsContactMap = recordsContactMap;
+// exports.recordsContactMap = recordsContactMap;

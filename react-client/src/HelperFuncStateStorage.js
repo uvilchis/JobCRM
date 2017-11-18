@@ -13,8 +13,8 @@ class HelperFuncStateStorage {
     stateUpdate[stateName] = !inst.state[stateName];
     inst.setState(stateUpdate);
 
-    console.log(inst.props.record);
-    console.log(inst.props.record.id);
+    // console.log(inst.props.record);
+    // console.log(inst.props.record.id);
 
     axios.post('update', {
       id: inst.props.record.id,
@@ -39,13 +39,6 @@ class HelperFuncStateStorage {
     });
   }
 
-  requestRecentApplications(inst) {
-    return axios.get('records')
-    .then((records) => {
-      //console.log(records);
-      return records.slice(0,10);
-    });
-  }
 
   loadApplicationKeywords(url) {
     console.log('loadApplicationKeywords ', url);
