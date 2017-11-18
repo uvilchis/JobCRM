@@ -5,7 +5,7 @@ class RecordSummary extends React.Component {
     super(props);
   }
   render() {
-    console.log(this.props);
+    console.log('this is a record' , this.props);
     return (
     
       <div>
