@@ -189,6 +189,7 @@ class App extends React.Component {
             <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
             <Route exact path="/dashboard" render={() => <Dashboard searchFunction={this.getRecentRecords.bind(this)} /> } />
             <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
+            <Route exact path="/contact" render={() => <ContactPage googleId={this.state.googleId} /> } />
             <Route exact path="/docs" render={() => 
               <ResumeFrame 
                 accessToken={this.state.accessToken} 

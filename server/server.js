@@ -42,6 +42,8 @@ app.get('/logout', auth.destroySession)
 app.post('/docs/coverLetter', docs.addResume)
 app.post('/docs/resume', docs.addCoverLetter)
 
+app.get('/contacts', ()=>{return;})//NEEDS A CONTROLLER
+
 app.get('/records', rec.getAllRecords);
 // app.get('/records/:googleid', rec.getRecordsByGoogleId)
 
