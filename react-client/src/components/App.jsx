@@ -206,15 +206,16 @@ class App extends React.Component {
               /> } />
             <Route exact path="/dashboard" render={() => <Dashboard /> } />
             <Route exact path="/contact" render={() => <ContactPage googleId={this.state.googleId} /> } />
-            <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() =>
-              <Input
-               refresh={this.resetRecords.bind(this)}
-                parse={hf.loadApplicationKeywords}
-                googleId={this.state.googleId}
-            />}
-          />
-
-<Route exact path="/docs" render={() =>
+            <Route exact path="/input" className="col-md-6 col-md-offset-3" 
+              render={() =>
+                <Input
+                 refresh={this.resetRecords.bind(this)}
+                  parse={hf.loadApplicationKeywords}
+                  googleId={this.state.googleId}
+                />
+              }
+            />
+            <Route exact path="/docs" render={() =>
               <ResumeFrame
                 accessToken={this.state.accessToken}
                 refreshToken={this.state.refreshToken} 

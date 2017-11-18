@@ -73,22 +73,30 @@ Contact.sync(forceObj).then(() => {
 .catch((err) => console.log(err));
 
 let Record = sequelize.define('record', {
-  //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
   googleId: {type: Sequelize.STRING},
+  // companyId is already set up. 
+
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
-  // contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
+  tags: { type: Sequelize.STRING, default: 'default'},
+  jobApplicationURL: { type: Sequelize.STRING, default: 'www.tommy-york.com'},
+
+  firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
+  secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
+  offer: { type: Sequelize.BOOLEAN, defaultValue: false },
+  rejected: { type: Sequelize.BOOLEAN, defaultValue: false },
   
+  // this is for the document management. 
   coverLetterName: { type: Sequelize.STRING, defaultValue: 'none yet!' }, 
   coverLetterURL: { type: Sequelize.STRING, defaultValue: ''},
   resumeName: { type: Sequelize.STRING, defaultValue: 'none yet!' },
   resumeURL: { type: Sequelize.STRING, defaultValue: '' },
 
-  tags: { type: Sequelize.STRING, default: 'default'},
-  firstInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
-  secondInterview: { type: Sequelize.BOOLEAN, defaultValue: false },
-  offer: { type: Sequelize.BOOLEAN, defaultValue: false },
-  rejected: { type: Sequelize.BOOLEAN, defaultValue: false },
+  // This is for the fullContact
+  contactValue: { type: Sequelize.STRING, defaultValue: '' },
+  contactEmailAddress: { type: Sequelize.STRING, defaultValue: '' },
+  socialProfiles: { type: Sequelize.ARRAY(Sequelize.JSON), defaultValue: [] },
+
 });
 
 Record.belongsTo(User);
@@ -110,33 +118,27 @@ Record.belongsTo(Contact)
 
 Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
-    // company: 'example company',
-    location: 'New York, NY',
-    // contact: 'tommy.york@gmail.com',
-    notes: 'example info',
-    tags: 'Javascript React',
-    firstInterview: true,
-    secondInterview: false,
-    offer: false,
-    rejected: false,
-    userId: 1,
-    companyId: 1,
-    contactId: 1,
-    googleId: 0
-  },{
-    // company: 'another example',
-    location: 'Brooklyn, NY',
-    // contact: 'hipsterland@gmail.com',
-    notes: 'more example info',
-    tags: 'C Networks',
-    firstInterview: true,
-    secondInterview: true,
-    offer: true,
-    rejected: false,
-    userId: 2,
-    companyId: 2,
-    contactId: 1,
-    googleId: 2
+    googleId : Math.random() * 10000000000000,
+    location: 'Hack Reactor NY', //{ type: Sequelize.STRING, defaultValue: "Enter Location" },
+    notes: 'loud chairs',  //{ type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
+    tags: 'seamus tommy etc',//{ type: Sequelize.STRING, default: 'default'},
+    jobApplicationURL: 'www.tommy-york.com',//{ type: Sequelize.STRING, default: 'www.tommy-york.com'},
+
+    firstInterview: false, // { type: Sequelize.BOOLEAN, defaultValue: false },
+    secondInterview: false, // { type: Sequelize.BOOLEAN, defaultValue: false },
+    offer: false, //{ type: Sequelize.BOOLEAN, defaultValue: false },
+    rejected: true, //{ type: Sequelize.BOOLEAN, defaultValue: false },
+    
+    // this is for the document management. 
+    coverLetterName: 'CL 1', //{ type: Sequelize.STRING, defaultValue: 'none yet!' }, 
+    coverLetterURL: 'https://drive.google.com/drive/folders/0B1tVIam7_Q5xflVIa2IwOGJyQkpQY1gzWHU5YkFHdjM3SF9OVEVHdUxyNnpxZkNjejNiZWs', //{ type: Sequelize.STRING, defaultValue: ''},
+    resumeName: 'Res 1', //{ type: Sequelize.STRING, defaultValue: 'none yet!' },
+    resumeURL: 'https://drive.google.com/drive/folders/0B1tVIam7_Q5xflVIa2IwOGJyQkpQY1gzWHU5YkFHdjM3SF9OVEVHdUxyNnpxZkNjejNiZWs', //{ type: Sequelize.STRING, defaultValue: '' },
+
+    // This is for the fullContact
+    contactValue: 'Seamus Martin', //{ type: Sequelize.STRING, defaultValue: '' },
+    contactEmailAddress: 'tommy.york@gmail.com',// { type: Sequelize.STRING, defaultValue: '' },
+    socialProfiles: [{'facebook' : 'www.facebook.com'}], // { type: Sequelize.STRING, defaultValue: '' },
   }]);
 });
 
