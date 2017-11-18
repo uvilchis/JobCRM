@@ -33,41 +33,30 @@ export default class Dashboard extends React.Component {
   
   getRecentNews() {
     let newNews = [];
-    let renderedCompanies = [];
     this.getTopCompanies()
       .then((results) => {
-        console.log('getRecentNews results: ', results);
         if (results && results.length > 0) {
           results.forEach((x) => {
-              axios.get(`https://newsapi.org/v2/everything?q=${x}&apiKey=f8ea23698b664c35a7c9598fe183e2ec`).then((x) => newNews.push(x)).then(() => this.setState({news: newNews}))
-              console.log('axios get newNews: ', newNews);
-            })
-          }})
+              axios.get(`https://newsapi.org/v2/everything?q=${x}&apiKey=f8ea23698b664c35a7c9598fe183e2ec`)
+              .then((y) => newNews.push({CompanyName: x, News: y}))
+              .then(() => this.setState({news: newNews}))
+          })
         }
-      
+      }
+  )}
 
-    // let CompanyArray = [];
-    // this.getTopCompanies((x) => CompanyArray.push(x)).then(() => console.log('CompanyArray in getRecentNews: ', CompanyArray));
-    // // return axios.get('https://newsapi.org/v2/everything?q=bitcoin&apiKey=f8ea23698b664c35a7c9598fe183e2ec')
-    // .then((newsObj) => newsObj.data.articles.slice(0, 10))
-    // .then((apiResponse) => {
-    //   console.log(apiResponse);
-    //   this.setState({news: apiResponse})
-    // })
-    // .catch((err) => console.log(err));
-    // CompanyArray.forEach((x) => axios.get('https://newsapi.org/v2/everything?q=bitcoin&apiKey=f8ea23698b664c35a7c9598fe183e2ec').then((x) => news.push(x.name)));
-    // this.setState({news: news})
-
-
-  componentWillUpdate() {
-    this.render();
+  componentWillMount() {
+    this.getRecentNews();
   }
+
+  // componentWillUpdate() {
+  //   this.render();
+  // }
 
   render() {
 
     return (<div className='records-list'>
-        <LinkButton title="Render News" clickFunction={this.getRecentNews.bind(this)} />
-      Recent news:
+      <h1>Recent news:</h1>
         <NewsItems news={this.state.news}/>
     </div>
 
