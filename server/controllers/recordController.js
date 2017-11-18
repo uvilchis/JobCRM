@@ -82,13 +82,18 @@ exports.insert = function (req, res) {
             contact : req.body.contactValue,
             notes : req.body.notesValue,
             keywords : req.body.tags.map((x) => x = x.text).join(' '),
-            // coverLetter : req.body.coverLetter,
-            // resume : req.body.resume,
+
+
+           https://github.com/tommyyork/JobCRM coverLetterName: req.body.coverLetterName, 
+            coverLetterURL: req.body.coverLetterURL,
+            resumeName: req.body.resumeName,
+            resumeURL: req.body.resumeURL,
+
             firstInterview : req.body.firstInterview,
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
-            rejected : req.body.rejected,
-            googleId: req.body.googleId
+            rejected : req.body.rejected
+            
           })
             .then(() => res.end())
         })

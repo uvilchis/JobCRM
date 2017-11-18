@@ -63,10 +63,10 @@ let Record = sequelize.define('record', {
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
   contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
-
-  coverLetterName: { type: Sequelize.STRING, defaultValue: '' }, 
+  
+  coverLetterName: { type: Sequelize.STRING, defaultValue: 'none yet!' }, 
   coverLetterURL: { type: Sequelize.STRING, defaultValue: ''},
-  resumeName: { type: Sequelize.STRING, defaultValue: '' },
+  resumeName: { type: Sequelize.STRING, defaultValue: 'none yet!' },
   resumeURL: { type: Sequelize.STRING, defaultValue: '' },
 
   tags: { type: Sequelize.STRING, default: 'default'},
