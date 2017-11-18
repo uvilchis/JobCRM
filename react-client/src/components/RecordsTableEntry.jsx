@@ -80,7 +80,7 @@ export default class RecordsTableEntry extends React.Component {
       {/* This the cover letter. */}
       <td> 
         {/*<ResumeEditor recordId = {this.props.record.id} targetDocument = 'coverLetter' /> */}
-        <h5> current: {this.state.coverLetterName}</h5> 
+        <h5> current cover letter: {this.state.coverLetterName}</h5> 
         <ResumePicker 
           updateName = {this.updateCoverLetterName}
           recordId = {this.props.record.id} 
@@ -91,7 +91,7 @@ export default class RecordsTableEntry extends React.Component {
       {/* This the resume */}
       <td> 
         {/*<ResumeEditor recordId = {this.props.record.id} targetDocument = 'resume' /> */}
-        <h5> current: {this.state.resumeName}</h5> 
+        <h5> current resume: {this.state.resumeName}</h5> 
         <ResumePicker 
           updateName = {this.updateResumeName} 
           recordId = {this.props.record.id} 

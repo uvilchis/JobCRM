@@ -39,8 +39,8 @@ app.get('/session/all', auth.getSessionAll)
 app.get('/logout', auth.destroySession)
 
 // these post to the docs. 
-app.post('/docs/coverLetter', docs.addResume)
-app.post('/docs/resume', docs.addCoverLetter)
+app.post('/docs/coverLetter', docs.addCoverLetter)
+app.post('/docs/resume', docs.addResume)
 
 app.get('/records', rec.getAllRecords);
 // app.get('/records/:googleid', rec.getRecordsByGoogleId)
