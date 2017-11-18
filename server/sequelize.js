@@ -29,7 +29,8 @@ let User = sequelize.define('user', {
   accessToken : { type : Sequelize.STRING, defualtValue: ''}, 
   expires_in : { type : Sequelize.INTEGER, defualtValue: ''}, 
   refreshToken : { type : Sequelize.STRING, defualtValue: ''},
-  profileJSON : { type : Sequelize.JSON}
+  profileJSON : { type : Sequelize.JSON},
+  emailAddress : { type: Sequelize.STRING}
 });
 
 User.sync(forceObj).then(() => {
@@ -75,6 +76,13 @@ let Record = sequelize.define('record', {
 Record.belongsTo(User);
 Record.belongsTo(Company);
 
+let Contact = sequelize.define('contact', {
+  name: {type: Sequelize.STRING},
+  emailAddress: {type: Sequelize.STRING},
+});
+
+Record.hasMany(Contact, {as: 'Record'});
+
 Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
     // company: 'example company',
@@ -119,10 +127,7 @@ Artifacts.sync(forceObj).then(() => {
   }])
 })
 
-let Contact = sequelize.define('contact', {
-  name: {type: Sequelize.STRING},
-  emailAddress: {type: Sequelize.STRING},
-});
+
 
 Contact.sync(forceObj).then(() => {
   Contact.bulkCreate([{
@@ -132,21 +137,22 @@ Contact.sync(forceObj).then(() => {
 })
 .catch((err) => console.log(err));
 
-let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.belongsTo(Contact);
-recordsContactMap.belongsTo(Record);
+// let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.sync(forceObj).then(() => {
-  recordsContactMap.bulkCreate([{
-    contactId: 1,
-    recordId: 1
-  }])
-})
+// recordsContactMap.belongsTo(Contact);
+// recordsContactMap.belongsTo(Record);
+
+// recordsContactMap.sync(forceObj).then(() => {
+//   recordsContactMap.bulkCreate([{
+//     contactId: 1,
+//     recordId: 1
+//   }])
+// })
 
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
-exports.recordsContactMap = recordsContactMap;
+// exports.recordsContactMap = recordsContactMap;
