@@ -25,22 +25,22 @@ export default class newsItem extends React.Component {
 
   render() {
 
-    const listItems = this.props.news.map((company, i) => {
-       console.log('newsItem company: ', company);
-        return(
-        <div>
+    const listItems = this.props.news.map((company, i) => 
+      <div>
+          <div className="row">
             <h2>{company.CompanyName}</h2>
-            <ul className="list-inline" key={i}>
-                {company.News.data.articles.slice(0,3).map((data, i) =>  
-                    <li className="list-group-item" key={i}>
-                        {data.title}
-                        {data.description}
-                    </li>
-                )}
-            </ul>
-        </div>
-       )
-    })
+          </div>
+          {company.News.data.articles.slice(0,3).map((data, i) =>
+            <div className="row">  
+              <div className="col-sm" key={i}>
+                {data.title}
+              </div>
+              <div className="col-sm">
+                {data.description}
+              </div>
+          </div>)}
+      </div>
+    )
 
     //let nameObj =Object.assign({}, this.props.record.company);
     //console.log(nameObj.name);
