@@ -32,11 +32,11 @@ export default class newsItem extends React.Component {
           </div>
           {company.News.data.articles.slice(0,3).map((data, i) =>
             <div className="row">  
-              <div className="col-sm" key={i}>
-                {data.title}
+              <div className="col-sm-" key={i}>
+              <h3>{data.title}</h3>
               </div>
-              <div className="col-sm">
-                {data.description}
+              <div className="col-sm-">
+                <b>Description:</b> {data.description}
               </div>
           </div>)}
       </div>
