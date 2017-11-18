@@ -140,7 +140,7 @@ class App extends React.Component {
   
 
   render() {
-    
+    console.log(this.records);
     return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
      (
       <Router>
@@ -223,7 +223,9 @@ class App extends React.Component {
               />} 
             />
             <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
-              <RecordSummary recordId={this.state.records[match.params.recordID - 1]} />
+              {
+                return <RecordSummary recordId={this.state.records.find((record) => record.id == match.params.recordID)} />
+              } 
             } />
         </div>
       </Router>
