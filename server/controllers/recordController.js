@@ -12,7 +12,7 @@ exports.getAllRecords = function(req, res) {
     // console.log('props googleId: ', this.props.googleId)
     RowEntry.findAll({include: [{model: Company}], where: {googleId: req.user.id}})
       .then((records) => {
-        //console.log(records);
+        // console.log(records);
         //if (typeof records) res.send([]);
         res.status(200)
         res.send(records)
@@ -51,9 +51,10 @@ exports.update = function(req, res) {
 
 exports.insert = function (req, res) {
     // console.log(req.body);
-    // console.log('=======================')
+    console.log('attempting to insert');
     // console.log(req.body.companyValue);
     // var companyId;
+    console.log(req.body.companyValue);
     var newCompanyId;
     Company.findOne({
       where: {
@@ -69,39 +70,31 @@ exports.insert = function (req, res) {
         Company.create({
           name: req.body.companyValue
         }).then((x) => {
-            // console.log(x);
+            console.log('x, ', x.dataValues.id);
             // console.log('x ', x.dataValues.id);
             newCompanyId = x.dataValues.id;
           })
-        }
-      })
         .then(() => {
+          // console.log('new comapny id: ', newCompanyId)
           RowEntry.create({
             companyId : newCompanyId,
             location : req.body.locationValue,
             contact : req.body.contactValue,
             notes : req.body.notesValue,
             keywords : req.body.tags.map((x) => x = x.text).join(' '),
-
-
-           https://github.com/tommyyork/JobCRM coverLetterName: req.body.coverLetterName, 
-            coverLetterURL: req.body.coverLetterURL,
-            resumeName: req.body.resumeName,
-            resumeURL: req.body.resumeURL,
-
+            // coverLetter : req.body.coverLetter,
+            // resume : req.body.resume,
             firstInterview : req.body.firstInterview,
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
             rejected : req.body.rejected
             
           })
-            .then(() => res.end())
-            //get contact name, profile, and email, 
-            //find one contact name
-            //if found update the contact with new record id
-            //if not found create the contact with the record id
+          .then(() => res.end())
         })
       } 
+    })
+  }
   
 
  exports.deleteRecord = function(req, res) {

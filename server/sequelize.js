@@ -3,15 +3,13 @@ let Sequelize = require('sequelize');
 let sequelize = new Sequelize ({
                                dialect: 'postgres',
                                dialectOptions: {
-                               ssl: false
+                               ssl: true
                                },
-                               host: `localhost`,//ec2-23-21-220-23.compute-1.amazonaws.com
+                               host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
+                               logging: false,
                                Port: 5432,
-
-                               logging: false, 
-
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
                                })
@@ -123,7 +121,8 @@ Record.sync(forceObj).then(() => {
     offer: true,
     rejected: false,
     userId: 2,
-    companyId: 2
+    companyId: 2,
+    googleId: 2
   }]);
 });
 
@@ -142,6 +141,31 @@ Artifacts.sync(forceObj).then(() => {
     artifactTitle: 'Empty artifact.',
   }])
 })
+
+let Contact = sequelize.define('contact', {
+  name: {type: Sequelize.STRING},
+  emailAddress: {type: Sequelize.STRING},
+});
+
+Contact.sync(forceObj).then(() => {
+  Contact.bulkCreate([{
+    name: 'Tommy York (Corporate)',
+    emailAddress: 'tommy.york@gmail.com'
+  }])
+})
+.catch((err) => console.log(err));
+
+// let recordsContactMap = sequelize.define('recordscontact');
+
+// recordsContactMap.belongsTo(Contact);
+// recordsContactMap.belongsTo(Record);
+
+// recordsContactMap.sync(forceObj).then(() => {
+//   recordsContactMap.bulkCreate([{
+//     contactId: 1,
+//     recordId: 1
+//   }])
+// })
 
 exports.sequelize = sequelize;
 exports.User = User;
