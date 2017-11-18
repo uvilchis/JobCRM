@@ -9,9 +9,7 @@ export default class ContactInput extends React.Component {
   render() {
     const profile = this.props.profile;
     return (
-      <div className="float-left">
-      <a href={profile.url} target="_blank">{profile.name}</a>
-      </div>
+     <li><a href={profile.url} target="_blank">{profile.name}</a></li>
       )
   }
 }
