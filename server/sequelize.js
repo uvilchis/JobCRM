@@ -9,7 +9,9 @@ let sequelize = new Sequelize ({
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
                                Port: 5432,
-                               logging: true,
+
+                               logging: false, 
+
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
                                })
