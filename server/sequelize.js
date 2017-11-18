@@ -62,7 +62,7 @@ let Record = sequelize.define('record', {
   //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
   googleId: {type: Sequelize.STRING},
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
-  contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
+  // contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
   
   coverLetterName: { type: Sequelize.STRING, defaultValue: 'none yet!' }, 
@@ -86,12 +86,13 @@ let Contact = sequelize.define('contact', {
 });
 
 Record.hasMany(Contact, {as: 'Record'});
+Contact.hasOne(Record);
 
 Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
     // company: 'example company',
     location: 'New York, NY',
-    contact: 'tommy.york@gmail.com',
+    // contact: 'tommy.york@gmail.com',
     notes: 'example info',
     tags: 'Javascript React',
     firstInterview: true,
@@ -104,7 +105,7 @@ Record.sync(forceObj).then(() => {
   },{
     // company: 'another example',
     location: 'Brooklyn, NY',
-    contact: 'hipsterland@gmail.com',
+    // contact: 'hipsterland@gmail.com',
     notes: 'more example info',
     tags: 'C Networks',
     firstInterview: true,
