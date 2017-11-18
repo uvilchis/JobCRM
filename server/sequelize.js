@@ -80,21 +80,18 @@ let Record = sequelize.define('record', {
 Record.belongsTo(User);
 Record.belongsTo(Company);
 
-let Contact = sequelize.define('contact', {
-  name: {type: Sequelize.STRING},
-  emailAddress: {type: Sequelize.STRING},
-});
+// let Contact = sequelize.define('contact', {
+//   name: {type: Sequelize.STRING},
+//   emailAddress: {type: Sequelize.STRING},
+// });
 
-Contact.sync(forceObj).then(() => {
-  Contact.bulkCreate([{
-    name: 'Tommy York (Corporate)',
-    emailAddress: 'tommy.york@gmail.com'
-  }])
-})
-.catch((err) => console.log(err));
-
-Record.hasMany(Contact, {as: 'Record'});
-Contact.hasOne(Record);
+// Contact.sync(forceObj).then(() => {
+//   Contact.bulkCreate([{
+//     name: 'Tommy York (Corporate)',
+//     emailAddress: 'tommy.york@gmail.com'
+//   }])
+// })
+// .catch((err) => console.log(err));
 
 Record.sync(forceObj).then(() => {
   Record.bulkCreate([{
@@ -154,6 +151,10 @@ Contact.sync(forceObj).then(() => {
   }])
 })
 .catch((err) => console.log(err));
+
+Record.hasMany(Contact, {as: 'Record'});
+Contact.hasOne(Record);
+
 
 // let recordsContactMap = sequelize.define('recordscontact');
 
