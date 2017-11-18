@@ -168,13 +168,13 @@ class App extends React.Component {
                       <LinkButton title='Insert' clickFunction={() => {}} />
                     </Link>
                   </li>
-
+                {/*
                   <li className="link-button">
                     <Link to="/docs">
                       <LinkButton title='Documents' clickFunction={() => {}} />
                     </Link>
                   </li>
-
+                */}
                 </ul>
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">
@@ -215,6 +215,7 @@ class App extends React.Component {
                 />
               }
             />
+            {/*
             <Route exact path="/docs" render={() =>
               <ResumeFrame
                 accessToken={this.state.accessToken}
@@ -222,6 +223,7 @@ class App extends React.Component {
                 googleId={this.state.googleId}
               />} 
             />
+            */}
             <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
               {
                 return <RecordSummary recordId={this.state.records.find((record) => record.id == match.params.recordID)} />
