@@ -8,6 +8,7 @@ let sequelize = new Sequelize ({
                                host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
+                               logging: false,
                                Port: 5432,
                                logging: true,
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
@@ -104,7 +105,8 @@ Record.sync(forceObj).then(() => {
     offer: true,
     rejected: false,
     userId: 2,
-    companyId: 2
+    companyId: 2,
+    googleId: 2
   }]);
 });
 
@@ -137,21 +139,21 @@ Contact.sync(forceObj).then(() => {
 })
 .catch((err) => console.log(err));
 
-let recordsContactMap = sequelize.define('recordscontact');
+// let recordsContactMap = sequelize.define('recordscontact');
 
-recordsContactMap.belongsTo(Contact);
-recordsContactMap.belongsTo(Record);
+// recordsContactMap.belongsTo(Contact);
+// recordsContactMap.belongsTo(Record);
 
-recordsContactMap.sync(forceObj).then(() => {
-  recordsContactMap.bulkCreate([{
-    contactId: 1,
-    recordId: 1
-  }])
-})
+// recordsContactMap.sync(forceObj).then(() => {
+//   recordsContactMap.bulkCreate([{
+//     contactId: 1,
+//     recordId: 1
+//   }])
+// })
 
 exports.sequelize = sequelize;
 exports.User = User;
 exports.RowEntry = Record;
 exports.Company = Company;
 exports.Artifacts = Artifacts;
-exports.recordsContactMap = recordsContactMap;
+// exports.recordsContactMap = recordsContactMap;

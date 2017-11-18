@@ -12,7 +12,7 @@ exports.getAllRecords = function(req, res) {
     // console.log('props googleId: ', this.props.googleId)
     RowEntry.findAll({include: [{model: Company}], where: {googleId: req.user.id}})
       .then((records) => {
-        //console.log(records);
+        // console.log(records);
         //if (typeof records) res.send([]);
         res.status(200)
         res.send(records)
@@ -51,9 +51,10 @@ exports.update = function(req, res) {
 
 exports.insert = function (req, res) {
     // console.log(req.body);
-    // console.log('=======================')
+    console.log('attempting to insert');
     // console.log(req.body.companyValue);
     // var companyId;
+    console.log(req.body.companyValue);
     var newCompanyId;
     Company.findOne({
       where: {
@@ -69,13 +70,12 @@ exports.insert = function (req, res) {
         Company.create({
           name: req.body.companyValue
         }).then((x) => {
-            // console.log(x);
+            console.log('x, ', x.dataValues.id);
             // console.log('x ', x.dataValues.id);
             newCompanyId = x.dataValues.id;
           })
-        }
-      })
         .then(() => {
+          // console.log('new comapny id: ', newCompanyId)
           RowEntry.create({
             companyId : newCompanyId,
             location : req.body.locationValue,
@@ -90,9 +90,11 @@ exports.insert = function (req, res) {
             rejected : req.body.rejected,
             googleId: req.body.googleId
           })
-            .then(() => res.end())
+          .then(() => res.end())
         })
       } 
+    })
+  }
   
 
  exports.deleteRecord = function(req, res) {
