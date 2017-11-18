@@ -31,7 +31,7 @@ export default class newsItem extends React.Component {
         <div>
             <h2>{company.CompanyName}</h2>
             <ul className="list-inline" key={i}>
-                {company.News.data.articles.map((data, i) =>  
+                {company.News.data.articles.slice(0,3).map((data, i) =>  
                     <li className="list-group-item" key={i}>
                         {data.title}
                         {data.description}
