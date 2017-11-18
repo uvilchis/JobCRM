@@ -8,7 +8,7 @@ let sequelize = new Sequelize ({
                                host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
-                               logging: false,
+                               logging: true,
                                Port: 5432,
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
@@ -58,6 +58,20 @@ Company.sync(forceObj).then(() => {
   }])
 })
 
+
+let Contact = sequelize.define('contact', {
+  name: {type: Sequelize.STRING},
+  emailAddress: {type: Sequelize.STRING},
+});
+
+Contact.sync(forceObj).then(() => {
+  Contact.bulkCreate([{
+    name: 'Tommy York (Corporate)',
+    emailAddress: 'tommy.york@gmail.com'
+  }])
+})
+.catch((err) => console.log(err));
+
 let Record = sequelize.define('record', {
   //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
   googleId: {type: Sequelize.STRING},
@@ -79,6 +93,7 @@ let Record = sequelize.define('record', {
 
 Record.belongsTo(User);
 Record.belongsTo(Company);
+Record.belongsTo(Contact)
 
 // let Contact = sequelize.define('contact', {
 //   name: {type: Sequelize.STRING},
@@ -106,6 +121,7 @@ Record.sync(forceObj).then(() => {
     rejected: false,
     userId: 1,
     companyId: 1,
+    contactId: 1,
     googleId: 0
   },{
     // company: 'another example',
@@ -119,6 +135,7 @@ Record.sync(forceObj).then(() => {
     rejected: false,
     userId: 2,
     companyId: 2,
+    contactId: 1,
     googleId: 2
   }]);
 });
@@ -139,21 +156,10 @@ Artifacts.sync(forceObj).then(() => {
   }])
 })
 
-let Contact = sequelize.define('contact', {
-  name: {type: Sequelize.STRING},
-  emailAddress: {type: Sequelize.STRING},
-});
 
-Contact.sync(forceObj).then(() => {
-  Contact.bulkCreate([{
-    name: 'Tommy York (Corporate)',
-    emailAddress: 'tommy.york@gmail.com'
-  }])
-})
-.catch((err) => console.log(err));
+// Record.hasMany(Contact, {as: 'Record'});
+// Contact.hasOne(Record);
 
-Record.hasMany(Contact, {as: 'Record'});
-Contact.hasOne(Record);
 
 
 // let recordsContactMap = sequelize.define('recordscontact');
