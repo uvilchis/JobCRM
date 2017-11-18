@@ -21,16 +21,16 @@ class RecordSummary extends React.Component {
         </div>
         <div>
           <h3>Record Detail</h3>
-          <div>Company: {this.props.details.recordId.company.name} </div>
-          <div>Location: {this.props.details.recordId.location}</div>
-          <div>Notes: {this.props.details.recordId.notes} </div>
+          <div>Company: {this.props.recordId.company.name} </div>
+          <div>Location: {this.props.recordId.location}</div>
+          <div>Notes: {this.props.recordId.notes} </div>
           <h2>Status: </h2>
-          <div>Cover Letter: {this.props.details.recordId.coverLetterName}</div>
-          <div>Resume: </div> {this.props.details.recordId.resumeName}
-          <div>First Interview: {this.props.details.recordId.firstInterview ? 'Yes' : 'No'}</div>
-          <div>Second Interview: {this.props.details.recordId.secondInterview ? 'Yes' : 'No'}</div>
-          <div>Offer: {this.props.details.recordId.offer ? 'Yes' : 'No'}</div>
-          <div>Rejected: {this.props.details.recordId.rejected ? 'Yes' : 'No'}</div>
+          <div>Cover Letter: {this.props.recordId.coverLetterName}</div>
+          <div>Resume: </div> {this.props.recordId.resumeName}
+          <div>First Interview: {this.props.recordId.firstInterview ? 'Yes' : 'No'}</div>
+          <div>Second Interview: {this.props.recordId.secondInterview ? 'Yes' : 'No'}</div>
+          <div>Offer: {this.props.recordId.offer ? 'Yes' : 'No'}</div>
+          <div>Rejected: {this.props.recordId.rejected ? 'Yes' : 'No'}</div>
         </div>
       </div>
     )
