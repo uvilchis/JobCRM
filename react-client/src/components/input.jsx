@@ -9,6 +9,7 @@ import axios from 'axios'
 import ResumeFrame from './ResumeManager/ResumeFrame.js'
 
 
+
 import {
   BrowserRouter as Router,
   Route,
@@ -20,28 +21,35 @@ export default class Input extends React.Component {
     super();
     this.props = props;
     this.state = {        // these represent all of our database row values.
+      googleId: this.props.googleId,
       companyValue: '',
+      
       locationValue: '',
-      contactValue: '',
-      contactEmail: '',
-      socialProfiles: [],
       notesValue: '',
-      coverLetter: false,
-      resume:false,
+      tags: [{ id: 1, text: "Sample Keyword" }],
+      jobApplicationURL: '', 
+
       firstInterview: false,
       secondInterview: false,
       offer: false,
       rejected: false,
-      tags: [{ id: 1, text: "Sample Keyword" }],
-      jobApplicationURL: '',
-      jobApplicationText: '',
-      googleId: this.props.googleId,
+      
+      // this is for document management
+      coverLetterName: '', 
+      coverLetterURL: null,
+      resumeName: '',
+      resumeURL: null,
+      
+      contactValue: '',
+      contactEmail: '',
+      socialProfiles: [],
+
     };
     this.refresh = this.props.refresh.bind(this)
   }
 
   
-
+  // TODO: THIS IS BEING MOVED TO THE RECORDS PAGE.
   //fetch social media profiles from fullcontact api via server route as proxy.
   getSocialProfiles(){
     console.log(this.state.contactEmail);
@@ -141,25 +149,27 @@ export default class Input extends React.Component {
 
       <div className="checkbox">
         <label>
-          <input type="checkbox" value={this.state.coverLetter} onChange={(e) => {
-          hf.toggleCheckBox(this, 'coverLetter', e)
-          }} />
           Cover Letter
-      </label>
-      </div>
-      <div className="checkbox">
-        <label>  
-        <input type="checkbox" value={this.state.resume} onChange={(e) => {
-            hf.toggleCheckBox(this, 'resume', e)
-          }} />
-          Resume
         </label>
         <label>
-          <Link to='/resumeSubmit'>
-            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Upload Resume</button>
+          <Link to='/docs'>
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Cover Letter</button>
           </Link>
         </label>
       </div>
+      
+      <div className="checkbox">
+        <label>  
+          Resume
+        </label>
+        <label>
+          <Link to='/docs'> {/* TODO: make this so that the picker loads. */}
+            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Resume</button>
+          }
+          </Link>
+        </label>
+      </div>
+      
       <div className="checkbox">
         <label>
         <input className="checkbox" type="checkbox" value={this.state.firstInterview} onChange={(e) => {

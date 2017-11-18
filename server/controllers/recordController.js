@@ -6,11 +6,13 @@ let path = require('path');
 let axios = require('axios');
 
 exports.getAllRecords = function(req, res) {
-    console.log('getAllRecords ===== req.params ========>')
-    console.log(req.user.id);
+    // console.log('getAllRecords ===== req.params ========>')
+    // console.log(req.user.id);
+    // console.log('params: googleId: ', req.params.googleId);
+    // console.log('props googleId: ', this.props.googleId)
     RowEntry.findAll({include: [{model: Company}], where: {googleId: req.user.id}})
       .then((records) => {
-        console.log(records);
+        // console.log(records);
         //if (typeof records) res.send([]);
         res.status(200)
         res.send(records)
@@ -19,9 +21,10 @@ exports.getAllRecords = function(req, res) {
   }
 
   exports.getRecentRecords = function(req, res) {
+
     RowEntry.findAll({include: [{model: Company}], order: ['updatedAt', 'DESC'], where: {googleId: req.params.googleId}})
       .then((records) => {
-        console.log(records);
+        //console.log(records);
         res.status(200)
         res.send(records)
       })
@@ -47,10 +50,11 @@ exports.update = function(req, res) {
 
 
 exports.insert = function (req, res) {
-    console.log(req.body);
-    console.log('=======================')
-    console.log(req.body.companyValue);
+    // console.log(req.body);
+    console.log('attempting to insert');
+    // console.log(req.body.companyValue);
     // var companyId;
+    console.log(req.body.companyValue);
     var newCompanyId;
     Company.findOne({
       where: {
@@ -66,30 +70,43 @@ exports.insert = function (req, res) {
         Company.create({
           name: req.body.companyValue
         }).then((x) => {
-            // console.log(x);
+            console.log('x, ', x.dataValues.id);
             // console.log('x ', x.dataValues.id);
             newCompanyId = x.dataValues.id;
           })
-        }
-      })
         .then(() => {
+          // console.log('new comapny id: ', newCompanyId)
           RowEntry.create({
-            companyId : newCompanyId,
+            googleId: req.body.googleId, 
+            companyId : newCompanyId, // this is relational
+
             location : req.body.locationValue,
-            contact : req.body.contactValue,
             notes : req.body.notesValue,
-            keywords : req.body.tags.map((x) => x = x.text).join(' '),
-            coverLetter : req.body.coverLetter,
-            resume : req.body.resume,
+            tags : req.body.tags.map((x) => x = x.text).join(' '),
+            jobApplicationURL : req.body.jobApplicationURL,
+
             firstInterview : req.body.firstInterview,
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
             rejected : req.body.rejected,
-            googleId: req.body.googleId
+
+            // this is for the document management. 
+            coverLetterName : req.body.coverLetterName, 
+            coverLetterURL : req.body.coverLetterURL,
+            resumeName : req.body.resumeName, 
+            resumeURL : req.body.resumeURL, 
+
+            // This is for the fullContact: 
+            contactValue: req.body.companyValue,  // this is the name
+            contactEmailAddress: req.body.contactEmail, 
+            socialProfiles: req.body.socialProfiles, 
+                      
           })
-            .then(() => res.end())
+          .then(() => res.end())
         })
       } 
+    })
+  }
   
 
  exports.deleteRecord = function(req, res) {
@@ -135,4 +152,18 @@ exports.frontRoute = function (req, res) {
 console.log(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
   res.sendFile(path.join(__dirname, '/../../react-client/dist/', 'index.html'));
 };
+
+
+exports.getRecordsByGoogleId = function(req, res) {
+  console.log('some poor soul still needs to write getRecordsByGoogleId')
+}
+
+
+
+
+
+
+
+
+
 

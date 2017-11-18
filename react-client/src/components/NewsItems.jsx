@@ -11,9 +11,11 @@ import {
 // import Axios from 'axios';
 
 export default class newsItem extends React.Component {
+  // console.log(this.props);
   constructor(props) {
     super();
     this.props = props;
+    console.log(this.props);
     // this.state = {
     //     news: this.props.news
     // }
@@ -24,12 +26,12 @@ export default class newsItem extends React.Component {
   render() {
 
     const listItems = this.props.news.map((company, i) => {
-       console.log(company.data);
+       console.log('newsItem company: ', company);
         return(
         <div>
-            <h2>Company Placeholder</h2>
+            <h2>{company.CompanyName}</h2>
             <ul className="list-inline" key={i}>
-                {company.data.articles.map((data, i) =>  
+                {company.News.data.articles.map((data, i) =>  
                     <li className="list-group-item" key={i}>
                         {data.title}
                         {data.description}

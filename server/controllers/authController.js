@@ -10,8 +10,6 @@ var REDIRECT_URL = require('../keys/googleOAuth.js').REDIRECT_URL;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport')
 
-
-
 passport.serializeUser(function(user, done) {
 	console.log('serializeUser')
   done(null, user);
@@ -30,6 +28,7 @@ passport.use(new GoogleStrategy({
     'profile', 
     'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
+    'https://www.googleapis.com/auth/drive.readonly', 
     ], 
   },
 
@@ -72,6 +71,7 @@ exports.authenticate = passport.authenticate('google', {
     'profile', 
     'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
+    'https://www.googleapis.com/auth/drive.readonly', 
     ],
   accessType: 'offline',
   approvalPrompt: 'force'
@@ -87,6 +87,7 @@ exports.return = passport.authenticate('google', {
     'profile', 
     'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
+    'https://www.googleapis.com/auth/drive.readonly', 
   ],
 })
 
