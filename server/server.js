@@ -36,15 +36,15 @@ app.get('/auth/callback', auth.return)
 app.get('/session/displayName', auth.getSessionDisplayName)
 app.get('/session/all', auth.getSessionAll)
 
+
 app.get('/logout', auth.destroySession)
 
 // these post to the docs. 
 app.post('/docs/coverLetter', docs.addResume)
 app.post('/docs/resume', docs.addCoverLetter)
 
-app.get('/records', rec.getAllRecords);
-// app.get('/records/:googleid', rec.getRecordsByGoogleId)
-
+app.get('/records', rec.getAllRecords)
+app.get('/recentrecords', rec.getAllRecords);
 app.post('/update', rec.update);
 app.post('/insert', rec.insert);
 app.post('/deleteRecord', rec.deleteRecord)

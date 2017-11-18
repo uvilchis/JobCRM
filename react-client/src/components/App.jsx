@@ -26,11 +26,13 @@ class App extends React.Component {
     super();
     this.state = {
       records: [{}],    // you need to initialize the records as blank - our axios request is asynchronous
+      userRecords: [{}],
       currentRecordId: 0, 
       displayName : null, 
       accessToken : null,
       refreshToken : null, 
       googleId : null, 
+      companyList: null
     }
 
     // these four calls could be combined into one, but it is nice to have them 
@@ -86,17 +88,23 @@ class App extends React.Component {
     })
   }
 
-  filterByGoogleId() { 
+  filterByGoogleId(googleId) { 
     console.log('this shit gets run')
+    axios.get(`/records/`, {params: {googleId: googleId}}).then((response)=> {
+      console.log('the axios request is getting some response', response)
+      let userRecords = response.data; 
+      this.setState({userRecords})
+    }) 
 
   }
+  
   getGoogleId() {
     axios.get('/session/all')
     .then((response) => {
       let googleId = response.data.user.id
+      this.filterByGoogleId(googleId)
       this.setState({googleId})
     })
-    .then(this.filterByGoogleId)
   }
 
 
@@ -120,20 +128,19 @@ class App extends React.Component {
   }
 
 
-  getRecentRecords(inst) {
-    return axios.get('records')
-    .then((records) => {
-      //console.log(records);
-      return records.slice(0,10);
-    });
-  }
-
   //set recordId state for record summary route onclick of info button 
   setCurrentRecord(id) {
     this.setState({currentRecordId: id}).bind(this);
   }
 
+
+  // componentWillUpdate() {
+  //   console.log(this.state.companyList);
+  // }
+  
+
   render() {
+    
     return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
      (
       <Router>
@@ -145,8 +152,14 @@ class App extends React.Component {
                   </li>
 
                   <li className="link-button">
+                    <Link to="/dashboard">
+                      <LinkButton title='Dashboard' />
+                    </Link>
+                  </li>
+
+                  <li className="link-button">
                     <Link to="/">
-                      <LinkButton title='Records' clickFunction={this.resetRecords.bind(this)} />
+                      <LinkButton title='Records' clickFunction={this.resetRecords.bind(this) }/>
                     </Link>
                   </li>
 
@@ -188,10 +201,17 @@ class App extends React.Component {
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
             <Route exact path="/dashboard" render={() => <Dashboard searchFunction={this.getRecentRecords.bind(this)} /> } />
-            <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
-            <Route exact path="/docs" render={() => 
-              <ResumeFrame 
-                accessToken={this.state.accessToken} 
+<Route exact path="/input" className="col-md-6 col-md-offset-3" render={() =>
+<Input
+refresh={this.resetRecords.bind(this)}
+parse={hf.loadApplicationKeywords}
+googleId={this.state.googleId}
+/>}
+/>
+
+<Route exact path="/docs" render={() =>
+              <ResumeFrame
+                accessToken={this.state.accessToken}
                 refreshToken={this.state.refreshToken} 
                 googleId={this.state.googleId}
               />} 

@@ -6,9 +6,22 @@ let path = require('path');
 let axios = require('axios');
 
 exports.getAllRecords = function(req, res) {
-    RowEntry.findAll({include: [{model: Company}]})
+    console.log('getAllRecords ===== req.params ========>')
+    console.log(req.user.id);
+    RowEntry.findAll({include: [{model: Company}], where: {googleId: req.user.id}})
       .then((records) => {
-        //console.log(records);
+        console.log(records);
+        //if (typeof records) res.send([]);
+        res.status(200)
+        res.send(records)
+      })
+    // res.send();
+  }
+
+  exports.getRecentRecords = function(req, res) {
+    RowEntry.findAll({include: [{model: Company}], order: ['updatedAt', 'DESC'], where: {googleId: req.params.googleId}})
+      .then((records) => {
+        console.log(records);
         res.status(200)
         res.send(records)
       })
@@ -34,6 +47,7 @@ exports.update = function(req, res) {
 
 
 exports.insert = function (req, res) {
+    console.log(req.body);
     console.log('=======================')
     console.log(req.body.companyValue);
     // var companyId;
@@ -70,7 +84,8 @@ exports.insert = function (req, res) {
             firstInterview : req.body.firstInterview,
             secondInterview : req.body.secondInterview,
             offer : req.body.offer,
-            rejected : req.body.rejected
+            rejected : req.body.rejected,
+            googleId: req.body.googleId
           })
             .then(() => res.end())
         })

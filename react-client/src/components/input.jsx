@@ -37,7 +37,8 @@ export default class Input extends React.Component {
       rejected: false,
       tags: [{ id: 1, text: "Sample Keyword" }],
       jobApplicationURL: '',
-      jobApplicationText: ''
+      jobApplicationText: '',
+      googleId: this.props.googleId,
     };
     this.refresh = this.props.refresh.bind(this)
   }
