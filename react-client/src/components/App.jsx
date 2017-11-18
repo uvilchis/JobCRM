@@ -26,6 +26,7 @@ class App extends React.Component {
     super();
     this.state = {
       records: [{}],    // you need to initialize the records as blank - our axios request is asynchronous
+      userRecords: [{}],
       currentRecordId: 0, 
       displayName : null, 
       accessToken : null,
@@ -87,17 +88,23 @@ class App extends React.Component {
     })
   }
 
-  filterByGoogleId() { 
+  filterByGoogleId(googleId) { 
     console.log('this shit gets run')
+    axios.get(`/records/`, {params: {googleId: googleId}}).then((response)=> {
+      console.log('the axios request is getting some response', response)
+      let userRecords = response.data; 
+      this.setState({userRecords})
+    }) 
 
   }
+  
   getGoogleId() {
     axios.get('/session/all')
     .then((response) => {
       let googleId = response.data.user.id
+      this.filterByGoogleId(googleId)
       this.setState({googleId})
     })
-    .then(this.filterByGoogleId)
   }
 
 
@@ -194,9 +201,15 @@ class App extends React.Component {
             {/* use react router to only show one of our components at a time */}
             <Route exact path="/" render={() => <RecordsTable records={this.state.records} searchFunction={this.resetRecords.bind(this)} /> } />
             <Route exact path="/dashboard" render={() => <Dashboard /> } />
-            <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => <Input refresh={this.resetRecords.bind(this)} parse={hf.loadApplicationKeywords} />} />
+            <Route exact path="/input" className="col-md-6 col-md-offset-3" render={() => 
+            <Input 
+              refresh={this.resetRecords.bind(this)} 
+              parse={hf.loadApplicationKeywords} 
+              googleId={this.state.googleId}
+              />} 
+            />
             <Route exact path="/resume" render={() => <ResumeFrame accessToken={this.state.accessToken} refreshToken={this.state.refreshToken} googleId={this.state.googleId}/> } />
-            <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
+            <Route exact path="/record/recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
               <RecordSummary recordId={this.state.records[match.params.recordID - 1]} />
             } />
         </div>

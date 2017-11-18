@@ -36,9 +36,11 @@ app.get('/auth/callback', auth.return)
 app.get('/session/displayName', auth.getSessionDisplayName)
 app.get('/session/all', auth.getSessionAll)
 
+
 app.get('/logout', auth.destroySession)
 
-app.get('/records', rec.getAllRecords);
+app.get('/records', rec.getAllRecords)
+// app.get('/records', rec.getAllRecords);
 app.get('/recentrecords', rec.getAllRecords);
 app.post('/update', rec.update);
 app.post('/insert', rec.insert);

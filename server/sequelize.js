@@ -9,6 +9,7 @@ let sequelize = new Sequelize ({
                                database: `d9kfc0g85kd1q0`,
                                username: `rddgghwbqbufnr`,
                                Port: 5432,
+                               logging: true,
                                password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
                                })
@@ -58,6 +59,7 @@ Company.sync(forceObj).then(() => {
 
 let Record = sequelize.define('record', {
   //company: { type: Sequelize.STRING, defaultValue: "Enter Company Name" },
+  googleId: {type: Sequelize.STRING},
   location: { type: Sequelize.STRING, defaultValue: "Enter Location" },
   contact: { type: Sequelize.STRING, defaultValue: "Enter Contact Name" },
   notes: { type: Sequelize.TEXT, defaultValue: "Notes Go Here" },
