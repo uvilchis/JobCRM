@@ -48,8 +48,6 @@ export default class Input extends React.Component {
     this.refresh = this.props.refresh.bind(this)
   }
 
-  
-  // TODO: THIS IS BEING MOVED TO THE RECORDS PAGE.
   //fetch social media profiles from fullcontact api via server route as proxy.
   getSocialProfiles(){
     console.log(this.state.contactEmail);
@@ -62,7 +60,6 @@ export default class Input extends React.Component {
   }
 
   render() {
-    // console.log(this.state)
     return (
       <div className="container w-50 p-3">
       <form onSubmit={(e) => {

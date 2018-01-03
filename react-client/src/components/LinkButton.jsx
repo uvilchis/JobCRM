@@ -5,7 +5,6 @@ import React from 'react';
 export default class LinkButton extends React.Component {
   constructor(props) {
     super(props);
-    //console.log(props);
   }
 
   wrapper(e) {
