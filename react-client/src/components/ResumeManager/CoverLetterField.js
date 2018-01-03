@@ -11,8 +11,6 @@ export default class CoverLetterField extends React.Component {
   }
 
   render() {
-  	// console.log('this is the default value for the coverLetterName', this.props.coverLetterName)
-  	console.log('this is the coverLetterName', this.props.coverLetterName)
     return (this.props.coverLetterName !== undefined) ? (
     	<h5> {this.props.coverLetterName}</h5>
     	) : (

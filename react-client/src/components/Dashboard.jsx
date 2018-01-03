@@ -17,7 +17,6 @@ export default class Dashboard extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      //newsFunction: this.props.newsFunction.bind(this),
       news: [],
       companyList: []
     }
@@ -26,7 +25,6 @@ export default class Dashboard extends React.Component {
   getTopCompanies() {
     return axios.get('recentrecords').then((results) => {
       let returnValue = results.data.slice(0,5);
-      console.log(returnValue);
       return _.uniq(returnValue.map((x) => x = x.company.name));
     });
   }
@@ -49,10 +47,6 @@ export default class Dashboard extends React.Component {
     this.getRecentNews();
   }
 
-  // componentWillUpdate() {
-  //   this.render();
-  // }
-
   render() {
 
     return (<div className='records-list'>
@@ -65,5 +59,3 @@ export default class Dashboard extends React.Component {
     )
   }
 }
-
-//

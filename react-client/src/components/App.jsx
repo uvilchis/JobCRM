@@ -81,7 +81,6 @@ class App extends React.Component {
   getRefreshToken() {
     axios.get('/session/all')
     .then((response) => {
-      // console.log('this is the response of the getSession func', response.data)
       // set the state with the authKey. 
       let refreshToken = response.data.user.refreshToken
       this.setState({refreshToken})
@@ -89,7 +88,6 @@ class App extends React.Component {
   }
 
   filterByGoogleId(googleId) { 
-    console.log('this shit gets run')
     axios.get(`/records/`, {params: {googleId: googleId}}).then((response)=> {
       console.log('the axios request is getting some response', response)
       let userRecords = response.data; 
@@ -132,12 +130,6 @@ class App extends React.Component {
   setCurrentRecord(id) {
     this.setState({currentRecordId: id}).bind(this);
   }
-
-
-  // componentWillUpdate() {
-  //   console.log(this.state.companyList);
-  // }
-  
 
   render() {
     console.log(this.records);

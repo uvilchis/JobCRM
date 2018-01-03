@@ -8,7 +8,6 @@ import GOOGLE_OAUTH from '../../../../server/keys/googleOAuth.js'; //lol
 export default class ResumePicker extends React.Component {
   constructor(props) {
     super(props);
-    // console.log('these are the props in the ResumeFrame: ', this.props)
     // this takes in a prop called this.props.targetDocument. 
       // it can evaluate to either 'resume' or 'coverLetter'
     // it also takes in a prop called 'updateName', which is a function that updates the name of the target document
@@ -37,7 +36,6 @@ export default class ResumePicker extends React.Component {
         recordId : this.props.recordId, 
       })
       .then((response) => {
-        // console.log('this is the response that you get from the handleDocumentAdd: ', response.data)
         let resURL = response.data.resumeURL
         let resName = response.data.resumeName
 

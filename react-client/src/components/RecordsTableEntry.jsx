@@ -10,9 +10,6 @@ import {
 import ResumeEditor from './ResumeManager/ResumeEditor'
 import ResumePicker from './ResumeManager/ResumePicker'
 import CoverLetterField from './ResumeManager/CoverLetterField'
-// import ResumeField from './ResumeManager/ResumeField'
-
-// import Axios from 'axios';
 
 export default class RecordsTableEntry extends React.Component {
   constructor(props) {
@@ -38,17 +35,13 @@ export default class RecordsTableEntry extends React.Component {
     this.updateResumeName = this.updateResumeName.bind(this)
   }
 
-  // delete function.
   delete() {
-    //console.log('in delete function');
 
     let statusUpdate = {id : this.props.record.id}
     axios.post('deleteRecord', statusUpdate)
       .then(function(response) {
-        //console.log(response)
       })
       .then(() => {
-        //console.log('attempting to refresh')
         this.state.searchFunction();
       })
       
@@ -58,20 +51,15 @@ export default class RecordsTableEntry extends React.Component {
   updateCoverLetterName(coverLetterName) {
     console.log('the axios in resume picker is calling this', coverLetterName)
     this.setState({coverLetterName})
-    // then send an axios request that updates the current coverLetterName and 
-    // coverLetterURL based on the record id. 
   }
 
   updateResumeName(resumeName) {
     this.setState({resumeName})
-    // then send an axios request that updates the current coverLetterName and 
-    // coverLetterURL based on the record id. 
   }
 
   
   render() {
     let nameObj =Object.assign({}, this.props.record.company);
-    //console.log(nameObj.name);
     return (
       <tr>
       <td>{nameObj.name}</td>

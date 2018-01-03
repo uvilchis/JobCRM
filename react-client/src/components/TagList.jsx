@@ -47,7 +47,6 @@ export default class TagList extends React.Component {
 //                   
 
     render() {
-        // console.log('render tags: ', this.state.tags);
 
         return (
             <div>

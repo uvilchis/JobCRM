@@ -8,17 +8,11 @@ import {
   Link
 } from 'react-router-dom';
 
-// import Axios from 'axios';
-
 export default class newsItem extends React.Component {
   // console.log(this.props);
   constructor(props) {
     super();
     this.props = props;
-    console.log(this.props);
-    // this.state = {
-    //     news: this.props.news
-    // }
   }
 
   // delete function.
@@ -42,18 +36,9 @@ export default class newsItem extends React.Component {
       </div>
     )
 
-    //let nameObj =Object.assign({}, this.props.record.company);
-    //console.log(nameObj.name);
     return (
     <div>
             {listItems}
     </div>
   )
 }}
-
-
-// this code may help you make sure that the object you pass to the RecordsTableEntry is an array.
-// not implemented or tested though.
-//RecordsTableEntry.proptypes = {
-//  record: React.PropTypes.object.isRequired
-//};
