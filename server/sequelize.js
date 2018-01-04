@@ -5,12 +5,12 @@ let sequelize = new Sequelize ({
                                dialectOptions: {
                                ssl: true
                                },
-                               host: // hostname here,
-                               database: // database identifier,
-                               username: // username identifier,
+                               host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
+                               database: `d9kfc0g85kd1q0`,
+                               username: `rddgghwbqbufnr`,
                                logging: true,
                                Port: 5432,
-                               password: // password,
+                               password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
                                dialect : 'postgres'
                                })
 
