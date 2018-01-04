@@ -61,9 +61,6 @@ app.post('/fullContact', fullContact.getContact);
 //   res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
 // });
 
-// app.listen(process.env.PORT || 3000, () => {
-//   console.log('listening on port 3000')
-// })
 
 app.use(express.static('../react-client/dist/'));
 
@@ -76,6 +73,10 @@ let frontRoute = function (req, res) {
 };
 
 app.get('/', frontRoute);
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log('listening on port 3000')
+})
 
 module.exports = {
   app: app,
