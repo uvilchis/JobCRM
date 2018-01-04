@@ -8,7 +8,6 @@ let session = require('express-session')
 require('./controllers/recordController.js');
 let fullContact = require('./controllers/fullContactProxy.js');
 let rec = require('./controllers/recordController.js');
-
 let nlp = require('./controllers/nlpController');
 let auth = require('./controllers/authController')
 let docs = require('./controllers/docController')
@@ -16,7 +15,7 @@ let docs = require('./controllers/docController')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(serverPath);
-app.use(express.static(path.resolve(__dirname + '/../react-client/dist/')));
+app.use(express.static(path.resolve('../react-client/dist/')));
 
 app.use(session({
   secret: 'keyboard cat',
