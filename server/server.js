@@ -15,9 +15,6 @@ let docs = require('./controllers/docController')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(serverPath);
-app.use(express.static('../react-client/dist/'));
-
-
 
 app.use(session({
   secret: 'keyboard cat',
@@ -60,13 +57,25 @@ app.post('/loadAppKeywords', nlp.loadApplicationKeywords);
 app.post('/fullContact', fullContact.getContact);
 // app.get('/*', rec.frontRoute);
 
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
+// });
+
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log('listening on port 3000')
+// })
+
+app.use(express.static('../react-client/dist/'));
+
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
+  res.sendFile(path.resolve(__dirname, './react-client/dist','index.html'));
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('listening on port 3000')
-})
+let frontRoute = function (req, res) {
+  res.sendFile(path.join(__dirname, '/react-client/dist/', 'index.html'));
+};
+
+app.get('/', frontRoute);
 
 module.exports = {
   app: app,
