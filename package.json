@@ -2,7 +2,7 @@
   "name": "JobSerum",
   "version": "0.0.1",
   "description": "Lightweight CRM-style app for the job search",
-  "main": "index.js",
+  "main": "./server/server.js",
   "scripts": {
     "start": "nodemon ./server/server.js",
     "build": "webpack",

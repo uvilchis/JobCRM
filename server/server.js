@@ -17,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(serverPath);
 app.use(express.static('./react-client/dist/'));
 
+
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -58,6 +60,9 @@ app.post('/loadAppKeywords', nlp.loadApplicationKeywords);
 app.post('/fullContact', fullContact.getContact);
 app.get('/*', rec.frontRoute);
 
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
+// });
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('listening on port 3000')
