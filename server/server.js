@@ -15,7 +15,7 @@ let docs = require('./controllers/docController')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(serverPath);
-app.use(express.static('./react-client/dist/'));
+app.use(express.static('../react-client/dist/'));
 
 
 
