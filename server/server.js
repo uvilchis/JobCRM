@@ -62,17 +62,17 @@ app.post('/fullContact', fullContact.getContact);
 // });
 
 
-app.use(express.static('../react-client/dist/'));
+app.use(express.static('./react-client/dist/'));
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './react-client/dist','index.html'));
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
+// });
 
-let frontRoute = function (req, res) {
-  res.sendFile(path.join(__dirname, '/react-client/dist/', 'index.html'));
-};
+// let frontRoute = function (req, res) {
+//   res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
+// };
 
-app.get('/', frontRoute);
+// app.get('/*', frontRoute);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('listening on port 3000')
