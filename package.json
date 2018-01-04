@@ -4,7 +4,7 @@
   "description": "Lightweight CRM-style app for the job search",
   "main": "./server/server.js",
   "scripts": {
-    "start": "nodemon ./server/server.js",
+    "start": "webpack && nodemon ./server/server.js",
     "build": "webpack",
     "stop": "pkill -9 node & pkill -9 sh -c"
   },
