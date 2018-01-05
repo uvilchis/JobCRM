@@ -11,3 +11,6 @@ server/keys
 ## WEBPACK ##
 package-lock.json
 
+## KEYS ##
+server/keys
+
