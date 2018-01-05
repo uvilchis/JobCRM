@@ -26,9 +26,9 @@ passport.use(new GoogleStrategy({
     callbackURL: REDIRECT_URL,
     scope: [
     'profile', 
-    'https://www.googleapis.com/auth/drive', 
+    // 'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
-    'https://www.googleapis.com/auth/drive.readonly', 
+    // 'https://www.googleapis.com/auth/drive.readonly', 
     ], 
   },
 
@@ -69,9 +69,9 @@ exports.authenticate = passport.authenticate('google', {
   failureRedirect: '/auth/callback',
   scope: [
     'profile', 
-    'https://www.googleapis.com/auth/drive', 
+    // 'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
-    'https://www.googleapis.com/auth/drive.readonly', 
+    // 'https://www.googleapis.com/auth/drive.readonly', 
     ],
   accessType: 'offline',
   approvalPrompt: 'force'
@@ -85,9 +85,9 @@ exports.return = passport.authenticate('google', {
   failureRedirect: '/login',
 	scope: [
     'profile', 
-    'https://www.googleapis.com/auth/drive', 
+    // 'https://www.googleapis.com/auth/drive', 
     'https://www.googleapis.com/auth/user.emails.read',
-    'https://www.googleapis.com/auth/drive.readonly', 
+    // 'https://www.googleapis.com/auth/drive.readonly', 
   ],
 })
 
