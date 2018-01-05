@@ -8,7 +8,6 @@ import GOOGLE_OAUTH from '../../../../server/keys/googleOAuth.js'; //lol
 export default class ResumePicker extends React.Component {
   constructor(props) {
     super(props);
-    // console.log('these are the props in the ResumeFrame: ', this.props)
     // this takes in a prop called this.props.targetDocument. 
       // it can evaluate to either 'resume' or 'coverLetter'
     // it also takes in a prop called 'updateName', which is a function that updates the name of the target document
@@ -32,13 +31,16 @@ export default class ResumePicker extends React.Component {
       // axios request to the db to add the embedded urls
       // targetDocument will either be 'resume' or 'coverLetter'
       axios.post(`docs/${this.props.targetDocument}`, {
-        name : openInGoogleEditorURL, 
-        url : documentName, 
+        name : documentName, 
+        url : openInGoogleEditorURL, 
         recordId : this.props.recordId, 
       })
       .then((response) => {
-        let resURL = response.data.openInGoogleEditorURL
-        let resName = response.data.documentName
+        let resURL = response.data.resumeURL
+        let resName = response.data.resumeName
+
+        // console.log('resName: ', resName)
+        // console.log('resURL', resURL)
         this.setState({openInGoogleEditorURL : resURL})
         this.setState({documentName : resName})
         // this updates the name on the recordsTableEntry. 
@@ -75,7 +77,7 @@ export default class ResumePicker extends React.Component {
         }
       }
       >
-      <button>Add A Resume</button>
+      <button>Add A {(this.props.targetDocument == 'coverLetter') ? 'Cover Letter' : 'Resume'}</button>
       <div className="google"></div>
     </GooglePicker>
     )

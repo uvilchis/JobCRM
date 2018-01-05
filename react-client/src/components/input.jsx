@@ -48,8 +48,6 @@ export default class Input extends React.Component {
     this.refresh = this.props.refresh.bind(this)
   }
 
-  
-  // TODO: THIS IS BEING MOVED TO THE RECORDS PAGE.
   //fetch social media profiles from fullcontact api via server route as proxy.
   getSocialProfiles(){
     console.log(this.state.contactEmail);
@@ -62,7 +60,6 @@ export default class Input extends React.Component {
   }
 
   render() {
-    // console.log(this.state)
     return (
       <div className="container w-50 p-3">
       <form onSubmit={(e) => {
@@ -74,6 +71,7 @@ export default class Input extends React.Component {
       <div className="form-group w-50 p-3">   {/* delightful bootstrap */}
         <label>Company</label>
         <input id="company" type="text" className="form-control" value={this.state.companyValue} onChange={(e) => {
+          
           hf.updateFieldValue(this, 'companyValue', e)
         }} />
       </div>
@@ -92,7 +90,6 @@ export default class Input extends React.Component {
         }} />
       </div>
 
-      <label><h3>Contact Social Media Info</h3></label>
       <div className="form-group">
         <label>Contact Email</label>
         <input type="text" className="form-control" value={this.state.contactEmail} onChange={(e) => {
@@ -108,7 +105,9 @@ export default class Input extends React.Component {
       
       <div className="form-group">
         {this.state.socialProfiles.length ? <label><h4>Social Media Profiles</h4></label> : null}
+        <ul>
         {this.state.socialProfiles.length ? this.state.socialProfiles.map((profile, idx) => <ContactInput profile={profile} key={idx}/>) : null}
+        </ul>
       </div>
 
       <div className="form-group">
@@ -146,15 +145,13 @@ export default class Input extends React.Component {
       </div>
 
       <label><h3>Progress</h3></label>
-
+    {/*}
       <div className="checkbox">
         <label>
           Cover Letter
         </label>
         <label>
-          <Link to='/docs'>
-            <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Cover Letter</button>
-          </Link>
+          <h5> Add resume on the re
         </label>
       </div>
       
@@ -163,12 +160,13 @@ export default class Input extends React.Component {
           Resume
         </label>
         <label>
-          <Link to='/docs'> {/* TODO: make this so that the picker loads. */}
+          <Link to='/docs'> {/* TODO: make this so that the picker loads. 
             <button type="submit" className="btn btn-outline-secondary bg-secondary btn-xs">Add Resume</button>
           }
           </Link>
         </label>
       </div>
+      */}
       
       <div className="checkbox">
         <label>

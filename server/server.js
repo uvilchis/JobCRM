@@ -8,7 +8,6 @@ let session = require('express-session')
 require('./controllers/recordController.js');
 let fullContact = require('./controllers/fullContactProxy.js');
 let rec = require('./controllers/recordController.js');
-
 let nlp = require('./controllers/nlpController');
 let auth = require('./controllers/authController')
 let docs = require('./controllers/docController')
@@ -16,7 +15,6 @@ let docs = require('./controllers/docController')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(serverPath);
-app.use(express.static(path.resolve(__dirname + '/../react-client/dist/')));
 
 app.use(session({
   secret: 'keyboard cat',
@@ -41,8 +39,8 @@ app.get('/logout', auth.destroySession)
 
 // these post to the docs. 
 
-app.post('/docs/coverLetter', docs.addResume)
-app.post('/docs/resume', docs.addCoverLetter)
+app.post('/docs/coverLetter', docs.addCoverLetter)
+app.post('/docs/resume', docs.addResume)
 
 app.get('/contacts', ()=>{return;})//NEEDS A CONTROLLER
 
@@ -57,10 +55,26 @@ app.post('/deleteRecord', rec.deleteRecord)
 app.post('/search', rec.search);
 app.post('/loadAppKeywords', nlp.loadApplicationKeywords);
 app.post('/fullContact', fullContact.getContact);
-app.get('/*', rec.frontRoute);
+// app.get('/*', rec.frontRoute);
+
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
+// });
 
 
-app.listen(3000, () => {
+app.use(express.static('./react-client/dist/'));
+
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../react-client/dist','index.html'));
+// });
+
+// let frontRoute = function (req, res) {
+//   res.sendFile(path.join(__dirname, '../react-client/dist/', 'index.html'));
+// };
+
+// app.get('/*', frontRoute);
+
+app.listen(process.env.PORT || 3000, () => {
   console.log('listening on port 3000')
 })
 

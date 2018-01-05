@@ -81,7 +81,6 @@ class App extends React.Component {
   getRefreshToken() {
     axios.get('/session/all')
     .then((response) => {
-      // console.log('this is the response of the getSession func', response.data)
       // set the state with the authKey. 
       let refreshToken = response.data.user.refreshToken
       this.setState({refreshToken})
@@ -89,7 +88,6 @@ class App extends React.Component {
   }
 
   filterByGoogleId(googleId) { 
-    console.log('this shit gets run')
     axios.get(`/records/`, {params: {googleId: googleId}}).then((response)=> {
       console.log('the axios request is getting some response', response)
       let userRecords = response.data; 
@@ -133,14 +131,8 @@ class App extends React.Component {
     this.setState({currentRecordId: id}).bind(this);
   }
 
-
-  // componentWillUpdate() {
-  //   console.log(this.state.companyList);
-  // }
-  
-
   render() {
-    
+    console.log(this.records);
     return (this.state.displayName === null) ? (<Login getUser = {this.getUser} />) : 
      (
       <Router>
@@ -168,13 +160,13 @@ class App extends React.Component {
                       <LinkButton title='Insert' clickFunction={() => {}} />
                     </Link>
                   </li>
-
+                {/*
                   <li className="link-button">
                     <Link to="/docs">
                       <LinkButton title='Documents' clickFunction={() => {}} />
                     </Link>
                   </li>
-
+                */}
                 </ul>
                 <ul className="nav navbar-nav">
                   <li className="navbar-text navbar-center align-top search-bar">
@@ -215,6 +207,7 @@ class App extends React.Component {
                 />
               }
             />
+            {/*
             <Route exact path="/docs" render={() =>
               <ResumeFrame
                 accessToken={this.state.accessToken}
@@ -222,8 +215,11 @@ class App extends React.Component {
                 googleId={this.state.googleId}
               />} 
             />
+            */}
             <Route exact path="/record/:recordID" className="col-md-6 col-md-offset-3" render={({ match }) => 
-              <RecordSummary recordId={this.state.records[match.params.recordID - 1]} />
+              {
+                return <RecordSummary recordId={this.state.records.find((record) => record.id == match.params.recordID)} />
+              } 
             } />
         </div>
       </Router>

@@ -5,13 +5,12 @@ let sequelize = new Sequelize ({
                                dialectOptions: {
                                ssl: true
                                },
-                               host: `ec2-23-21-220-23.compute-1.amazonaws.com`,
-                               database: `d9kfc0g85kd1q0`,
-                               username: `rddgghwbqbufnr`,
+                               host: `jobserum.cf9jivcu71rg.us-east-2.rds.amazonaws.com`,
+                               database: `jobserum`,
+                               username: `tommyyork`,
                                logging: true,
-                               Port: 5432,
-                               password: `a1a65f57d296c76218ce8910de929fa834823cb5d54a9aa4062f7b1f15db33bf`,
-                               dialect : 'postgres'
+                               port: 5432,
+                               password: `temporarypassword`,
                                })
 
 let forceObj = {force: false};

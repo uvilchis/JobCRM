@@ -1,13 +1,12 @@
 {
-  "name": "alderaan",
+  "name": "JobSerum",
   "version": "0.0.1",
-  "description": "Greefield project - team Alderaan",
-  "main": "index.js",
+  "description": "Lightweight CRM-style app for the job search",
+  "main": "./server/server.js",
   "scripts": {
-    "test": "mocha ./tests.js",
-    "run": "nodemon ./server/server.js & webpack -w",
-    "stop": "pkill -9 node & pkill -9 sh -c",
-    "start": "npm run-script run"
+    "start": "nodemon ./server/server.js",
+    "build": "webpack",
+    "stop": "pkill -9 node & pkill -9 sh -c"
   },
   "author": "Team Alderaan",
   "license": "MIT",
@@ -30,6 +29,7 @@
     "mocha": "^4.0.1",
     "node-google-oauth": "0.0.1",
     "node-pg": "^1.0.1",
+    "nodemon": "^1.14.7",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "passport-google-oauth": "^1.0.0",
